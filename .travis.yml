@@ -7,10 +7,20 @@ branches:
   only:
     - master
     - develop
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+cache:
+  directories:
+    - ./node_modules
 install:
   - npm install
 script:
-  - npm run test
+  - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+after_script:
   - npm run build
 deploy:
   provider: s3
