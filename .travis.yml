@@ -20,12 +20,11 @@ install:
   - npm install
 script:
   - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
-after_script:
   - npm run build
 deploy:
   provider: s3
   bucket: pps-webpage
-  local_dir: dist/scout-personal-progression-webapp/
+  local_dir: ./dist/scout-personal-progression-webapp/
   skip_cleanup: true
   region: us-west-2
   access_key_id: $AWS_ACCESS_KEY_ID
