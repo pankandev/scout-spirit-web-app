@@ -2,15 +2,16 @@ dist: xenial
 os: linux
 language: node_js
 python:
-- '12.0'
+  - '12.0'
 branches:
   only:
-  - master
-  - develop
+    - master
+    - develop
 install:
-- npm install
+  - npm install
 script:
-- npm run test
+  - npm run test
+  - npm run build
 deploy:
   provider: s3
   bucket: pps-webpage
