@@ -2,15 +2,15 @@ dist: xenial
 os: linux
 language: node_js
 python:
-  - '12.0'
+- '12.0'
 branches:
   only:
-    - master
-    - develop
+  - master
+  - develop
 install:
-  - npm install
+- npm install
 script:
-  - npm run test
+- npm run test
 deploy:
   provider: s3
   bucket: pps-webpage
@@ -18,7 +18,9 @@ deploy:
   skip_cleanup: true
   region: us-west-2
   access_key_id:
+    secure: OQuj0lIplyDGLB9XzIFtCzwg+rHn0zIj7S34S/z2hkjqRR0Umfm+NY9kOtNLDqn98CrKlVDSvu3ruFvNdXcn0bFTa/1NZDZAF/ktOPYG+yhr0WZvtW5xzfjJ2EXq/J7uiXMv+Evh7pdvn3iNqea+I0Yw5BunZrocu74dWDSpyAbnfhMv12a6QuAxIHtQM3+VYx1/4CTAmuFCb3i3FvIkawIvUmijmzg2F22kFufYQtc2T8SYS+U1nD+ym+W9wqTQ3WvRx7h87GcWpkgEJFyYhOeZ+GhxCmyY67Rj1vucPa5aCqIXhtFTMjeYsCJvMyqwXzLHhdfcI+lIpiX15TJlAxat7U9kClKFmRqrH1WVOl+i87gu6+w29QDvUpuHBpT2hUMXvDoFS5IKi1qjOZbAGbZ/N6WwmJQrb19C1BJ7PqAgYFclPxAc2TgwjggbhW/EqtrLhVOvUPxzswdqmQygksz0dPyho5bgFKmcaxBOcQVQ4xc/6Ad+8tl9J1aU96d2GbnwIDnAPkN2Cq3fxV0ZZ5729B5tBSnFTlu3yCPfK8qW3Zon4+rD8ylhwL8ACbnhA+63dONTCKyOU+QsgadDcr4oiyhSBBOQWs2x0TOaxKzqbsMKmWUWi5KRb2ZInUy9WwVkRID+Q6nwI1g379HsRD575xETZnDH+OGHCVP2SaM=
   secret_access_key:
+    secure: IC4PuFlaS9SngenaAt+fumEauhNi2dqp9rHYbhWr2TlW3+OteHLfN6hObKIvVqvmDQIHi9Zvr0w7wcIIjXeSKVDDPmeV8JhJMxw6cGfOJv5DINjCSN0lV4FpfNcoI7HYMmgSGV77VaEqcjufQrzRjc1JuLWk1pz8zqZPgHTC67frlCgJ7GPhh3W7MY9hH5mUgzphZw1q13E5nVR0NiggUx35/Q6W5eDdO43bPraDJkvO3IVQyWf5j0xVRxaaNw2Zew6nKNJ3e1GYMzEzPUiK6G7GoURgc3EItE24N5xO4YvfY1Jt3XjLI1Dsii7mFfcV1Ge5Rr4HxDqxUNaGDEer1Tq9EJzjtY3Oq+eE0DeTxirnJX2g2Ybakeh+wjTvkctasMstDtRGypLev0cbTc4Q6P38Wh1cSxcdOET9/0xBwsx66jVQEMsEUsmDFtn5I50P4oV75dO9v0bdZmqEvQytUEg5RnuDtguMS9NE6fnoXUQ63h2DVfuHNyuLhbSuGjrDKPIyBkRdvXTQ/TLHNNel2dIdYjhIVgZNyZlWT5j2SATKlAVYQLe7Wocp+ZEerS+soOjPmjDD1eTdvpwhh1A2/kQgo3AzGkckp328uz3PXOq3rZj3aCKHa0l8sHY2PlWxTlOeD4aosx4jm21LysLPIN+PzQtR2sWjm14HTS2jy18=
   on:
     branch: master
 notifications:
