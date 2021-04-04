@@ -1,3 +1,5 @@
+import {Auth} from 'aws-amplify';
+
 export default {
   UserAgent: 'aws-amplify-cli/2.0',
   Version: '1.0',
@@ -8,4 +10,18 @@ export default {
     userPoolWebClientId: '1i9t2btpfetg45a8d1cg3r5qgs',
     mandatorySignIn: true,
   },
+  API: {
+    endpoints: [
+      {
+        name: 'PPSAPI',
+        endpoint: 'https://5ls6ka1vg1.execute-api.us-west-2.amazonaws.com/Prod',
+        custom_header: async () => {
+          const token = (await Auth.currentSession()).getIdToken().getJwtToken();
+          return {
+            Authorization: `Bearer ${token}`
+          };
+        }
+      },
+    ]
+  }
 };

@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.8",
     "@aws-amplify/ui-angular": "^1.0.6",
     "aws-amplify": "^3.3.26",
+    "axios": "^0.21.1",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

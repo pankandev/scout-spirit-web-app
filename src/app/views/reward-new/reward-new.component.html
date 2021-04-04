@@ -1,0 +1,7 @@
+<h1>Reward Create</h1>
+<mat-radio-group name="reward-category" [(ngModel)]="rewardCategory" aria-label="Select an option">
+  <mat-radio-button [value]="'AVATAR'">Avatar</mat-radio-button>
+  <mat-radio-button [value]="'DECORATION'">Decoración</mat-radio-button>
+</mat-radio-group>
+
+<app-new-decoration *ngIf="rewardCategory === 'DECORATION'"></app-new-decoration>
