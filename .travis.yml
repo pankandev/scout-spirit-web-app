@@ -23,7 +23,7 @@ script:
   - npm run build
 deploy:
   provider: s3
-  bucket: pps-webpage
+  bucket: scout-spirit-webpage
   local_dir: ./dist/scout-personal-progression-webapp/
   skip_cleanup: true
   region: us-west-2

@@ -17,13 +17,17 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
+import { NewAvatarComponent } from './widgets/new-avatar/new-avatar.component';
+import { NewZoneComponent } from './widgets/new-zone/new-zone.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RewardListComponent,
     NewDecorationComponent,
-    RewardNewComponent
+    RewardNewComponent,
+    NewAvatarComponent,
+    NewZoneComponent
   ],
   imports: [
     BrowserModule,

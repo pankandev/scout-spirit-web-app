@@ -1,4 +1,4 @@
-export type RewardCategory = 'AVATAR' | 'DECORATION' | 'NEEDS' | 'POINTS';
+export type RewardCategory = 'AVATAR' | 'DECORATION' | 'NEEDS' | 'POINTS' | 'ZONE';
 export type RewardRarity = 'COMMON' | 'RARE';
 
 export interface BaseReward<T> {

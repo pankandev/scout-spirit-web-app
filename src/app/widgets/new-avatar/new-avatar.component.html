@@ -1,0 +1,27 @@
+<h2>Create Avatar</h2>
+<form [formGroup]="rewardForm" (ngSubmit)="createAvatar()">
+  <mat-form-field>
+    <mat-label>Rareza</mat-label>
+    <mat-select [formControl]="rarity">
+      <mat-option [value]="'COMMON'">Común</mat-option>
+      <mat-option [value]="'RARE'">Raro</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Tipo</mat-label>
+    <mat-select [formControl]="type">
+      <mat-option value="pants">Pantalones</mat-option>
+      <mat-option value="shirt">Polera</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Código de Ítem</mat-label>
+    <label>
+      <input (blur)="formatCode()" [formControl]="code" autocomplete="off" matInput placeholder="w">
+    </label>
+  </mat-form-field>
+
+  <button type="submit" [disabled]="rewardForm.invalid || loading" mat-raised-button color="primary">Crear</button>
+</form>

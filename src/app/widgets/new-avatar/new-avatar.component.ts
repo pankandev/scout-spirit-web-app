@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {getControlOrThrow} from '../../utils/form';
 import {RewardsService} from '../../services/rewards.service';
+import {getControlOrThrow} from '../../utils/form';
 import {Reward} from '../../models/rewards/reward';
 import {RewardRarity} from '../../models/rewards/base';
+import {AvatarType} from '../../models/rewards/avatar';
 
 @Component({
-  selector: 'app-new-decoration',
-  templateUrl: './new-decoration.component.html',
-  styleUrls: ['./new-decoration.component.sass']
+  selector: 'app-new-avatar',
+  templateUrl: './new-avatar.component.html',
+  styleUrls: ['./new-avatar.component.sass']
 })
-export class NewDecorationComponent implements OnInit {
+export class NewAvatarComponent implements OnInit {
   rewardForm = new FormGroup({
     rarity: new FormControl('COMMON', {validators: [Validators.required]}),
     release: new FormControl(0, {validators: [Validators.required]}),
@@ -37,15 +38,15 @@ export class NewDecorationComponent implements OnInit {
     return getControlOrThrow('type', this.rewardForm);
   }
 
-  async createDecoration(): Promise<void> {
+  async createAvatar(): Promise<void> {
     this.loading = true;
     this.formatCode();
     const reward: Reward = {
       description: {
-        type: this.type.value as string,
+        type: this.type.value as AvatarType,
         code: this.code.value as string
       },
-      category: 'DECORATION',
+      category: 'AVATAR',
       rarity: this.rarity.value as RewardRarity,
       release: 1
     };
