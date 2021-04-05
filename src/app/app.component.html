@@ -3,6 +3,12 @@
   <amplify-sign-out></amplify-sign-out>
 </mat-toolbar>
 <amplify-authenticator>
+  <amplify-sign-up
+    slot="sign-up"
+    usernameAlias="email"
+    [formFields]="formFields"
+  ></amplify-sign-up>
+  <amplify-sign-in slot="sign-in" usernameAlias="email"></amplify-sign-in>
   <div style="margin: 36px 24px">
     <router-outlet></router-outlet>
   </div>
