@@ -6,18 +6,8 @@ import {API} from 'aws-amplify';
 })
 export class ApiService {
   private readonly apiName = 'PPSAPI';
-  private readonly prefix = '/api/';
 
-  private getEndpoint(path: string): string {
-    if (path.length > 0 && path[0] === '/') {
-      path = path.substring(1);
-    }
-    return this.prefix + path;
-  }
-
-  async get<T>(path: string, queryParams?: object): Promise<T> {
-    const endpoint = this.getEndpoint(path);
-
+  async get<T>(endpoint: string, queryParams?: object): Promise<T> {
     const response: any = await API.get(this.apiName, endpoint, {
       response: true,
       queryStringParameters: queryParams,
@@ -25,8 +15,7 @@ export class ApiService {
     return response as T;
   }
 
-  async post<T>(path: string, body: object): Promise<T> {
-    const endpoint = this.getEndpoint(path);
+  async post<T>(endpoint: string, body: object): Promise<T> {
 
     const response: any = await API.post(this.apiName, endpoint, {
       response: true,
