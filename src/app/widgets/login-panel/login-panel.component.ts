@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {getControlOrThrow} from '../../utils/form';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 
@@ -12,23 +11,19 @@ import {Router} from '@angular/router';
 })
 export class LoginPanelComponent implements OnInit {
   loading = false;
+
+  email = new FormControl('', Validators.required);
+  password = new FormControl('', Validators.required);
+
   form = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    email: this.email,
+    password: this.password,
   });
 
   constructor(private auth: AuthenticationService, private router: Router, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
-  }
-
-  get email(): FormControl {
-    return getControlOrThrow('email', this.form);
-  }
-
-  get password(): FormControl {
-    return getControlOrThrow('password', this.form);
   }
 
   async signIn(): Promise<void> {

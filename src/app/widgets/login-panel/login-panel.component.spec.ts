@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LoginPanelComponent } from './login-panel.component';
+import {LoginPanelComponent} from './login-panel.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 describe('LoginPanelComponent', () => {
   let component: LoginPanelComponent;
@@ -8,9 +10,10 @@ describe('LoginPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginPanelComponent ]
+      declarations: [LoginPanelComponent],
+      imports: [RouterTestingModule, MatSnackBarModule]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

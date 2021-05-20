@@ -5,5 +5,5 @@ export interface ScouterRole {
 
 export interface Group {
   name: string;
-  scouters: ScouterRole;
+  scouters: Record<string, ScouterRole>;
 }
