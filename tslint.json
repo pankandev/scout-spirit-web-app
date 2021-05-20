@@ -139,13 +139,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "sspirit",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "sspirit",
       "kebab-case"
     ]
   }

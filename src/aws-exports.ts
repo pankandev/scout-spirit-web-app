@@ -1,5 +1,12 @@
 import {Auth} from 'aws-amplify';
 
+const customHeaderGenerator = async () => {
+  const token = (await Auth.currentSession()).getIdToken().getJwtToken();
+  return {
+    Authorization: `Bearer ${token}`
+  };
+};
+
 export default {
   UserAgent: 'aws-amplify-cli/2.0',
   Version: '1.0',
@@ -14,13 +21,13 @@ export default {
     endpoints: [
       {
         name: 'PPSAPI',
-        endpoint: 'https://d1jw7u4jmw9fzl.cloudfront.net/api',
-        custom_header: async () => {
-          const token = (await Auth.currentSession()).getIdToken().getJwtToken();
-          return {
-            Authorization: `Bearer ${token}`
-          };
-        }
+        endpoint: 'https://d43k9sss5csvt.cloudfront.net/api',
+        custom_header: customHeaderGenerator
+      },
+      {
+        name: 'TESTAPI',
+        endpoint: 'http://localhost:3000/api',
+        custom_header: customHeaderGenerator
       },
     ]
   }

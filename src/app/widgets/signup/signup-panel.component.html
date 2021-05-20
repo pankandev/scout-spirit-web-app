@@ -1,0 +1,81 @@
+<div class="top-right-header">
+  <button mat-icon-button [routerLink]="['/']">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+<div class="card p-4">
+  <h2>Crear cuenta</h2>
+  <form [formGroup]="form" (ngSubmit)="signUp()">
+    <p class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>
+          Correo electrónico
+          <span class="text-danger">*</span>
+        </mat-label>
+        <input [formControl]="email" matNativeControl type="email" placeholder="user@mail.com">
+        <mat-error *ngIf="email.hasError('email') || email.hasError('required')">
+          Por favor ingrese un correo electrónico válido
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <p class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>
+          Primer nombre
+          <span class="text-danger">*</span>
+        </mat-label>
+        <input [formControl]="name" matNativeControl autocomplete="given-name" placeholder="Juan">
+        <mat-error *ngIf="name.hasError('required')">
+          Por favor ingrese su primer nombre
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <p class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>
+          Segundo nombre
+        </mat-label>
+        <input [formControl]="middleName" matNativeControl placeholder="Pablo">
+      </mat-form-field>
+    </p>
+    <p class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>
+          Apellidos
+          <span class="text-danger">*</span>
+        </mat-label>
+        <input [formControl]="lastName" autocomplete="family-name" matNativeControl placeholder="Pérez González">
+        <mat-error *ngIf="lastName.hasError('required')">
+          Por favor ingrese sus apellidos
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <p class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Apodo</mat-label>
+        <input [formControl]="nickname" autocomplete="nickname" matNativeControl placeholder="Juanito">
+      </mat-form-field>
+    </p>
+    <p class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>
+          Contraseña
+          <span class="text-danger">*</span>
+        </mat-label>
+        <input [formControl]="password" type="password" autocomplete="new-password" matNativeControl
+               placeholder="password">
+        <mat-error *ngIf="password.hasError('required')">
+          Por favor ingrese una contraseña
+        </mat-error>
+        <mat-error *ngIf="password.hasError('minlength')">
+          La contraseña debe tener al menos 6 carácteres, tener minúsculas, mayúsculas y números
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <p class="w-100">
+      <button class="w-100 mb-4" type="submit" [disabled]="form.invalid || loading" mat-flat-button color="primary">
+        Crear cuenta
+      </button>
+    </p>
+  </form>
+</div>

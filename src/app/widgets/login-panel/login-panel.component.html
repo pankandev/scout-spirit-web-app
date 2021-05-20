@@ -1,0 +1,25 @@
+<div class="card p-4">
+  <h2>Acceso</h2>
+  <form [formGroup]="form" (ngSubmit)="signIn()">
+    <p class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Correo electrónico</mat-label>
+        <input [formControl]="email" matNativeControl autocomplete="email" type="email" placeholder="user@mail.com">
+      </mat-form-field>
+    </p>
+    <p class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contraseña</mat-label>
+        <input [formControl]="password" matNativeControl autocomplete="current-password" type="password" placeholder="password">
+      </mat-form-field>
+    </p>
+    <p class="w-100">
+      <button class="w-100 mb-4" type="submit" [disabled]="form.invalid || loading" mat-flat-button color="primary">
+        Acceder
+      </button>
+      <button class="w-100" (click)="$event.preventDefault()" [disabled]="loading" [routerLink]="['/signup']"
+              mat-stroked-button color="primary">Crear cuenta
+      </button>
+    </p>
+  </form>
+</div>

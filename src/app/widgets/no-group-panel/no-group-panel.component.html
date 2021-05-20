@@ -1,0 +1,45 @@
+<div class="top-right-header">
+  <button mat-icon-button (click)="signOut()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</div>
+<div class="p-5" *ngIf="user$ | async as user">
+  <div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-12 card col-md-8">
+      <p class="text-center">
+        <mat-icon class="mat-icon-large">
+          emoji_nature
+        </mat-icon>
+      </p>
+      <h2>¡Solo queda unirse a un grupo!</h2>
+      <p class="text-justify">
+        Parece que aun no te has unido a ningún grupo como guiadora/dirigente. Tienes dos opciones:
+      </p>
+      <div class="row">
+        <div class="col-6">
+          <h3>Crear un nuevo grupo</h3>
+          <p class="text-justify">
+            Estamos actualmente en fase de pruebas, por lo que para crear tu grupo deber rellenar
+            el siguiente <a href="#" target="_blank">formulario</a> para realizar la solicitud.
+          </p>
+          <p class="text-justify">
+            Una vez aprobada la solicitud y creado el grupo se te notificará por correo electrónico para
+            que puedas empezar a utilizar la plataforma e invitar a l@s demás guiadoras y dirigentes del
+            grupo.
+          </p>
+        </div>
+        <div class="col-6">
+          <h3>Unirse a un grupo ya existente</h3>
+          <p class="text-justify">
+            También puedes unirte a un grupo creado por otro miembro del
+            grupo mediante un enlace de invitación generado por su creador(a).
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+</div>
