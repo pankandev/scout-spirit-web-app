@@ -1,42 +1,129 @@
 @import '~bootstrap/scss/bootstrap'
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap')
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons')
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Ubuntu+Condensed&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap')
+
+$brand-primary-color: #5D24FF
+$brand-accent-color: #7b7bff
+
+$gradient-primary: #4D94FF
+$gradient-accent: #6327E2
 
 html
-  background: linear-gradient(252.44deg, #4D94FF 0%, #6327E2 100%)
+  background: linear-gradient(252.44deg, $gradient-primary 0%, $gradient-accent 100%)
   font-size: 16px
 
-body
-  background: none
+  body
+    background: none
 
-h1, h2, h3, h4
-  text-align: center
+  #sspirit
+    font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif
 
-h2
-  font-size: 2.2rem !important
-  font-weight: lighter !important
-  font-family: 'Roboto Condensed', sans-serif
-  padding-bottom: 16px
+    .list-group.toolbar
+      display: flex
+      flex-direction: row
+      border-bottom: none
+      padding-bottom: 1rem
+      flex-wrap: wrap
 
-h3
-  font-size: 1.2rem !important
-  font-weight: bold !important
-  font-family: 'Roboto Condensed', sans-serif
-  padding-bottom: 8px
+      .list-group-item
+        display: flex
+        flex-direction: column
+        justify-content: center
+        flex: 1
+        text-align: center
+        padding: 24px 16px
+        margin-left: 12px
+        margin-right: 12px
+        border-radius: 16px
+        background-color: transparent
+        border: $brand-primary-color solid 3px
+        color: $brand-primary-color
+        font-size: 21px
+
+      .list-group-item:hover
+        background-color: rgba(#777777, 0.1)
+
+      .list-group-item:not(.active)
+        cursor: pointer
+
+      .list-group-item.active
+        background-color: $brand-primary-color
+        border: none
+        color: white
+        cursor: default
+        box-shadow: 0 0 27px 5px rgba(93, 36, 255, 0.25)
+
+    .highlight-label
+      margin-top: 26px
+      color: $brand-primary-color
+      font-size: 24px
+      text-align: start
+
+    .highlight-value
+      color: $brand-primary-color
+      padding: 24px 16px
+      font-size: 116px
+      text-align: start
+
+    .btn-primary
+      background-color: $brand-primary-color
+      border: none
+
+    .mat-body, .mat-body-1, .mat-typography
+      font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif !important
+
+    .mat-icon-light
+      color: $brand-primary-color
+
+    .mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary
+      color: $brand-primary-color
+
+    .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary
+      background-color: $brand-primary-color
+
+    h1, h2, h3, h4
+      text-align: center
+      font-family: Ubuntu Condensed, sans-serif
+
+    h2
+      font-size: 2.2rem !important
+      font-weight: lighter
+      padding-bottom: 16px
+
+    h3
+      font-size: 1.2rem
+      padding-bottom: 8px
 
 
-.card
-  box-shadow: 11px 6px 81px 12px rgba(255, 255, 255, 0.33)
-  border-radius: 18px
-  padding: 50px 35px
+    .card
+      box-shadow: 11px 6px 81px 12px rgba(255, 255, 255, 0.33)
+      border-radius: 18px
+      padding: 50px 35px
 
-.top-right-header
-  position: fixed
-  top: 16px
-  left: 16px
-  color: white
+    .top-right-header
+      position: fixed
+      top: 16px
+      left: 16px
+      color: white
 
-.mat-icon-large
-  font-size: 64px
-  height: 64px !important
-  width: 64px !important
+    .mat-icon-large
+      font-size: 64px
+      height: 64px !important
+      width: 64px !important
+
+    .mat-form-field
+      cursor: text
+
+    .mat-flat-button.mat-primary.mat-button-disabled, .mat-flat-button.mat-accent.mat-button-disabled, .mat-flat-button.mat-warn.mat-button-disabled, .mat-flat-button.mat-button-disabled.mat-button-disabled, .mat-raised-button.mat-primary.mat-button-disabled, .mat-raised-button.mat-accent.mat-button-disabled, .mat-raised-button.mat-warn.mat-button-disabled, .mat-raised-button.mat-button-disabled.mat-button-disabled, .mat-fab.mat-primary.mat-button-disabled, .mat-fab.mat-accent.mat-button-disabled, .mat-fab.mat-warn.mat-button-disabled, .mat-fab.mat-button-disabled.mat-button-disabled, .mat-mini-fab.mat-primary.mat-button-disabled, .mat-mini-fab.mat-accent.mat-button-disabled, .mat-mini-fab.mat-warn.mat-button-disabled, .mat-mini-fab.mat-button-disabled.mat-button-disabled
+      background-color: rgba(0, 0, 0, .12)
+
+    .debug-1
+      background-color: rgba(255, 0, 0, .3)
+    .debug-2
+      background-color: rgba(0, 128, 0, .3)
+    .debug-3
+      background-color: rgba(255, 255, 0, .3)
+
+.swal2-styled.swal2-confirm
+  background-color: $brand-primary-color !important

@@ -6,6 +6,9 @@
 <div class="card p-4">
   <h2>Crear cuenta</h2>
   <form [formGroup]="form" (ngSubmit)="signUp()">
+    <p class="text-danger">
+      *Campo obligatorio
+    </p>
     <p class="w-100">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>
@@ -41,12 +44,12 @@
     <p class="w-100">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>
-          Apellidos
+          Apellido(s)
           <span class="text-danger">*</span>
         </mat-label>
         <input [formControl]="lastName" autocomplete="family-name" matNativeControl placeholder="Pérez González">
         <mat-error *ngIf="lastName.hasError('required')">
-          Por favor ingrese sus apellidos
+          Por favor ingrese su(s) apellido(s)
         </mat-error>
       </mat-form-field>
     </p>
@@ -63,7 +66,7 @@
           <span class="text-danger">*</span>
         </mat-label>
         <input [formControl]="password" type="password" autocomplete="new-password" matNativeControl
-               placeholder="password">
+               placeholder="Ingrese su contraseña">
         <mat-error *ngIf="password.hasError('required')">
           Por favor ingrese una contraseña
         </mat-error>

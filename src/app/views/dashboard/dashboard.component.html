@@ -3,12 +3,31 @@
     <mat-icon>logout</mat-icon>
   </button>
 </div>
-<div class="p-5" *ngIf="user$ | async as user">
+<div *ngIf="user$ | async as user">
   <div class="row">
-    <div class="col-3">
+    <div class="col-12 col-md-5">
+      <div class="radar debug-1">
+        <sspirit-radar-chart [values]="areaLogs$ | async"></sspirit-radar-chart>
+      </div>
     </div>
-    <div class="col-12 col-md-6">
-      Bienvenido, {{fullName$ | async}}
+    <div class="col-12 col-md-7">
+      <div class="m-2 card">
+        <ul class="list-group toolbar" *ngIf="routePath$ | async as path">
+          <li class="list-group-item" mat-ripple [routerLink]="['.', 'summary']"
+              [ngClass]="{active: path === 'summary'}">
+            <div>Resumen</div>
+          </li>
+          <li class="list-group-item" mat-ripple [routerLink]="['.', 'beneficiaries']"
+              [ngClass]="{active: path === 'beneficiaries'}">
+            <div>Beneficiarios</div>
+          </li>
+          <li class="list-group-item" mat-ripple [routerLink]="['.', 'scouters']"
+              [ngClass]="{active: path === 'scouters'}">
+            <div>Guiadoras y dirigentes</div>
+          </li>
+        </ul>
+        <router-outlet></router-outlet>
+      </div>
     </div>
     <div class="col-3">
     </div>

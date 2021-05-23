@@ -34,6 +34,11 @@ import { NoGroupComponent } from './views/no-group/no-group.component';
 import { NoGroupPanelComponent } from './widgets/no-group-panel/no-group-panel.component';
 import { InviteComponent } from './views/invite/invite.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { BeneficiariesComponent } from './views/dashboard/beneficiaries/beneficiaries.component';
+import { SummaryComponent } from './views/dashboard/summary/summary.component';
+import { ScoutersComponent } from './views/dashboard/scouters/scouters.component';
+import {MatRippleModule} from '@angular/material/core';
+import { RadarChartComponent } from './widgets/radar-chart/radar-chart.component';
 
 @NgModule({
   declarations: [
@@ -54,27 +59,32 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     DashboardComponent,
     NoGroupComponent,
     NoGroupPanelComponent,
-    InviteComponent
+    InviteComponent,
+    BeneficiariesComponent,
+    SummaryComponent,
+    ScoutersComponent,
+    RadarChartComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    AmplifyUIAngularModule,
-    ReactiveFormsModule,
-    MatSliderModule,
-    MatRadioModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    NgbModule,
-    MatSnackBarModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatProgressSpinnerModule,
+        MatIconModule,
+        AmplifyUIAngularModule,
+        ReactiveFormsModule,
+        MatSliderModule,
+        MatRadioModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        NgbModule,
+        MatSnackBarModule,
+        MatRippleModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

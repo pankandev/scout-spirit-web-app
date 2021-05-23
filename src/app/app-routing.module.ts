@@ -12,6 +12,9 @@ import {EmailParamGuard} from './guards/email-param.guard';
 import {AdminGuard} from './guards/admin.guard';
 import {NoGroupComponent} from './views/no-group/no-group.component';
 import {InviteComponent} from './views/invite/invite.component';
+import {BeneficiariesComponent} from './views/dashboard/beneficiaries/beneficiaries.component';
+import {SummaryComponent} from './views/dashboard/summary/summary.component';
+import {ScoutersComponent} from './views/dashboard/scouters/scouters.component';
 
 const routes: Routes = [
   {
@@ -44,10 +47,28 @@ const routes: Routes = [
           {
             path: 'dashboard',
             component: DashboardComponent,
-            canActivate: [AuthGuard]
+            canActivate: [AuthGuard],
+            children: [
+              {
+                path: 'summary',
+                component: SummaryComponent
+              },
+              {
+                path: 'beneficiaries',
+                component: BeneficiariesComponent
+              },
+              {
+                path: 'scouters',
+                component: ScoutersComponent
+              },
+              {
+                path: '**',
+                redirectTo: 'summary'
+              }
+            ]
           },
           {
-            path: 'invitation',
+            path: 'invite',
             component: InviteComponent
           },
           {
