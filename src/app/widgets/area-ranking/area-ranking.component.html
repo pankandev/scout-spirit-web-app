@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-12">
+    <div class="icon-item" mat-ripple *ngFor="let area of ranking; let i = index">
+      <sspirit-area-icon class="icon" [area]="ranking[i].area"></sspirit-area-icon>
+      <div class="label">
+        <h3>{{i + 1}}. {{ranking[i].name}}</h3>
+      </div>
+    </div>
+    <button mat-flat-button color="primary" class="w-100 icon-item icon-item-background label text-center text-light"
+            mat-ripple>
+      Ver detalles
+    </button>
+  </div>
+</div>

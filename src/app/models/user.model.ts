@@ -8,4 +8,5 @@ export interface User {
   isScouter: boolean;
   isAdmin: boolean;
   isBeneficiary: boolean;
+  groups: [string, string][];
 }

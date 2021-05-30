@@ -1,0 +1,4 @@
+<select #groupSelect [ngModel]="selectedGroupId$ | async" (ngModelChange)="onGroupSelect(groupSelect.value)">
+  <option *ngFor="let group of availableGroups$ | async"
+          [value]="joinKey(group.district, group.code)">{{group.name}}</option>
+</select>

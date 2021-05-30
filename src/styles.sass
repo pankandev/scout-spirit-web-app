@@ -10,7 +10,15 @@ $gradient-primary: #4D94FF
 $gradient-accent: #6327E2
 
 html
-  background: linear-gradient(252.44deg, $gradient-primary 0%, $gradient-accent 100%)
+  #background
+    background: linear-gradient(252.44deg, $gradient-primary 0%, $gradient-accent 100%)
+    position: fixed
+    z-index: -1
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+
   font-size: 16px
 
   body
@@ -85,6 +93,7 @@ html
     h1, h2, h3, h4
       text-align: center
       font-family: Ubuntu Condensed, sans-serif
+      line-height: 1.2
 
     h2
       font-size: 2.2rem !important
@@ -100,6 +109,9 @@ html
       box-shadow: 11px 6px 81px 12px rgba(255, 255, 255, 0.33)
       border-radius: 18px
       padding: 50px 35px
+
+    .big-tooltip
+      font-size: 32px
 
     .top-right-header
       position: fixed
@@ -127,3 +139,12 @@ html
 
 .swal2-styled.swal2-confirm
   background-color: $brand-primary-color !important
+
+.mat-icon.mat-primary
+  color: $brand-primary-color !important
+
+.mat-progress-spinner circle, .mat-spinner circle
+  stroke: $brand-primary-color !important
+
+.text-primary
+  color: $brand-primary-color

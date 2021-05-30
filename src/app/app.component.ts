@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {GroupGuard} from './guards/group.guard';
 
 @Component({
   selector: 'sspirit-root',
@@ -7,6 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'scout-personal-progression-webapp';
+
+  constructor(private guard: GroupGuard) {
+  }
 
   formFields = [
     {
@@ -40,4 +45,5 @@ export class AppComponent {
       required: true,
     },
   ];
+  loading$: Observable<boolean> = this.guard.loading$;
 }

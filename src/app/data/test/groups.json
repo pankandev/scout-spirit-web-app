@@ -1,0 +1,16 @@
+[
+  {
+    "beneficiary_code": "123456789",
+    "code": "scout-spirit",
+    "creator": "80bae819-88c5-4e66-9918-3b6b98acf0ce",
+    "district": "pankan",
+    "name": "Scout Spirit Group",
+    "scouters": {
+      "scouter-sub": {
+        "name": "Group Scouter",
+        "role": "creator"
+      }
+    },
+    "scouters_code": "1a2b3c4d5e6f7g8h9i0j"
+  }
+]

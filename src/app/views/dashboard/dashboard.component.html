@@ -1,35 +1,38 @@
-<div class="top-right-header">
-  <button mat-icon-button (click)="signOut()">
-    <mat-icon>logout</mat-icon>
-  </button>
-</div>
-<div *ngIf="user$ | async as user">
-  <div class="row">
-    <div class="col-12 col-md-5">
-      <div class="radar debug-1">
-        <sspirit-radar-chart [values]="areaLogs$ | async"></sspirit-radar-chart>
+<div>
+  <div class="top-right-header">
+    <button mat-icon-button (click)="signOut()">
+      <mat-icon>logout</mat-icon>
+    </button>
+    <sspirit-group-select></sspirit-group-select>
+  </div>
+  <div *ngIf="user$ | async as user" class="mt-5">
+    <div class="row">
+      <div class="col-12 col-lg-5">
+        <div class="radar">
+          <sspirit-radar-chart *ngIf="areaLogs$ | async as areaLogs" label="registros de avance" [values]="areaLogs"></sspirit-radar-chart>
+        </div>
       </div>
-    </div>
-    <div class="col-12 col-md-7">
-      <div class="m-2 card">
-        <ul class="list-group toolbar" *ngIf="routePath$ | async as path">
-          <li class="list-group-item" mat-ripple [routerLink]="['.', 'summary']"
-              [ngClass]="{active: path === 'summary'}">
-            <div>Resumen</div>
-          </li>
-          <li class="list-group-item" mat-ripple [routerLink]="['.', 'beneficiaries']"
-              [ngClass]="{active: path === 'beneficiaries'}">
-            <div>Beneficiarios</div>
-          </li>
-          <li class="list-group-item" mat-ripple [routerLink]="['.', 'scouters']"
-              [ngClass]="{active: path === 'scouters'}">
-            <div>Guiadoras y dirigentes</div>
-          </li>
-        </ul>
-        <router-outlet></router-outlet>
+      <div class="col-12 col-lg-7">
+        <div class="m-2 card">
+          <ul class="list-group toolbar" *ngIf="routePath$ | async as path">
+            <li class="list-group-item" mat-ripple [routerLink]="['.', 'summary']"
+                [ngClass]="{active: path === 'summary'}">
+              <div>Resumen</div>
+            </li>
+            <li class="list-group-item" mat-ripple [routerLink]="['.', 'beneficiaries']"
+                [ngClass]="{active: path === 'beneficiaries'}">
+              <div>Beneficiarios</div>
+            </li>
+            <li class="list-group-item" mat-ripple [routerLink]="['.', 'scouters']"
+                [ngClass]="{active: path === 'scouters'}">
+              <div>Guiadoras y dirigentes</div>
+            </li>
+          </ul>
+          <router-outlet></router-outlet>
+        </div>
       </div>
-    </div>
-    <div class="col-3">
+      <div class="col-3">
+      </div>
     </div>
   </div>
 </div>

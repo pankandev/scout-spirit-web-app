@@ -1,3 +1,7 @@
+export type DevelopmentStage = 'puberty' | 'prepuberty';
+
+export type Unit = 'scouts' | 'guides';
+
 export type DevelopmentArea =
   'corporality'
   | 'creativity'

@@ -3,6 +3,7 @@ import {Auth} from 'aws-amplify';
 import {CognitoUserSession} from 'amazon-cognito-identity-js';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/user.model';
+import {splitKey} from '../utils/key';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,11 @@ export class AuthenticationService {
   constructor() {
   }
 
-  private sessionSubject: BehaviorSubject<CognitoUserSession | null> = new BehaviorSubject(null);
-  private userSubject: BehaviorSubject<User | null> = new BehaviorSubject(null);
+  private sessionSubject: BehaviorSubject<CognitoUserSession | null> = new BehaviorSubject<CognitoUserSession | null>(null);
+  private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
-  readonly session$: Observable<CognitoUserSession> = this.sessionSubject.asObservable();
-  readonly user$: Observable<User> = this.userSubject.asObservable();
-
-  sentConfirmationCodeTo?: string;
+  readonly session$: Observable<CognitoUserSession | null> = this.sessionSubject.asObservable();
+  readonly user$: Observable<User | null> = this.userSubject.asObservable();
 
   async updateCurrentUser(): Promise<void> {
     let userInfo;
@@ -40,9 +39,13 @@ export class AuthenticationService {
       this.sessionSubject.next(null);
       return;
     }
-    const groups: string[] = session.getIdToken().decodePayload()['cognito:groups'] ?? [];
+
+    const decodedToken = session.getIdToken().decodePayload();
+    const groups: string[] = decodedToken['cognito:groups'] ?? [];
+    const scoutGroups: [string, string][] = (decodedToken['custom:groups']?.split(',') as string[] ?? [])
+      .filter(s => s.length > 0 && splitKey(s).length === 2).map(s => [splitKey(s)[0], splitKey(s)[1]]);
     const user: User = {
-      id: userInfo.id,
+      id: userInfo.username,
       email: userInfo.attributes.email,
       firstName: userInfo.attributes.name,
       nickname: userInfo.attributes.name ?? null,
@@ -51,9 +54,11 @@ export class AuthenticationService {
       isScouter: groups.indexOf('Scouters') > -1,
       isAdmin: groups.indexOf('Admins') > -1,
       isBeneficiary: groups.indexOf('Beneficiaries') > -1,
+      groups: scoutGroups
     };
 
     this.userSubject.next(user);
+    this.sessionSubject.next(session);
   }
 
   async signIn(email: string, password: string): Promise<boolean> {

@@ -8,6 +8,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {AlertService} from '../../services/alert.service';
 import {RouteParamsService} from '../../services/route-params.service';
 import {AreaValue} from '../../models/area-value';
+import {DistrictGroupId, GroupsService, GroupStats} from '../../services/groups.service';
+import {GroupGuard} from '../../guards/group.guard';
 
 @Component({
   selector: 'sspirit-dashboard',
@@ -17,35 +19,46 @@ import {AreaValue} from '../../models/area-value';
 export class DashboardComponent implements OnInit {
   routePath$: Observable<string | null>;
   areaLogs$: Observable<AreaValue<number>>;
+  loading$: Observable<boolean>;
+  stats$: Observable<GroupStats | null>;
 
   get user$(): Observable<User | null> {
     return this.auth.user$;
   }
 
-  get fullName$(): Observable<string> {
-    return this.user$.pipe(filter(user => !!user), map(user => user.nickname ?? `${user.firstName} ${user.lastName}`));
-  }
+  fullName$ = this.user$
+    .pipe(
+      filter(user => !!user),
+      map(user => user ? (user.nickname ?? `${user.firstName} ${user.lastName}`) : 'Cargando...')
+    );
 
   constructor(
     private router: Router,
+    private groupGuard: GroupGuard,
     private route: ActivatedRoute,
     private auth: AuthenticationService,
     private routeParams: RouteParamsService,
     private snackbar: MatSnackBar,
-    private alert: AlertService
+    private alert: AlertService,
+    private groups: GroupsService
   ) {
+    this.loading$ = groupGuard.loading$;
     this.routePath$ = this.routeParams.allRoutes(route).pipe(
       switchMap<ActivatedRoute[], Observable<UrlSegment[] | null>>(routes => routes.length > 0 ? routes[routes.length - 1].url : of(null)),
       map(url => !url ? null : url.length > 0 ? url[url.length - 1].path : null)
     );
-    this.areaLogs$ = of<AreaValue<number>>({
-      affectivity: 2,
-      character: 7,
-      corporality: 4,
-      creativity: 5,
-      sociability: 5,
-      spirituality: 8
-    });
+    const districtGroupId$ = this.routeParams.getAggregatedParams<DistrictGroupId>(route);
+    this.stats$ = districtGroupId$.pipe(
+      switchMap(params => {
+        return groups.getGroupStats(params.districtId, params.groupId);
+      })
+    );
+
+    this.areaLogs$ = districtGroupId$.pipe(
+      switchMap(params => groups.countAreasActivity(
+        params.districtId, params.groupId, true, false
+      ))
+    );
   }
 
   ngOnInit(): void {

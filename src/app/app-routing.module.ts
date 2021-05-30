@@ -15,6 +15,10 @@ import {InviteComponent} from './views/invite/invite.component';
 import {BeneficiariesComponent} from './views/dashboard/beneficiaries/beneficiaries.component';
 import {SummaryComponent} from './views/dashboard/summary/summary.component';
 import {ScoutersComponent} from './views/dashboard/scouters/scouters.component';
+import {NoGroupGuard} from './guards/no-group.guard';
+import {GroupGuard} from './guards/group.guard';
+import {NotFoundComponent} from './views/not-found/not-found.component';
+import {ForbiddenGroupComponent} from './views/forbidden-group/forbidden-group.component';
 
 const routes: Routes = [
   {
@@ -35,6 +39,11 @@ const routes: Routes = [
   {
     path: 'no-group',
     component: NoGroupComponent,
+    canActivate: [AuthGuard, NoGroupGuard]
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -45,9 +54,13 @@ const routes: Routes = [
         path: 'groups/:groupId',
         children: [
           {
+            path: '',
+            component: ForbiddenGroupComponent
+          },
+          {
             path: 'dashboard',
             component: DashboardComponent,
-            canActivate: [AuthGuard],
+            canActivate: [GroupGuard],
             children: [
               {
                 path: 'summary',

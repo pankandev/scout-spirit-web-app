@@ -1,0 +1,10 @@
+<div *ngIf="loading" id="loader">
+  <div>
+    <div class="justify-content-center row">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="text-center mt-5">
+      <p *ngIf="message" class="loader-label">{{message}}</p>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {filter, map, startWith} from 'rxjs/operators';
+import {filter, map, startWith, switchMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,25 @@ export class RouteParamsService {
         return allRouteData;
       }),
     );
+  }
+
+  getAggregatedData(route: ActivatedRoute): Observable<object> {
+    return this.allRoutes(route)
+      .pipe(
+        switchMap(routes => {
+          return combineLatest(routes.map(r => r.data));
+        }),
+        map(data => Object.assign({}, ...data))
+      );
+  }
+
+  getAggregatedParams<T extends object>(route: ActivatedRoute): Observable<T> {
+    return this.allRoutes(route)
+      .pipe(
+        switchMap(routes => {
+          return combineLatest(routes.map(r => r.params));
+        }),
+        map(data => Object.assign({}, ...data))
+      );
   }
 }
