@@ -1,0 +1,57 @@
+[
+  {
+    "id": "beneficiary-a",
+    "district": "pankan",
+    "group": "scout-spirit",
+    "profile_picture": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1027&q=80",
+    "unit": "scouts",
+    "fullName": "Beneficiary A",
+    "nickname": "Ben",
+    "stage": "prepuberty",
+    "birthdate": "01-01-2017"
+  },
+  {
+    "id": "beneficiary-e",
+    "district": "pankan",
+    "group": "scout-spirit",
+    "profile_picture": "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=663&q=80",
+    "unit": "scouts",
+    "fullName": "Beneficiary E",
+    "nickname": "Bene",
+    "stage": "prepuberty",
+    "birthdate": "01-01-2017"
+  },
+  {
+    "id": "beneficiary-i",
+    "district": "pankan",
+    "group": "scout-spirit",
+    "profile_picture": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+    "unit": "scouts",
+    "fullName": "Beneficiary I",
+    "nickname": "Beni",
+    "stage": "puberty",
+    "birthdate": "01-01-2017"
+  },
+  {
+    "id": "beneficiary-o",
+    "district": "pankan",
+    "group": "scout-spirit",
+    "profile_picture": null,
+    "unit": "guides",
+    "fullName": "Beneficiary O",
+    "nickname": "Beno",
+    "stage": "puberty",
+    "birthdate": "01-01-2017"
+  },
+  {
+    "id": "beneficiary-u",
+    "district": "pankan",
+    "group": "scout-spirit",
+    "profile_picture": null,
+    "unit": "guides",
+    "fullName": "Beneficiary U",
+    "nickname": "Benu",
+    "stage": "puberty",
+    "birthdate": "01-01-2017"
+  }
+]

@@ -3,6 +3,7 @@ import {API} from 'aws-amplify';
 import {environment} from '../../environments/environment';
 import {AxiosResponse} from 'axios';
 import {HttpError} from '../errors/http.error';
+import * as Case from 'case';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,20 @@ import {HttpError} from '../errors/http.error';
 export class ApiService {
   private static get apiName(): string {
     return environment.apiName;
+  }
+
+  private static toCamelCase(object: any): any {
+    if (Array.isArray(object)) {
+      return object.map(o => this.toCamelCase(o));
+    } else if (typeof object === 'object') {
+      const converted: any = {};
+      Object.entries(object).forEach(([key, value]) => {
+        converted[Case.camel(key)] = this.toCamelCase(value);
+      });
+      return converted;
+    } else {
+      return object;
+    }
   }
 
   async get<T>(endpoint: string, queryParams?: object): Promise<T> {
@@ -22,7 +37,7 @@ export class ApiService {
     } catch (err) {
       throw HttpError.factory(err.response?.status ?? 502);
     }
-    return response.data as T;
+    return ApiService.toCamelCase(response.data) as T;
   }
 
   async post<T>(endpoint: string, body: object): Promise<T> {

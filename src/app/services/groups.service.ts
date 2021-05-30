@@ -55,20 +55,6 @@ export class GroupsService {
 
   stats: Record<string, BehaviorSubject<GroupStats | null>> = {};
 
-  async joinAsScouter(districtId: string, groupId: string, code: string): Promise<boolean> {
-    if (!code || code.length === 0) {
-      return false;
-    }
-    try {
-      await this.api.post<{ message: string }>(
-        `/districts/${districtId}/groups/${groupId}/scouters/join`, {code}
-      );
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-
   async getGroup(districtId: string, groupId: string): Promise<Group> {
     const user = this.auth.snapUser;
     if (!environment.production && user) {
@@ -81,6 +67,20 @@ export class GroupsService {
       return group;
     }
     return await this.api.get<Group>(`/districts/${districtId}/groups/${groupId}/`);
+  }
+
+  async joinAsScouter(districtId: string, groupId: string, code: string): Promise<boolean> {
+    if (!code || code.length === 0) {
+      return false;
+    }
+    try {
+      await this.api.post<{ message: string }>(
+        `/districts/${districtId}/groups/${groupId}/scouters/join`, {code}
+      );
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
   getMyGroups(): Observable<Group[]> {

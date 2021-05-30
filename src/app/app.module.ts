@@ -48,6 +48,8 @@ import {AreaRankingComponent} from './widgets/area-ranking/area-ranking.componen
 import {AreaIconComponent} from './widgets/area-icon/area-icon.component';
 import {HttpClientModule} from '@angular/common/http';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ScrollableListComponent } from './widgets/scrollable-list/scrollable-list.component';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ForbiddenGroupComponent,
     LinearChartComponent,
     AreaRankingComponent,
-    AreaIconComponent
+    AreaIconComponent,
+    ScrollableListComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +104,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSnackBarModule,
     MatRippleModule,
     HttpClientModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

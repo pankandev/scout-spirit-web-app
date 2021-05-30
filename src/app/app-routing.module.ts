@@ -68,7 +68,16 @@ const routes: Routes = [
               },
               {
                 path: 'beneficiaries',
-                component: BeneficiariesComponent
+                children: [
+                  {
+                    path: '',
+                    component: BeneficiariesComponent
+                  },
+                  {
+                    path: ':unit',
+                    component: BeneficiariesComponent
+                  }
+                ]
               },
               {
                 path: 'scouters',
