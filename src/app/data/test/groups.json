@@ -6,9 +6,21 @@
     "district": "pankan",
     "name": "Scout Spirit Group",
     "scouters": {
-      "scouter-sub": {
-        "name": "Group Scouter",
-        "role": "creator"
+      "scouter-a": {
+        "name": "Fernanda Fernandez",
+        "role": "scouter"
+      },
+      "scouter-b": {
+        "name": "Gonzalo Gonzalez",
+        "role": "scouter"
+      },
+      "scouter-c": {
+        "name": "Hernan Hernandez",
+        "role": "scouter"
+      },
+      "scouter-d": {
+        "name": "Martina Martinez",
+        "role": "scouter"
       }
     },
     "scouters_code": "1a2b3c4d5e6f7g8h9i0j"

@@ -6,9 +6,18 @@
     "profile_picture": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1027&q=80",
     "unit": "scouts",
     "fullName": "Beneficiary A",
-    "nickname": "Ben",
+    "nickname": "Ben A",
     "stage": "prepuberty",
-    "birthdate": "01-01-2017"
+    "birthdate": "01-01-2017",
+    "target": null,
+    "nTasks": {
+      "affectivity": 1,
+      "character": 2,
+      "corporality": 3,
+      "creativity": 4,
+      "sociability": 5,
+      "spirituality": 6
+    }
   },
   {
     "id": "beneficiary-e",
@@ -17,20 +26,38 @@
     "profile_picture": "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=663&q=80",
     "unit": "scouts",
     "fullName": "Beneficiary E",
-    "nickname": "Bene",
+    "nickname": "Ben E",
     "stage": "prepuberty",
-    "birthdate": "01-01-2017"
+    "birthdate": "01-01-2017",
+    "target": null,
+    "nTasks": {
+      "affectivity": 3,
+      "character": 2,
+      "corporality": 1,
+      "creativity": 1,
+      "sociability": 2,
+      "spirituality": 3
+    }
   },
   {
     "id": "beneficiary-i",
     "district": "pankan",
     "group": "scout-spirit",
-    "profile_picture": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+    "profile_picture": null,
     "unit": "scouts",
     "fullName": "Beneficiary I",
-    "nickname": "Beni",
+    "nickname": "Ben I",
     "stage": "puberty",
-    "birthdate": "01-01-2017"
+    "birthdate": "01-01-2017",
+    "target": null,
+    "nTasks": {
+      "affectivity": 1,
+      "character": 2,
+      "corporality": 3,
+      "creativity": 1,
+      "sociability": 2,
+      "spirituality": 3
+    }
   },
   {
     "id": "beneficiary-o",
@@ -39,19 +66,37 @@
     "profile_picture": null,
     "unit": "guides",
     "fullName": "Beneficiary O",
-    "nickname": "Beno",
+    "nickname": "Ben O",
     "stage": "puberty",
-    "birthdate": "01-01-2017"
+    "birthdate": "01-01-2017",
+    "target": null,
+    "nTasks": {
+      "affectivity": 6,
+      "character": 5,
+      "corporality": 4,
+      "creativity": 3,
+      "sociability": 5,
+      "spirituality": 6
+    }
   },
   {
     "id": "beneficiary-u",
     "district": "pankan",
     "group": "scout-spirit",
-    "profile_picture": null,
+    "profile_picture": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
     "unit": "guides",
     "fullName": "Beneficiary U",
-    "nickname": "Benu",
+    "nickname": "Ben U",
     "stage": "puberty",
-    "birthdate": "01-01-2017"
+    "birthdate": "01-01-2017",
+    "target": null,
+    "nTasks": {
+      "affectivity": 1,
+      "character": 2,
+      "corporality": 3,
+      "creativity": 4,
+      "sociability": 5,
+      "spirituality": 6
+    }
   }
 ]

@@ -50,6 +50,11 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ScrollableListComponent } from './widgets/scrollable-list/scrollable-list.component';
 import {MatListModule} from '@angular/material/list';
+import { BeneficiariesSummaryComponent } from './views/dashboard/beneficiaries-summary/beneficiaries-summary.component';
+import { UnitIconComponent } from './widgets/unit-icon/unit-icon.component';
+import { AvatarPictureComponent } from './widgets/avatar-picture/avatar-picture.component';
+import { TaskCardComponent } from './widgets/task-card/task-card.component';
+import {ClipboardModule} from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -82,7 +87,11 @@ import {MatListModule} from '@angular/material/list';
     LinearChartComponent,
     AreaRankingComponent,
     AreaIconComponent,
-    ScrollableListComponent
+    ScrollableListComponent,
+    BeneficiariesSummaryComponent,
+    UnitIconComponent,
+    AvatarPictureComponent,
+    TaskCardComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +114,8 @@ import {MatListModule} from '@angular/material/list';
     MatRippleModule,
     HttpClientModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

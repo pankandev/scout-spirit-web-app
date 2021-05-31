@@ -13,8 +13,10 @@ export class ApiService {
     return environment.apiName;
   }
 
-  private static toCamelCase(object: any): any {
-    if (Array.isArray(object)) {
+  public static toCamelCase(object: any): any {
+    if (!object) {
+      return object;
+    } else if (Array.isArray(object)) {
       return object.map(o => this.toCamelCase(o));
     } else if (typeof object === 'object') {
       const converted: any = {};

@@ -1,0 +1,61 @@
+@import "../../../styles"
+
+$item-size: 94px
+
+.arrow
+  position: absolute
+  left: 0
+  right: 0
+  height: 80px
+  pointer-events: none
+
+.arrow.arrow-top
+  top: 0
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 30.21%)
+
+.arrow.arrow-bottom
+  bottom: 0
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 30.21%)
+
+.list
+  height: 100%
+  margin-top: 24px
+  padding: 80px 12px 80px 0
+  overflow-y: auto
+
+.item
+  display: flex
+  flex-direction: row
+  height: $item-size
+  border: $brand-primary-color 2px solid
+  border-radius: 24px
+  margin-bottom: 24px
+  box-shadow: 0 0 10px -2px #5D24FF
+
+  .item-image
+    width: $item-size
+    height: $item-size
+    padding: 10px
+
+  .item-label
+    display: flex
+    padding: 32px 21px
+    flex-direction: column
+    justify-content: center
+    color: $brand-primary-color
+    font-family: 'Ubuntu Condensed', sans-serif
+
+    .item-label-title
+      font-size: 28px
+      font-family: 'Concert One', sans-serif
+
+    .item-label-subtitle
+      margin-top: 6px
+      font-size: 18px
+
+ul
+  li.item.active
+    background-color: $brand-primary-color !important
+    .item-label
+      *
+        color: white !important

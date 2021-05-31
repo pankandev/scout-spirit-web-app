@@ -1,6 +1,8 @@
+export type ScouterRoleType = 'creator' | 'scouter';
+
 export interface ScouterRole {
   name: string;
-  role: 'creator' | 'scouter';
+  role: ScouterRoleType;
 }
 
 export interface Group {
@@ -8,4 +10,5 @@ export interface Group {
   code: string;
   name: string;
   scouters: Record<string, ScouterRole>;
+  scouters_code: string;
 }

@@ -1,0 +1,62 @@
+<div class="container mt-5" *ngIf="beneficiaryId$ | async; else noBeneficiarySelected">
+  <div class="row">
+    <div class="col-12" *ngIf="beneficiary$ | async as beneficiary; else loading">
+      <div class="row">
+        <div class="col-8">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="text-left pb-0 text-primary font-concert-one">{{beneficiary.fullName}}</h2>
+              <h3 class="text-left text-muted">{{beneficiary.nickname}}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="unit-icon w-100 text-center">
+            <sspirit-unit-icon [unit]="beneficiary.unit"></sspirit-unit-icon>
+          </div>
+          <div class="unit-label">
+            <h3>{{service.getUnitDisplayName(beneficiary.unit)}}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="beneficiary-media">
+        <div class="avatar">
+          <sspirit-avatar-picture [src]="beneficiary.profilePicture"></sspirit-avatar-picture>
+        </div>
+        <div class="pl-5 pr-5">
+          <sspirit-radar-chart [values]="beneficiary.nTasks" label="objetivos completados"
+                               theme="primary"></sspirit-radar-chart>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="mt-2 ml-5 mr-5">
+            <sspirit-task-card [task]="beneficiary.target"></sspirit-task-card>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 p-5">
+          <button mat-raised-button color="primary" class="w-100 p-3 text-large rounded-btn">
+            <span>Ver ficha completa</span>
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <ng-template #loading>
+      <div class="col-12 h-100 justify-content-center">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<ng-template #noBeneficiarySelected>
+  <div class="container">
+    <div class="row h-100">
+      <div class="col-12 justify-content-center h-100 p-5">
+        <h3 class="mt-2">Seleccione un beneficiario de la izquierda para ver sus detalles</h3>
+      </div>
+    </div>
+  </div>
+</ng-template>

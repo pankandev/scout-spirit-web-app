@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
-import {Group} from '../models/group.model';
+import {Group, ScouterRoleType} from '../models/group.model';
 import {AuthenticationService} from './authentication.service';
 import {map, switchMap} from 'rxjs/operators';
 import {BehaviorSubject, combineLatest, from, Observable} from 'rxjs';
@@ -54,6 +54,11 @@ export class GroupsService {
   }
 
   stats: Record<string, BehaviorSubject<GroupStats | null>> = {};
+
+  roles: Record<ScouterRoleType, string> = {
+    creator: 'Creador',
+    scouter: 'Dirigente o Guiadora'
+  };
 
   async getGroup(districtId: string, groupId: string): Promise<Group> {
     const user = this.auth.snapUser;
@@ -121,6 +126,10 @@ export class GroupsService {
       });
     }
     return subject;
+  }
+
+  public getScouterRoleName(role: ScouterRoleType): string {
+    return this.roles[role];
   }
 
   getGroupStats(districtId: string, groupId: string): Observable<GroupStats | null> {

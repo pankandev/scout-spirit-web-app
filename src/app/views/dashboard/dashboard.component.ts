@@ -44,8 +44,14 @@ export class DashboardComponent implements OnInit {
   ) {
     this.loading$ = groupGuard.loading$;
     this.routePath$ = this.routeParams.allRoutes(route).pipe(
-      switchMap<ActivatedRoute[], Observable<UrlSegment[] | null>>(routes => routes.length > 0 ? routes[routes.length - 1].url : of(null)),
-      map(url => !url ? null : url.length > 0 ? url[url.length - 1].path : null)
+      switchMap<ActivatedRoute[], Observable<UrlSegment[] | null>>(routes => {
+        console.log(routes);
+        return routes.length > 0 ? routes[routes.length - 1].url : of(null);
+      }),
+      map(url => {
+        console.log(url);
+        return !url ? null : url.length > 0 ? url[url.length - 1].path : null;
+      })
     );
     const districtGroupId$ = this.routeParams.getAggregatedParams<DistrictGroupId>(route);
     this.stats$ = districtGroupId$.pipe(

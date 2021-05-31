@@ -5,6 +5,7 @@
 
 $brand-primary-color: #5D24FF
 $brand-accent-color: #7b7bff
+$brand-muted-color: #777777
 
 $gradient-primary: #4D94FF
 $gradient-accent: #6327E2
@@ -130,12 +131,67 @@ html
     .mat-flat-button.mat-primary.mat-button-disabled, .mat-flat-button.mat-accent.mat-button-disabled, .mat-flat-button.mat-warn.mat-button-disabled, .mat-flat-button.mat-button-disabled.mat-button-disabled, .mat-raised-button.mat-primary.mat-button-disabled, .mat-raised-button.mat-accent.mat-button-disabled, .mat-raised-button.mat-warn.mat-button-disabled, .mat-raised-button.mat-button-disabled.mat-button-disabled, .mat-fab.mat-primary.mat-button-disabled, .mat-fab.mat-accent.mat-button-disabled, .mat-fab.mat-warn.mat-button-disabled, .mat-fab.mat-button-disabled.mat-button-disabled, .mat-mini-fab.mat-primary.mat-button-disabled, .mat-mini-fab.mat-accent.mat-button-disabled, .mat-mini-fab.mat-warn.mat-button-disabled, .mat-mini-fab.mat-button-disabled.mat-button-disabled
       background-color: rgba(0, 0, 0, .12)
 
+    .light-hoverable
+      background-color: white
+
+    .light-hoverable:hover
+      background-color: rgba(#777777, 0.1)
+
+    .dark-hoverable
+      background-color: $brand-primary-color
+
+    .dark-hoverable:hover
+      background-color: rgba(#777777, 0.1)
+
+    .cursor-pointer
+      cursor: pointer
+
     .debug-1
       background-color: rgba(255, 0, 0, .3)
     .debug-2
       background-color: rgba(0, 128, 0, .3)
     .debug-3
       background-color: rgba(255, 255, 0, .3)
+
+    .font-concert-one
+      font-family: 'Concert One', sans-serif !important
+
+    .font-ubuntu-condensed
+      font-family: 'Ubuntu Condensed', sans-serif !important
+
+    .font-ubuntu
+      font-family: 'Ubuntu', sans-serif !important
+
+    .text-primary
+      color: $brand-primary-color !important
+
+    .text-accent
+      color: $brand-accent-color !important
+
+    .text-muted
+      color: $brand-muted-color !important
+
+    .text-primary
+      color: $brand-primary-color
+
+    .text-xsmall
+      font-size: 0.5rem
+
+    .text-small
+      font-size: 0.8rem
+
+    .text-medium
+      font-size: 1rem
+
+    .text-large
+      font-size: 1.2rem
+
+    .text-xlarge
+      font-size: 1.8rem
+
+    .rounded-btn
+      border-radius: 18px
+
 
 .swal2-styled.swal2-confirm
   background-color: $brand-primary-color !important
@@ -146,5 +202,3 @@ html
 .mat-progress-spinner circle, .mat-spinner circle
   stroke: $brand-primary-color !important
 
-.text-primary
-  color: $brand-primary-color

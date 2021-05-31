@@ -12,6 +12,7 @@ import {
 import {AreaValue, DevelopmentArea} from '../../models/area-value';
 import {AppError} from '../../errors/app.error';
 import {DevelopmentAreaService} from '../../services/development-area.service';
+import Color from 'color';
 
 @Component({
   selector: 'sspirit-radar-chart',
@@ -19,6 +20,7 @@ import {DevelopmentAreaService} from '../../services/development-area.service';
   styleUrls: ['./radar-chart.component.sass']
 })
 export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
+  @Input() theme: 'primary' | 'light' = 'light';
   @Input() label = 'registros';
 
   constructor(private areaService: DevelopmentAreaService) {
@@ -61,6 +63,24 @@ export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit(): void {
   }
+  get isLight(): boolean {
+    return this.theme === 'light';
+  }
+  get isPrimary(): boolean {
+    return this.theme === 'primary';
+  }
+
+  get color(): Color {
+    return this.isPrimary ? Color('#5D24FF') : Color('#FFFFFF');
+  }
+
+  get backColor(): Color {
+    return this.color.alpha(this.isLight ? 0.07 : 0.07);
+  }
+
+  get frontColor(): Color {
+    return this.color.alpha(this.isLight ? 0.38 : 0.38);
+  }
 
   getAreaName(area: DevelopmentArea): string {
     return this.areaService.getArea(area).name;
@@ -96,14 +116,14 @@ export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
 
     const values = this.areas.map(a => this.values[a]);
     const back = this.drawValues(ctx, values.map(_ => 1), true);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.38)';
+    ctx.fillStyle = this.backColor.toString();
+    ctx.strokeStyle = this.frontColor.toString();
     ctx.lineWidth = 3;
     ctx.fill(back);
     ctx.stroke(back);
 
     const front = this.drawValues(ctx, values);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.38)';
+    ctx.fillStyle = this.frontColor.toString();
     ctx.fill(front);
   }
 

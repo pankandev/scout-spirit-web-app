@@ -19,6 +19,7 @@ import {NoGroupGuard} from './guards/no-group.guard';
 import {GroupGuard} from './guards/group.guard';
 import {NotFoundComponent} from './views/not-found/not-found.component';
 import {ForbiddenGroupComponent} from './views/forbidden-group/forbidden-group.component';
+import {BeneficiariesSummaryComponent} from './views/dashboard/beneficiaries-summary/beneficiaries-summary.component';
 
 const routes: Routes = [
   {
@@ -71,11 +72,35 @@ const routes: Routes = [
                 children: [
                   {
                     path: '',
-                    component: BeneficiariesComponent
+                    component: BeneficiariesComponent,
+                    children: [
+                      {
+                        path: '',
+                        component: BeneficiariesSummaryComponent
+                      },
+                      {
+                        path: 'b/:userId',
+                        component: BeneficiariesSummaryComponent
+                      },
+                      {
+                        path: '**',
+                        redirectTo: ''
+                      }
+                    ]
                   },
                   {
                     path: ':unit',
-                    component: BeneficiariesComponent
+                    component: BeneficiariesComponent,
+                    children: [
+                      {
+                        path: '',
+                        component: BeneficiariesSummaryComponent
+                      },
+                      {
+                        path: '**',
+                        redirectTo: ''
+                      }
+                    ]
                   }
                 ]
               },

@@ -5,18 +5,18 @@ export interface BeneficiaryLite {
   id: string;
   district: string;
   group: string;
-  profile_picture: string | null;
+  profilePicture: string | null;
   unit: Unit;
   fullName: string;
   nickname: string;
   stage: DevelopmentStage;
   birthdate: string;
+  nTasks: Record<DevelopmentArea, number>;
 }
 
 export interface Beneficiary extends BeneficiaryLite {
   target: Task | null;
   score: Record<DevelopmentArea, number>;
-  nTasks: Record<DevelopmentArea, number>;
   lastClaimedToken: number;
   setBaseTasks: boolean;
 }

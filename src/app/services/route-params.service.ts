@@ -17,16 +17,37 @@ export class RouteParamsService {
     );
   }
 
+  allRoutesSnap(route: ActivatedRoute): ActivatedRoute[] {
+    const allRouteData: ActivatedRoute[] = [];
+
+    let child: ActivatedRoute | null = route;
+    while (child?.parent) {
+      child = child.parent;
+    }
+
+    do {
+      allRouteData.push(child);
+      child = child.firstChild;
+    } while (child);
+
+    return allRouteData;
+  }
+
   allRoutes(route: ActivatedRoute): Observable<ActivatedRoute[]> {
     return this.url$.pipe(
       map(() => {
         const allRouteData: ActivatedRoute[] = [];
 
         let child: ActivatedRoute | null = route;
+        while (child?.parent) {
+          child = child.parent;
+        }
+
         do {
           allRouteData.push(child);
           child = child.firstChild;
         } while (child);
+
         return allRouteData;
       }),
     );
@@ -50,5 +71,9 @@ export class RouteParamsService {
         }),
         map(data => Object.assign({}, ...data))
       );
+  }
+
+  getAggregatedParamsSnap<T extends object>(route: ActivatedRoute): T {
+    return this.allRoutesSnap(route).reduce((prev: any, r) => ({...prev, ...r.snapshot.params}), {}) as T;
   }
 }
