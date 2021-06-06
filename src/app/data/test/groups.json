@@ -1,28 +1,32 @@
 [
-  {
-    "beneficiary_code": "123456789",
-    "code": "scout-spirit",
-    "creator": "80bae819-88c5-4e66-9918-3b6b98acf0ce",
-    "district": "pankan",
-    "name": "Scout Spirit Group",
-    "scouters": {
-      "scouter-a": {
-        "name": "Fernanda Fernandez",
-        "role": "scouter"
-      },
-      "scouter-b": {
-        "name": "Gonzalo Gonzalez",
-        "role": "scouter"
-      },
-      "scouter-c": {
-        "name": "Hernan Hernandez",
-        "role": "scouter"
-      },
-      "scouter-d": {
-        "name": "Martina Martinez",
-        "role": "scouter"
-      }
-    },
-    "scouters_code": "1a2b3c4d5e6f7g8h9i0j"
-  }
+    {
+        "beneficiary_code": "123456789",
+        "code": "scout-spirit",
+        "creator": "3f689e20-103e-4143-8b62-213a3e4e59f6",
+        "district": "pankan",
+        "name": "RoyalBlue",
+        "scouters": {
+            "31357d02-f6cc-40b9-b6c2-afa2037431f6": {
+                "name": "Melanie Davis",
+                "role": "scouter"
+            },
+            "a458479c-5c0e-4d08-9231-26817739e760": {
+                "name": "Sarah Stout",
+                "role": "scouter"
+            },
+            "e5e85e4d-bc2d-4fc0-bf80-95d943df1b5e": {
+                "name": "Brittany Gonzalez",
+                "role": "scouter"
+            },
+            "c3265005-a7ad-424e-8951-a2b4212a290e": {
+                "name": "Robert Blanchard",
+                "role": "scouter"
+            },
+            "1e0d8926-94f7-4800-9838-19e3112e1d01": {
+                "name": "Kenneth Novak",
+                "role": "scouter"
+            }
+        },
+        "scouters_code": "1a2b3c4d5e6f7g8h9i0j"
+    }
 ]

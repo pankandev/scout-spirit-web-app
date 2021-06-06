@@ -1,7 +1,7 @@
 const SPLITTER = '::';
 
-export function joinKey(...key: string[]): string {
-  return key.join(SPLITTER);
+export function joinKey(...key: any[]): string {
+  return key.map(k => k.toString()).join(SPLITTER);
 }
 
 export function splitKey(key: string): string[] {

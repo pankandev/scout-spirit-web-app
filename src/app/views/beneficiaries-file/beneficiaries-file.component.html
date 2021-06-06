@@ -1,0 +1,49 @@
+<div class="container-fluid" *ngIf="beneficiary$ | async as beneficiary; else loading">
+  <div class="row">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-7">
+          <h1 class="font-concert-one text-primary mb-0 text-left">{{beneficiary.fullName}}</h1>
+          <h2 class="font-ubuntu-condensed text-accent mt-0 text-left text-medium">{{getStage(beneficiary.stage)}}</h2>
+        </div>
+        <div class="col-5">
+          <div class="icon-md">
+            <sspirit-unit-icon [unit]="beneficiary.unit"></sspirit-unit-icon>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-4">
+        <div class="col-6 pr-5">
+          <sspirit-avatar-picture [src]="beneficiary.profilePicture"></sspirit-avatar-picture>
+        </div>
+        <div class="col-6 pl-5">
+          <sspirit-radar-chart theme="primary" label="objetivos cumplidos" [values]="beneficiary.nTasks"></sspirit-radar-chart>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="p-5">
+            <sspirit-task-card [task]="beneficiary.target"></sspirit-task-card>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <sspirit-select-buttons (valueChange)="onOption($event)" [value]="option$ | async" [items]="buttons"></sspirit-select-buttons>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 justify-content-center">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+  </div>
+</ng-template>

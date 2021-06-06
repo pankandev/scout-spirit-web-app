@@ -7,6 +7,7 @@ import {Unit} from '../../../models/area-value';
 import {ActivatedRoute} from '@angular/router';
 import {GroupsService} from '../../../services/groups.service';
 import {Group, ScouterRoleType} from '../../../models/group.model';
+import {AlertService} from '../../../services/alert.service';
 
 @Component({
   selector: 'sspirit-scouters',
@@ -29,7 +30,7 @@ export class ScoutersComponent implements OnInit {
     }
   }
 
-  constructor(private route: ActivatedRoute, private service: GroupsService) {
+  constructor(private route: ActivatedRoute, private service: GroupsService, private alert: AlertService) {
     const groupRoute = this.route.parent?.parent;
     const districtRoute = this.route.parent?.parent?.parent;
     const unitRoute = this.route;
@@ -73,4 +74,7 @@ export class ScoutersComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onClipboardResult(result: boolean): void {
+    this.alert.showSnackbar(result ? 'Enlace copiado en portapapeles' : 'Algo ocurrió copiando enlace');
+  }
 }

@@ -22,7 +22,7 @@
         <div class="input-group mb-3">
           <input type="text" readonly class="form-control" aria-label="Text input with checkbox" [value]="inviteUrl">
           <div class="input-group-append">
-            <button ngxClipboard mat-ripple class="input-group-text" [cbContent]="inviteUrl">
+            <button ngxClipboard mat-ripple class="input-group-text" [cbContent]="inviteUrl" (cbOnSuccess)="onClipboardResult(true)" (cbOnError)="onClipboardResult(false)">
               <mat-icon>content_paste</mat-icon>
             </button>
           </div>

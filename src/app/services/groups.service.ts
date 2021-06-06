@@ -2,15 +2,18 @@ import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 import {Group, ScouterRoleType} from '../models/group.model';
 import {AuthenticationService} from './authentication.service';
-import {map, switchMap} from 'rxjs/operators';
+import {map, shareReplay, switchMap} from 'rxjs/operators';
 import {BehaviorSubject, combineLatest, from, Observable} from 'rxjs';
 import {joinKey} from '../utils/key';
-import {DevelopmentArea, DevelopmentStage} from '../models/area-value';
+import {DevelopmentArea, DevelopmentStage, Unit} from '../models/area-value';
 import {environment} from '../../environments/environment';
 import testGroups from '../data/test/groups.json';
 import testStats from '../data/test/stats.json';
 import {delay} from '../utils/async';
 import {NotFoundError} from '../errors/http.error';
+import {ObjectivesService} from './objectives.service';
+import {mapNumbered} from '../utils/map';
+import {RouteParamsService} from './route-params.service';
 
 
 export interface DistrictGroupId {
@@ -25,24 +28,32 @@ export interface ObjectiveKey {
   stage: DevelopmentStage;
   area: DevelopmentArea;
   line: number;
-  subLine: number;
+  subline: number;
 }
 
+export interface UnitKey {
+  unit: Unit;
+}
 
-export type ObjectiveKeyTimed = ObjectiveKey & { timestamp: number };
+export interface TimestampKey {
+  timestamp: number;
+}
+
+export type ObjectiveKeyTimed = ObjectiveKey & TimestampKey;
+export type UnitObjectiveKeyTimed = ObjectiveKey & TimestampKey & UnitKey;
 
 export interface GroupStats {
   logCount: Record<LogParentTag, number>;
   progressLogs: Record<string, ProgressLog[]>;
-  completedObjectives: Record<string, ObjectiveKeyTimed[]>;
+  completedObjectives: Record<string, UnitObjectiveKeyTimed[]>;
 }
 
-export type ProgressLog = ObjectiveKeyTimed & { log: string; };
+export type ProgressLog = UnitObjectiveKeyTimed & { log: string; };
 
 interface GroupStatsResponse {
   log_count: Record<LogParentTag, number>;
   progress_logs: Record<string, ProgressLog[]>;
-  completed_objectives: Record<string, ObjectiveKeyTimed[]>;
+  completed_objectives: Record<string, UnitObjectiveKeyTimed[]>;
 }
 
 @Injectable({
@@ -50,15 +61,99 @@ interface GroupStatsResponse {
 })
 export class GroupsService {
 
-  constructor(private api: ApiService, private auth: AuthenticationService) {
+  constructor(private api: ApiService,
+              private routeParams: RouteParamsService,
+              private auth: AuthenticationService,
+              private objectivesService: ObjectivesService
+  ) {
   }
 
   stats: Record<string, BehaviorSubject<GroupStats | null>> = {};
+  groupStats$ = this.routeParams.districtGroupId$.pipe(
+    switchMap(params => this.fetchGroupStats(params.districtId, params.groupId)),
+    shareReplay()
+  );
 
   roles: Record<ScouterRoleType, string> = {
     creator: 'Creador',
     scouter: 'Dirigente o Guiadora'
   };
+
+  logHistory$ = this.groupStats$.pipe(
+    map(stats => {
+      if (!stats) {
+        return {
+          COMPLETED: [],
+          PROGRESS: [],
+          REWARD: {}
+        };
+      }
+      const progress = Object.values(stats.progressLogs).reduce((prev, a) => [...prev, ...a], []);
+      const completed = Object.values(stats.completedObjectives).reduce((prev, a) => [...prev, ...a], []);
+
+      const progressHistory: Record<number, ObjectiveKey[]> = {};
+      const completedHistory: Record<number, ObjectiveKey[]> = {};
+      progress.forEach(p => {
+        const prev = progressHistory[p.timestamp] ?? [];
+        progressHistory[p.timestamp] = [...prev, p];
+      });
+      completed.forEach(p => {
+        const prev = completedHistory[p.timestamp] ?? [];
+        completedHistory[p.timestamp] = [...prev, p];
+      });
+
+      return {
+        COMPLETED: completedHistory,
+        PROGRESS: progressHistory,
+        REWARD: {}
+      };
+    }),
+    shareReplay()
+  );
+
+  ranking$ = this.groupStats$.pipe(
+    map(stats => {
+      if (!stats) {
+        return [];
+      }
+      const logs = [
+        ...Object.values(stats.progressLogs),
+        ...Object.values(stats.completedObjectives)
+      ].reduce((prev, a) => [...prev, ...a]);
+      const count: Record<DevelopmentArea, number> = {
+        affectivity: 0,
+        character: 0,
+        corporality: 0,
+        creativity: 0,
+        sociability: 0,
+        spirituality: 0
+      };
+      logs.forEach(log => {
+        count[log.area]++;
+      });
+      return (Object.keys(count) as DevelopmentArea[])
+        .sort((a, b) => count[b] - count[a]);
+    })
+  );
+
+  private static groupLogs(logs: UnitObjectiveKeyTimed[]): Record<number, UnitObjectiveKeyTimed[]> {
+    const count: Record<number, UnitObjectiveKeyTimed[]> = {};
+    logs.forEach(l => {
+      const prev = count[l.timestamp] ?? [];
+      count[l.timestamp] = [...prev, l];
+    });
+    return count;
+  }
+
+  private static countLogs(
+    logs: UnitObjectiveKeyTimed[],
+    where?: (l: UnitObjectiveKeyTimed) => boolean
+  ): Record<number, number> {
+    return mapNumbered(
+      this.groupLogs(logs),
+      (l) => l.filter(where ?? (() => true)).length
+    );
+  }
 
   async getGroup(districtId: string, groupId: string): Promise<Group> {
     const user = this.auth.snapUser;
@@ -97,7 +192,6 @@ export class GroupsService {
   }
 
   public fetchGroupStats(districtId: string, groupId: string, useCache = true): BehaviorSubject<GroupStats | null> {
-
     const key = joinKey(districtId, groupId);
     let subject = this.stats[key];
     if (!subject || useCache) {
@@ -132,12 +226,8 @@ export class GroupsService {
     return this.roles[role];
   }
 
-  getGroupStats(districtId: string, groupId: string): Observable<GroupStats | null> {
-    return this.fetchGroupStats(districtId, groupId).asObservable();
-  }
-
-  queryLogs(districtId: string, groupId: string, includeProgress = true, includeCompleted = true): Observable<ObjectiveKeyTimed[]> {
-    return this.getGroupStats(districtId, groupId).pipe(
+  queryLogs(includeProgress = true, includeCompleted = true): Observable<UnitObjectiveKeyTimed[]> {
+    return this.groupStats$.pipe(
       map(stats => {
         if (!stats) {
           return [];
@@ -150,73 +240,9 @@ export class GroupsService {
     );
   }
 
-  getGroupAreaRanking(districtId: string, groupId: string): Observable<DevelopmentArea[]> {
-    return this.getGroupStats(districtId, groupId).pipe(
-      map(stats => {
-        if (!stats) {
-          return [];
-        }
-        const logs = [
-          ...Object.values(stats.progressLogs),
-          ...Object.values(stats.completedObjectives)
-        ].reduce((prev, a) => [...prev, ...a]);
-        const count: Record<DevelopmentArea, number> = {
-          affectivity: 0,
-          character: 0,
-          corporality: 0,
-          creativity: 0,
-          sociability: 0,
-          spirituality: 0
-        };
-        logs.forEach(log => {
-          count[log.area]++;
-        });
-        return (Object.keys(count) as DevelopmentArea[])
-          .sort((a, b) => count[b] - count[a]);
-      })
-    );
-  }
-
-  getGroupLogHistory(
-    districtId: string, groupId: string, every = 24 * 60 * 60 * 1000
-  ): Observable<Record<LogParentTag, Record<number, ObjectiveKey[]>>> {
-    return this.getGroupStats(districtId, groupId).pipe(
-      map(stats => {
-        if (!stats) {
-          return {
-            COMPLETED: [],
-            PROGRESS: [],
-            REWARD: {}
-          };
-        }
-        const progress = Object.values(stats.progressLogs).reduce((prev, a) => [...prev, ...a], []);
-        const completed = Object.values(stats.completedObjectives).reduce((prev, a) => [...prev, ...a], []);
-
-        const progressHistory: Record<number, ObjectiveKey[]> = {};
-        const completedHistory: Record<number, ObjectiveKey[]> = {};
-        progress.forEach(p => {
-          const rounded = Math.round(p.timestamp / every) * every;
-          const prev = progressHistory[rounded] ?? [];
-          progressHistory[rounded] = [...prev, p];
-        });
-        completed.forEach(p => {
-          const rounded = Math.round(p.timestamp / every) * every;
-          const prev = completedHistory[rounded] ?? [];
-          completedHistory[rounded] = [...prev, p];
-        });
-
-        return {
-          COMPLETED: completedHistory,
-          PROGRESS: progressHistory,
-          REWARD: {}
-        };
-      })
-    );
-  }
-
   countAreasActivity(districtId: string, groupId: string,
                      includeProgress = true, includeCompleted = true): Observable<Record<DevelopmentArea, number>> {
-    return this.queryLogs(districtId, groupId, includeProgress, includeCompleted).pipe(
+    return this.queryLogs(includeProgress, includeCompleted).pipe(
       map(logs => {
         const count: Record<DevelopmentArea, number> = {
           affectivity: 0,
@@ -230,6 +256,79 @@ export class GroupsService {
           count[log.area]++;
         });
         return count;
+      })
+    );
+  }
+
+  public filterLogs(
+    stage?: DevelopmentStage,
+    area?: DevelopmentArea,
+    line?: [number, number],
+    includeProgress = false,
+    includeCompleted = true
+  ): Observable<ObjectiveKeyTimed[]> {
+    return this.queryLogs(includeProgress, includeCompleted).pipe(
+      map(
+        logs => logs.filter(log =>
+          (!stage || stage === log.stage) &&
+          (!area || area === log.area) &&
+          (!line || (line[0] === log.line && line[1] === log.subline))
+        )
+      )
+    );
+  }
+
+  public getFilteredLogsDataset(
+    stage: DevelopmentStage | null = null,
+    unit: Unit | null = null,
+    area: DevelopmentArea | null = null
+  ): Observable<Record<string, Record<number, number>>> {
+    return this.queryLogs().pipe(
+      map(logs => {
+        const dataset: Record<string, Record<number, number>> = {};
+        if (stage) {
+          const stageName = this.objectivesService.getStage(stage).name;
+          dataset[`Objetivos cumplidos en la etapa "${stageName}"`] = GroupsService.countLogs(logs, (l) => l.stage === stage);
+        }
+        if (area) {
+          const areaName = this.objectivesService.getArea(area).name;
+          // noinspection JSNonASCIINames
+          dataset[`Objetivos cumplidos en el área "${areaName}"`] = GroupsService.countLogs(logs, (l) => l.area === area);
+        }
+        return dataset;
+      })
+    );
+  }
+
+  public getFilteredLogsAreaDataset(
+    unit: Unit | null = null,
+    stage: DevelopmentStage | null = null
+  ): Observable<Record<string, Record<number, number>>> {
+    return this.queryLogs().pipe(
+      map(logs => {
+        const dataset: Record<string, Record<number, number>> = {};
+        this.objectivesService.areas.forEach(area => {
+          const areaName = this.objectivesService.getArea(area, unit ?? 'scouts').name;
+          dataset[areaName] = GroupsService.countLogs(
+            logs, (l) => l.area === area && (!stage || l.stage === stage) && (!unit || l.unit === unit)
+          );
+        });
+        return dataset;
+      })
+    );
+  }
+
+  getFilteredLogsStageDataset(unit: Unit | null = null): Observable<Record<string, Record<number, number>>> {
+    return this.queryLogs().pipe(
+      map(logs => {
+        const dataset: Record<string, Record<number, number>> = {};
+        this.objectivesService.stages.forEach(stage => {
+          const areaName = this.objectivesService.getStage(stage).name;
+          dataset[areaName] = GroupsService.countLogs(
+            logs, (l) => l.stage === stage && (!unit || l.unit === unit)
+          );
+        });
+        return dataset;
       })
     );
   }

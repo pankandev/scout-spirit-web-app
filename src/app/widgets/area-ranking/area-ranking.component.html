@@ -6,9 +6,8 @@
         <h3>{{i + 1}}. {{ranking[i].name}}</h3>
       </div>
     </div>
-    <button mat-flat-button color="primary" class="w-100 icon-item icon-item-background label text-center text-light"
-            mat-ripple>
-      Ver detalles
-    </button>
+    <sspirit-button icon="chevron_right" (pressed)="seeDetails()">
+      Ver detalle
+    </sspirit-button>
   </div>
 </div>

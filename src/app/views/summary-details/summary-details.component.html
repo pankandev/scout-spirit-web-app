@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-6">
+    <h2 class="text-primary font-ubuntu-condensed text-xlarge">Lista de Objetivos</h2>
+    <div class="mb-2">
+      <label>Filtrar por unidad</label>
+      <sspirit-unit-select [value]="unit$ | async" (valueChange)="onUnitSelect($event)"></sspirit-unit-select>
+    </div>
+    <div class="mb-2">
+      <label>Filtrar por etapa</label>
+      <sspirit-stage-select [value]="stage$ | async" (valueChange)="onStageSelect($event)"></sspirit-stage-select>
+    </div>
+    <div class="mb-2">
+      <label>Filtrar por área de desarrollo</label>
+      <sspirit-area-select [value]="area$ | async" (valueChange)="onAreaSelect($event)"></sspirit-area-select>
+    </div>
+    <div class="mb-2">
+      <div *ngIf="objectives$ | async as objectives">
+        <sspirit-objectives-list [selectable]="true" [items]="objectives" (selectTask)="onObjectiveSelect($event)"></sspirit-objectives-list>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="pb-2">
+      <h2>Objetivos completados por etapa</h2>
+      <span class="text-small">Filtros</span>
+      <mat-chip-list aria-label="Filtros" *ngIf="filters$ | async as filters">
+        <mat-chip color="primary">{{filters.unit}}</mat-chip>
+      </mat-chip-list>
+
+      <sspirit-linear-chart *ngIf="stageData$ | async as data" [values]="data"></sspirit-linear-chart>
+    </div>
+    <div class="pb-2">
+      <h2>Objetivos completados por área</h2>
+      <span class="text-small">Filtros</span>
+      <mat-chip-list aria-label="Filtros" *ngIf="filters$ | async as filters">
+        <mat-chip color="primary">{{filters.unit}}</mat-chip>
+        <mat-chip color="primary">{{filters.stage}}</mat-chip>
+      </mat-chip-list>
+      <sspirit-linear-chart *ngIf="areaData$ | async as data" [values]="data" [colors]="areaColors"></sspirit-linear-chart>
+    </div>
+  </div>
+</div>

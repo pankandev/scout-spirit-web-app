@@ -8,7 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {AlertService} from '../../services/alert.service';
 import {RouteParamsService} from '../../services/route-params.service';
 import {AreaValue} from '../../models/area-value';
-import {DistrictGroupId, GroupsService, GroupStats} from '../../services/groups.service';
+import {GroupsService, GroupStats} from '../../services/groups.service';
 import {GroupGuard} from '../../guards/group.guard';
 
 @Component({
@@ -43,24 +43,19 @@ export class DashboardComponent implements OnInit {
     private groups: GroupsService
   ) {
     this.loading$ = groupGuard.loading$;
-    this.routePath$ = this.routeParams.allRoutes(route).pipe(
+    this.routePath$ = this.routeParams.allRoutes$.pipe(
       switchMap<ActivatedRoute[], Observable<UrlSegment[] | null>>(routes => {
         console.log(routes);
         return routes.length > 0 ? routes[routes.length - 1].url : of(null);
       }),
       map(url => {
-        console.log(url);
         return !url ? null : url.length > 0 ? url[url.length - 1].path : null;
       })
     );
-    const districtGroupId$ = this.routeParams.getAggregatedParams<DistrictGroupId>(route);
-    this.stats$ = districtGroupId$.pipe(
-      switchMap(params => {
-        return groups.getGroupStats(params.districtId, params.groupId);
-      })
-    );
 
-    this.areaLogs$ = districtGroupId$.pipe(
+    this.stats$ = groups.groupStats$;
+
+    this.areaLogs$ = this.routeParams.districtGroupId$.pipe(
       switchMap(params => groups.countAreasActivity(
         params.districtId, params.groupId, true, false
       ))

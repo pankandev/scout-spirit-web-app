@@ -1,0 +1,14 @@
+<div class="row ml-1 mr-1">
+  <div class="col-12">
+    <div
+      *ngFor="let item of items"
+      mat-ripple
+      class="select-btn flex-grow-1 mr-1 mb-1"
+      [ngClass]="{active: value === item.id}"
+      (click)="valueChange.emit(item.id)"
+    >
+      <span>{{item.label}}</span>
+      <mat-icon>{{item.icon}}</mat-icon>
+    </div>
+  </div>
+</div>

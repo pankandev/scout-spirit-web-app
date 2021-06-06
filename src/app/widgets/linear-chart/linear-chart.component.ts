@@ -1,18 +1,34 @@
-import {AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
-import {Chart, ChartDataset} from 'chart.js';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import {Chart, ChartData, ChartDataset} from 'chart.js';
 import {DateTime} from 'luxon';
 import {AppError} from '../../errors/app.error';
+import {keysNumbered, mapNumberedKeys} from '../../utils/map';
 
 @Component({
   selector: 'sspirit-linear-chart',
   templateUrl: './linear-chart.component.html',
   styleUrls: ['./linear-chart.component.sass']
 })
-export class LinearChartComponent implements OnInit, AfterViewInit {
+export class LinearChartComponent implements OnInit, AfterViewInit, OnChanges {
+
+  constructor() {
+  }
+
   @Input() values: Record<string, Record<number, number>> = {};
   @Input() colors: string[] = ['red', 'blue', 'green'];
   @Input() aspectRatio: number = 16 / 9;
   @Input() keyStep = 24 * 60 * 60 * 1000;
+  @Input() cumulated = true;
 
   @ViewChild('canvas') canvas?: ElementRef<HTMLCanvasElement>;
 
@@ -21,7 +37,11 @@ export class LinearChartComponent implements OnInit, AfterViewInit {
 
   chart?: Chart;
 
-  constructor() {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.chart) {
+      this.chart.data = this.data;
+      this.chart.update();
+    }
   }
 
   ngOnInit(): void {
@@ -43,12 +63,63 @@ export class LinearChartComponent implements OnInit, AfterViewInit {
   }
 
   toDataset(keys: number[], label: string, dataset: Record<number, number>, border: string, background: string): ChartDataset {
+    const obj = mapNumberedKeys<number>(
+      dataset,
+      (k) => this.normalizeKey(k),
+      (a, b) => a + b
+    );
+    let sum = 0;
     return {
       label,
-      data: keys.map(e => dataset[e] ?? 0),
-      borderWidth: 1,
+      data: keys.map(k => {
+        const value = obj[k] ?? 0;
+        if (this.cumulated) {
+          sum += value;
+          return sum;
+        }
+        return value;
+      }),
+      pointStyle: 'line',
+      radius: 1,
+      borderWidth: 2,
       borderColor: border,
       backgroundColor: background,
+    };
+  }
+
+  normalizeKey(v: number, useCeil = false): number {
+    const fn = useCeil ? Math.ceil : Math.floor;
+    return fn(v / this.keyStep) * this.keyStep;
+  }
+
+  get keys(): number[] {
+    const sourceKeys = Object.keys(this.values).reduce((prev, k) => [...keysNumbered<number>(this.values[k]), ...prev], [] as number[]);
+    const base = Math.min(...sourceKeys.map(k => this.normalizeKey(k)));
+    const max = this.normalizeKey(Date.now(), true);
+
+    const keys: number[] = [];
+
+    let key: number;
+    for (key = base; key <= max; key += this.keyStep) {
+      keys.push(this.normalizeKey(key));
+    }
+    return keys;
+  }
+
+  get labels(): string[] {
+    return Object.keys(this.values);
+  }
+
+  get datasets(): ChartDataset[] {
+    return this.labels.map((l, index) => {
+      return this.toDataset(this.keys, l, this.values[l], this.colors[index], this.colors[index]);
+    });
+  }
+
+  get data(): ChartData {
+    return {
+      labels: this.keys.map(k => DateTime.fromMillis(k).toSQLDate()),
+      datasets: this.datasets
     };
   }
 
@@ -60,30 +131,10 @@ export class LinearChartComponent implements OnInit, AfterViewInit {
     if (!ctx) {
       throw new AppError('2D context not found');
     }
-    const labels = Object.keys(this.values);
-    const allKeys: number[] = [...new Set(Object.values(this.values)
-      .map(value => Object.keys(value).map(a => parseInt(a, 10)))
-      .reduce((prev, a) => [...prev, ...a])
-      .sort((a, b) => a - b)
-    )];
-    const base = Math.min(...allKeys);
-    const max = Math.max(...allKeys);
-
-    let key: number;
-
-    const keys: number[] = [];
-    for (key = base; key <= max; key += this.keyStep) {
-      keys.push(key);
-    }
 
     this.chart = new Chart(ctx, {
       type: 'line',
-      data: {
-        labels: keys.map(k => DateTime.fromMillis(k).toSQLDate()),
-        datasets: labels.map((label, index) => {
-          return this.toDataset(keys, label, this.values[label], this.colors[index], this.colors[index]);
-        })
-      },
+      data: this.data,
       options: {
         scales: {
           y: {

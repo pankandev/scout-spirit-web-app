@@ -5,6 +5,11 @@ import {DevelopmentStage, Unit} from '../models/area-value';
 import {environment} from '../../environments/environment';
 import testBeneficiaries from '../data/test/beneficiaries.json';
 import {delay} from '../utils/async';
+import {combineLatest, Observable} from 'rxjs';
+import {Task} from '../models/task.model';
+import {GroupsService} from './groups.service';
+import {filter, map} from 'rxjs/operators';
+import {ObjectivesService} from './objectives.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +24,12 @@ export class BeneficiariesService {
     guides: 'Compañía'
   };
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private groups: GroupsService, private objectives: ObjectivesService) {
   }
 
   public async get(id: string): Promise<Beneficiary> {
     if (!environment.production) {
-      await delay(2000);
+      await delay(1000);
       return ApiService.toCamelCase(testBeneficiaries.find(b => b.id === id)) as Beneficiary;
     }
     return await this.api.get<Beneficiary>(`/beneficiaries/${id}`);
@@ -55,5 +60,14 @@ export class BeneficiariesService {
     }
     const response = await this.api.get<{ items: BeneficiaryLite[] }>(endpoint);
     return response.items;
+  }
+
+  getTasks(beneficiaryId: string): Observable<Task[]> {
+    return combineLatest([this.groups.groupStats$, this.get(beneficiaryId)]).pipe(
+      filter(([logs, _]) => !!logs),
+      map(([logs, beneficiary]) => {
+        return logs?.completedObjectives[beneficiaryId]?.map(l => this.objectives.objectiveToTask(l, beneficiary.unit)) ?? [];
+      })
+    );
   }
 }

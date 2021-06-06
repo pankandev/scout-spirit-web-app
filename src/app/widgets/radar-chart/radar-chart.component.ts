@@ -1,13 +1,13 @@
 import {
   AfterViewInit,
-  Component,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component,
   ElementRef,
-  Input,
   HostListener,
-  OnInit,
-  ViewChild,
+  Input,
   OnChanges,
-  SimpleChanges
+  OnInit,
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import {AreaValue, DevelopmentArea} from '../../models/area-value';
 import {AppError} from '../../errors/app.error';
@@ -17,13 +17,12 @@ import Color from 'color';
 @Component({
   selector: 'sspirit-radar-chart',
   templateUrl: './radar-chart.component.html',
-  styleUrls: ['./radar-chart.component.sass']
+  styleUrls: ['./radar-chart.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() theme: 'primary' | 'light' = 'light';
-  @Input() label = 'registros';
 
-  constructor(private areaService: DevelopmentAreaService) {
+  constructor(private areaService: DevelopmentAreaService, private cdr: ChangeDetectorRef) {
   }
 
   public get initialized(): boolean {
@@ -36,6 +35,29 @@ export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
     }
     return this.canvasContext;
   }
+
+  get isLight(): boolean {
+    return this.theme === 'light';
+  }
+
+  get isPrimary(): boolean {
+    return this.theme === 'primary';
+  }
+
+  get color(): Color {
+    return this.isPrimary ? Color('#5D24FF') : Color('#FFFFFF');
+  }
+
+  get backColor(): Color {
+    return this.color.alpha(this.isLight ? 0.07 : 0.07);
+  }
+
+  get frontColor(): Color {
+    return this.color.alpha(this.isLight ? 0.38 : 0.38);
+  }
+
+  @Input() theme: 'primary' | 'light' = 'light';
+  @Input() label = 'registros';
 
   @Input() values: AreaValue<number> = {
     affectivity: 0,
@@ -61,25 +83,9 @@ export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
     spirituality: [0, 0]
   };
 
+  ignited = false;
+
   ngOnInit(): void {
-  }
-  get isLight(): boolean {
-    return this.theme === 'light';
-  }
-  get isPrimary(): boolean {
-    return this.theme === 'primary';
-  }
-
-  get color(): Color {
-    return this.isPrimary ? Color('#5D24FF') : Color('#FFFFFF');
-  }
-
-  get backColor(): Color {
-    return this.color.alpha(this.isLight ? 0.07 : 0.07);
-  }
-
-  get frontColor(): Color {
-    return this.color.alpha(this.isLight ? 0.38 : 0.38);
   }
 
   getAreaName(area: DevelopmentArea): string {
@@ -109,6 +115,7 @@ export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
     this.radarChart.nativeElement.width = width;
     this.radarChart.nativeElement.height = height;
     this.drawChart();
+    this.cdr.detectChanges();
   }
 
   drawChart(): void {
@@ -146,7 +153,11 @@ export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
       if (idx < 0) {
         path.moveTo(x, y);
       } else if (positionIcons) {
-        this.areaPositions[this.areas[idx]] = [x, y];
+        if (this.initialized) {
+          this.areaPositions[this.areas[idx]] = [x, y];
+        } else {
+          this.ignited = true;
+        }
       }
       path.lineTo(x, y);
     }

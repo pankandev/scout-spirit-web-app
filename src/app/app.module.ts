@@ -21,7 +21,7 @@ import {NewAvatarComponent} from './widgets/new-avatar/new-avatar.component';
 import {NewZoneComponent} from './widgets/new-zone/new-zone.component';
 import {HomeComponent} from './views/home/home.component';
 import {LandingComponent} from './views/landing/landing.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LogoComponent} from './widgets/logo/logo.component';
 import {LoginPanelComponent} from './widgets/login-panel/login-panel.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -55,6 +55,17 @@ import { UnitIconComponent } from './widgets/unit-icon/unit-icon.component';
 import { AvatarPictureComponent } from './widgets/avatar-picture/avatar-picture.component';
 import { TaskCardComponent } from './widgets/task-card/task-card.component';
 import {ClipboardModule} from 'ngx-clipboard';
+import { ButtonComponent } from './widgets/button/button.component';
+import { SummaryDetailsComponent } from './views/summary-details/summary-details.component';
+import { StageSelectComponent } from './widgets/stage-select/stage-select.component';
+import { AreaSelectComponent } from './widgets/area-select/area-select.component';
+import { UnitSelectComponent } from './widgets/unit-select/unit-select.component';
+import { ObjectivesListComponent } from './widgets/objectives-list/objectives-list.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { BeneficiariesFileComponent } from './views/beneficiaries-file/beneficiaries-file.component';
+import { SelectButtonsComponent } from './widgets/select-buttons/select-buttons.component';
+import { BeneficiaryBinnacleComponent } from './views/beneficiary-binnacle/beneficiary-binnacle.component';
+import { BeneficiaryRegistryComponent } from './views/beneficiary-registry/beneficiary-registry.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +102,17 @@ import {ClipboardModule} from 'ngx-clipboard';
     BeneficiariesSummaryComponent,
     UnitIconComponent,
     AvatarPictureComponent,
-    TaskCardComponent
+    TaskCardComponent,
+    ButtonComponent,
+    SummaryDetailsComponent,
+    StageSelectComponent,
+    AreaSelectComponent,
+    UnitSelectComponent,
+    ObjectivesListComponent,
+    BeneficiariesFileComponent,
+    SelectButtonsComponent,
+    BeneficiaryBinnacleComponent,
+    BeneficiaryRegistryComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +136,9 @@ import {ClipboardModule} from 'ngx-clipboard';
     HttpClientModule,
     MatTooltipModule,
     MatListModule,
-    ClipboardModule
+    ClipboardModule,
+    NgbModalModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

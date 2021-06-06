@@ -1,0 +1,6 @@
+<button mat-raised-button color="primary" class="w-100 p-3 text-large rounded-btn" (click)="pressed.emit()">
+  <div class="between-row">
+    <span class="flex-grow-1 text-left"><ng-content></ng-content></span>
+    <mat-icon class="flex-shrink-1" *ngIf="icon">{{icon}}</mat-icon>
+  </div>
+</button>

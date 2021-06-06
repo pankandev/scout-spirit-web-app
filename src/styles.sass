@@ -5,193 +5,250 @@
 
 $brand-primary-color: #5D24FF
 $brand-accent-color: #7b7bff
-$brand-muted-color: #777777
+$brand-muted-color: #404040
 
 $gradient-primary: #4D94FF
 $gradient-accent: #6327E2
 
 html
-  #background
-    background: linear-gradient(252.44deg, $gradient-primary 0%, $gradient-accent 100%)
-    position: fixed
-    z-index: -1
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
+  font-size: 16px
+  font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif
 
+#background
+  background: linear-gradient(252.44deg, $gradient-primary 0%, $gradient-accent 100%)
+  position: fixed
+  z-index: -1
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+
+body
+  background: none
+
+#sspirit
+  .list-group.toolbar
+    display: flex
+    flex-direction: row
+    border-bottom: none
+    padding-bottom: 1rem
+    flex-wrap: wrap
+
+  .list-group-item
+    display: flex
+    flex-direction: column
+    justify-content: center
+    flex: 1
+    text-align: center
+    padding: 24px 16px
+    margin-left: 12px
+    margin-right: 12px
+    border-radius: 16px
+    background-color: transparent
+    border: $brand-primary-color solid 3px
+    color: $brand-primary-color
+    font-size: 21px
+
+  .list-group-item:hover
+    background-color: rgba(#777777, 0.1)
+
+  .list-group-item:not(.active)
+    cursor: pointer
+
+  .list-group-item.active
+    background-color: $brand-primary-color
+    border: none
+    color: white
+    cursor: default
+    box-shadow: 0 0 27px 5px rgba(93, 36, 255, 0.25)
+
+.highlight-label
+  margin-top: 26px
+  color: $brand-primary-color
+  font-size: 24px
+  text-align: start
+
+.highlight-value
+  color: $brand-primary-color
+  padding: 24px 16px
+  font-size: 116px
+  text-align: start
+
+.btn-primary
+  background-color: $brand-primary-color
+  border: none
+
+.mat-body, .mat-body-1, .mat-typography
+  font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif !important
+
+.mat-icon-light
+  color: $brand-primary-color
+
+.mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary
+  color: $brand-primary-color
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary
+  background-color: $brand-primary-color
+
+h1, h2, h3, h4
+  text-align: center
+  font-family: Ubuntu Condensed, sans-serif
+  line-height: 1.2
+
+h2
+  font-size: 2.2rem !important
+  font-weight: lighter
+  padding-bottom: 16px
+
+h3
+  font-size: 1.2rem
+  padding-bottom: 8px
+
+
+.card
+  box-shadow: 11px 6px 81px 12px rgba(255, 255, 255, 0.33)
+  border-radius: 18px
+  padding: 50px 35px
+
+.big-tooltip
   font-size: 16px
 
-  body
-    background: none
+.cdk-overlay-container
+  z-index: 99999 !important
 
-  #sspirit
-    font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif
+.top-right-header
+  position: fixed
+  top: 16px
+  left: 16px
+  color: white
 
-    .list-group.toolbar
-      display: flex
-      flex-direction: row
-      border-bottom: none
-      padding-bottom: 1rem
-      flex-wrap: wrap
+.mat-icon-large
+  font-size: 64px
+  height: 64px !important
+  width: 64px !important
 
-      .list-group-item
-        display: flex
-        flex-direction: column
-        justify-content: center
-        flex: 1
-        text-align: center
-        padding: 24px 16px
-        margin-left: 12px
-        margin-right: 12px
-        border-radius: 16px
-        background-color: transparent
-        border: $brand-primary-color solid 3px
-        color: $brand-primary-color
-        font-size: 21px
-
-      .list-group-item:hover
-        background-color: rgba(#777777, 0.1)
-
-      .list-group-item:not(.active)
-        cursor: pointer
-
-      .list-group-item.active
-        background-color: $brand-primary-color
-        border: none
-        color: white
-        cursor: default
-        box-shadow: 0 0 27px 5px rgba(93, 36, 255, 0.25)
-
-    .highlight-label
-      margin-top: 26px
-      color: $brand-primary-color
-      font-size: 24px
-      text-align: start
-
-    .highlight-value
-      color: $brand-primary-color
-      padding: 24px 16px
-      font-size: 116px
-      text-align: start
-
-    .btn-primary
-      background-color: $brand-primary-color
-      border: none
-
-    .mat-body, .mat-body-1, .mat-typography
-      font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif !important
-
-    .mat-icon-light
-      color: $brand-primary-color
-
-    .mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary
-      color: $brand-primary-color
-
-    .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary
-      background-color: $brand-primary-color
-
-    h1, h2, h3, h4
-      text-align: center
-      font-family: Ubuntu Condensed, sans-serif
-      line-height: 1.2
-
-    h2
-      font-size: 2.2rem !important
-      font-weight: lighter
-      padding-bottom: 16px
-
-    h3
-      font-size: 1.2rem
-      padding-bottom: 8px
+.mat-form-field
+  cursor: text
 
 
-    .card
-      box-shadow: 11px 6px 81px 12px rgba(255, 255, 255, 0.33)
-      border-radius: 18px
-      padding: 50px 35px
+.cursor-pointer
+  cursor: pointer
 
-    .big-tooltip
-      font-size: 32px
+.mat-flat-button.mat-primary.mat-button-disabled, .mat-flat-button.mat-accent.mat-button-disabled, .mat-flat-button.mat-warn.mat-button-disabled, .mat-flat-button.mat-button-disabled.mat-button-disabled, .mat-raised-button.mat-primary.mat-button-disabled, .mat-raised-button.mat-accent.mat-button-disabled, .mat-raised-button.mat-warn.mat-button-disabled, .mat-raised-button.mat-button-disabled.mat-button-disabled, .mat-fab.mat-primary.mat-button-disabled, .mat-fab.mat-accent.mat-button-disabled, .mat-fab.mat-warn.mat-button-disabled, .mat-fab.mat-button-disabled.mat-button-disabled, .mat-mini-fab.mat-primary.mat-button-disabled, .mat-mini-fab.mat-accent.mat-button-disabled, .mat-mini-fab.mat-warn.mat-button-disabled, .mat-mini-fab.mat-button-disabled.mat-button-disabled
+  background-color: rgba(0, 0, 0, .12)
 
-    .top-right-header
-      position: fixed
-      top: 16px
-      left: 16px
-      color: white
+.debug-1
+  background-color: rgba(255, 0, 0, .3)
 
-    .mat-icon-large
-      font-size: 64px
-      height: 64px !important
-      width: 64px !important
+.debug-2
+  background-color: rgba(0, 128, 0, .3)
 
-    .mat-form-field
-      cursor: text
+.debug-3
+  background-color: rgba(255, 255, 0, .3)
 
-    .mat-flat-button.mat-primary.mat-button-disabled, .mat-flat-button.mat-accent.mat-button-disabled, .mat-flat-button.mat-warn.mat-button-disabled, .mat-flat-button.mat-button-disabled.mat-button-disabled, .mat-raised-button.mat-primary.mat-button-disabled, .mat-raised-button.mat-accent.mat-button-disabled, .mat-raised-button.mat-warn.mat-button-disabled, .mat-raised-button.mat-button-disabled.mat-button-disabled, .mat-fab.mat-primary.mat-button-disabled, .mat-fab.mat-accent.mat-button-disabled, .mat-fab.mat-warn.mat-button-disabled, .mat-fab.mat-button-disabled.mat-button-disabled, .mat-mini-fab.mat-primary.mat-button-disabled, .mat-mini-fab.mat-accent.mat-button-disabled, .mat-mini-fab.mat-warn.mat-button-disabled, .mat-mini-fab.mat-button-disabled.mat-button-disabled
-      background-color: rgba(0, 0, 0, .12)
 
-    .light-hoverable
-      background-color: white
+.light-hoverable
+  background-color: white
 
-    .light-hoverable:hover
-      background-color: rgba(#777777, 0.1)
+.light-hoverable:hover
+  background-color: rgba(#777777, 0.1)
 
-    .dark-hoverable
-      background-color: $brand-primary-color
+.dark-hoverable
+  background-color: $brand-primary-color
 
-    .dark-hoverable:hover
-      background-color: rgba(#777777, 0.1)
+.dark-hoverable:hover
+  background-color: rgba(#777777, 0.1)
 
-    .cursor-pointer
-      cursor: pointer
+a
+  color: $brand-primary-color
+  font-weight: 600
 
-    .debug-1
-      background-color: rgba(255, 0, 0, .3)
-    .debug-2
-      background-color: rgba(0, 128, 0, .3)
-    .debug-3
-      background-color: rgba(255, 255, 0, .3)
+a.inactive
+  color: #777777
 
-    .font-concert-one
-      font-family: 'Concert One', sans-serif !important
+.fixed-height-medium
+  height: 52px
 
-    .font-ubuntu-condensed
-      font-family: 'Ubuntu Condensed', sans-serif !important
+.fixed-width-medium
+  width: 52px
 
-    .font-ubuntu
-      font-family: 'Ubuntu', sans-serif !important
+.fixed-height-large
+  height: 108px
 
-    .text-primary
-      color: $brand-primary-color !important
+.fixed-width-large
+  width: 108px
 
-    .text-accent
-      color: $brand-accent-color !important
+.flex
+  display: flex
 
-    .text-muted
-      color: $brand-muted-color !important
+.flex-1
+  flex: 1
 
-    .text-primary
-      color: $brand-primary-color
+.select-btn
+  padding: 16px 24px
+  border: solid 2px $brand-primary-color
+  border-radius: 12px
+  font-family: 'Ubuntu Condensed', sans-serif
+  font-size: 1.2rem
+  color: $brand-primary-color
+  background-color: transparent
+  cursor: pointer
+  text-align: center
 
-    .text-xsmall
-      font-size: 0.5rem
+.select-btn.active
+  color: white
+  background-color: $brand-primary-color
+  box-shadow: 0 0 9px #5D24FF
+  cursor: default
 
-    .text-small
-      font-size: 0.8rem
+.select-btn:not(.active):hover
+  background-color: rgba(#777777, 0.1)
 
-    .text-medium
-      font-size: 1rem
+.font-concert-one
+  font-family: 'Concert One', sans-serif !important
+  line-height: 1.1
 
-    .text-large
-      font-size: 1.2rem
+.font-ubuntu-condensed
+  font-family: 'Ubuntu Condensed', sans-serif !important
 
-    .text-xlarge
-      font-size: 1.8rem
+.font-ubuntu
+  font-family: 'Ubuntu', sans-serif !important
 
-    .rounded-btn
-      border-radius: 18px
+.text-primary
+  color: $brand-primary-color !important
 
+.text-accent
+  color: $brand-accent-color !important
+
+.text-muted
+  color: $brand-muted-color !important
+
+.text-primary
+  color: $brand-primary-color !important
+
+.text-xsmall
+  font-size: 0.5rem !important
+
+.text-small
+  font-size: 0.8rem !important
+
+.text-medium
+  font-size: 1rem !important
+
+.text-large
+  font-size: 1.2rem !important
+
+.text-xlarge
+  font-size: 1.8rem !important
+
+.rounded-btn
+  border-radius: 24px !important
+
+.between-row
+  display: flex
+  justify-content: space-between
+  flex-direction: row
 
 .swal2-styled.swal2-confirm
   background-color: $brand-primary-color !important
@@ -202,3 +259,18 @@ html
 .mat-progress-spinner circle, .mat-spinner circle
   stroke: $brand-primary-color !important
 
+.cursor-pointer
+  cursor: pointer
+
+.modal-dialog, .modal-content
+  border-radius: 0.8rem
+
+.modal-content
+  padding: 14px 32px
+  box-shadow: 11px 6px 81px 12px rgba(255, 255, 255, 0.33)
+
+.icon-sm
+  width: 32px
+
+.icon-md
+  width: 64px

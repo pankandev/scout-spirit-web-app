@@ -61,6 +61,15 @@ export class DevelopmentAreaService {
     }
   };
 
+  public readonly areas: DevelopmentArea[] = [
+    'corporality',
+    'creativity',
+    'character',
+    'affectivity',
+    'sociability',
+    'spirituality'
+  ];
+
   constructor() {
   }
 
@@ -70,5 +79,12 @@ export class DevelopmentAreaService {
       name: this.data[area].name,
       color: this.colors[unit][area]
     };
+  }
+  public query(unit: Unit = 'scouts'): AreaDisplay[] {
+    return this.areas.map(area => ({
+      area: this.data[area].area,
+      name: this.data[area].name,
+      color: this.colors[unit][area]
+    }));
   }
 }

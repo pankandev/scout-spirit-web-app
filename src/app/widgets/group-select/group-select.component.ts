@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DistrictGroupId, GroupsService} from '../../services/groups.service';
+import {GroupsService} from '../../services/groups.service';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {joinKey} from '../../utils/key';
@@ -17,7 +17,7 @@ export class GroupSelectComponent implements OnInit {
   selectedGroupId$: Observable<string>;
 
   constructor(private route: ActivatedRoute, private routeParameters: RouteParamsService, private groups: GroupsService) {
-    this.selectedGroupId$ = this.routeParameters.getAggregatedParams<DistrictGroupId>(route).pipe(
+    this.selectedGroupId$ = this.routeParameters.districtGroupId$.pipe(
       map(params => joinKey(params.districtId, params.groupId))
     );
     this.availableGroups$ = groups.getMyGroups();

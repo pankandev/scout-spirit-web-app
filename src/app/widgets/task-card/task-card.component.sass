@@ -16,12 +16,23 @@
   bottom: 0
 
 .task-card
+  display: flex
   background: #FFFFFF
-  box-shadow: 4px 4px 16px rgba(93, 36, 255, 0.23)
   border-radius: 18px
+  padding: 20px 32px 20px 32px
+  overflow: hidden
+  flex-direction: column
 
   .area
     font-size: small
 
   .body
     font-size: medium
+
+  .area-icon
+    position: absolute
+    right: 10%
+    bottom: 10%
+    transform: scale(2) rotate(-45deg)
+    width: 45%
+    height: 45%

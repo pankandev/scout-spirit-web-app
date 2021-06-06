@@ -11,11 +11,15 @@
           </div>
         </div>
         <div class="col-4">
-          <div class="unit-icon w-100 text-center">
-            <sspirit-unit-icon [unit]="beneficiary.unit"></sspirit-unit-icon>
-          </div>
-          <div class="unit-label">
-            <h3>{{service.getUnitDisplayName(beneficiary.unit)}}</h3>
+          <div class="row">
+            <div class="unit-icon text-center">
+              <sspirit-unit-icon [unit]="beneficiary.unit"></sspirit-unit-icon>
+            </div>
+            <div class="flex flex-column justify-content-center">
+              <div class="unit-label">
+                <h3>{{service.getUnitDisplayName(beneficiary.unit)}}</h3>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -37,10 +41,9 @@
       </div>
       <div class="row">
         <div class="col-12 p-5">
-          <button mat-raised-button color="primary" class="w-100 p-3 text-large rounded-btn">
-            <span>Ver ficha completa</span>
-            <mat-icon>chevron_right</mat-icon>
-          </button>
+          <sspirit-button icon="chevron_right" (pressed)="onFilePressed()">
+            Ver ficha completa
+          </sspirit-button>
         </div>
       </div>
     </div>
@@ -58,5 +61,10 @@
         <h3 class="mt-2">Seleccione un beneficiario de la izquierda para ver sus detalles</h3>
       </div>
     </div>
+  </div>
+</ng-template>
+<ng-template #details let-modal>
+  <div class="modal-body">
+    <router-outlet></router-outlet>
   </div>
 </ng-template>

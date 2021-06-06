@@ -20,6 +20,10 @@ import {GroupGuard} from './guards/group.guard';
 import {NotFoundComponent} from './views/not-found/not-found.component';
 import {ForbiddenGroupComponent} from './views/forbidden-group/forbidden-group.component';
 import {BeneficiariesSummaryComponent} from './views/dashboard/beneficiaries-summary/beneficiaries-summary.component';
+import {SummaryDetailsComponent} from './views/summary-details/summary-details.component';
+import {BeneficiariesFileComponent} from './views/beneficiaries-file/beneficiaries-file.component';
+import {BeneficiaryBinnacleComponent} from './views/beneficiary-binnacle/beneficiary-binnacle.component';
+import {BeneficiaryRegistryComponent} from './views/beneficiary-registry/beneficiary-registry.component';
 
 const routes: Routes = [
   {
@@ -65,7 +69,21 @@ const routes: Routes = [
             children: [
               {
                 path: 'summary',
-                component: SummaryComponent
+                component: SummaryComponent,
+                children: [
+                  {
+                    path: '',
+                    component: SummaryDetailsComponent
+                  },
+                  {
+                    path: 'details',
+                    component: SummaryDetailsComponent
+                  },
+                  {
+                    path: '**',
+                    redirectTo: 'details'
+                  }
+                ]
               },
               {
                 path: 'beneficiaries',
@@ -80,7 +98,35 @@ const routes: Routes = [
                       },
                       {
                         path: 'b/:userId',
-                        component: BeneficiariesSummaryComponent
+                        component: BeneficiariesSummaryComponent,
+                        children: [
+                          {
+                            path: '',
+                            component: BeneficiariesFileComponent
+                          },
+                          {
+                            path: 'file',
+                            component: BeneficiariesFileComponent,
+                            children: [
+                              {
+                                path: 'binnacle',
+                                component: BeneficiaryBinnacleComponent
+                              },
+                              {
+                                path: 'registry',
+                                component: BeneficiaryRegistryComponent
+                              },
+                              {
+                                path: '**',
+                                redirectTo: 'binnacle'
+                              }
+                            ]
+                          },
+                          {
+                            path: '**',
+                            redirectTo: 'file'
+                          }
+                        ]
                       },
                       {
                         path: '**',
