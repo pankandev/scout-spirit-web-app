@@ -4,7 +4,7 @@ import {RouteParamsService} from '../../services/route-params.service';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {BeneficiariesService} from '../../services/beneficiaries.service';
-import {Task} from '../../models/task.model';
+import {ObjectiveLog} from '../../models/task.model';
 
 @Component({
   selector: 'sspirit-beneficiary-binnacle',
@@ -13,7 +13,7 @@ import {Task} from '../../models/task.model';
 })
 export class BeneficiaryBinnacleComponent implements OnInit {
   beneficiaryId$: Observable<string>;
-  tasks$: Observable<Task[]>;
+  tasks$: Observable<ObjectiveLog[]>;
 
   constructor(
     private route: ActivatedRoute,

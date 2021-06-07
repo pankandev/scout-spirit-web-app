@@ -6,7 +6,7 @@ import {Observable, combineLatest} from 'rxjs';
 import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
 import {GroupsService} from '../../services/groups.service';
 import {RouteParamsService} from '../../services/route-params.service';
-import {Task} from '../../models/task.model';
+import {ObjectiveLog} from '../../models/task.model';
 import {Objective} from '../../models/objective.model';
 
 @Component({
@@ -20,7 +20,7 @@ export class SummaryDetailsComponent implements OnInit {
   unit$: Observable<Unit | null>;
   areaData$: Observable<Record<string, Record<number, number>>>;
   stageData$: Observable<Record<string, Record<number, number>>>;
-  objectives$: Observable<Task[]>;
+  objectives$: Observable<ObjectiveLog[]>;
   filters$: Observable<{ unit: string, area: string, stage: string }>;
 
   constructor(
@@ -101,7 +101,7 @@ export class SummaryDetailsComponent implements OnInit {
     await this.router.navigate([], {queryParams: {unit}, queryParamsHandling: 'merge'});
   }
 
-  onObjectiveSelect(task: Task): void {
+  onObjectiveSelect(task: ObjectiveLog): void {
     console.log(task);
   }
 }

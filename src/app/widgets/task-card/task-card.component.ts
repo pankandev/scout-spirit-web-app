@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {Task} from '../../models/task.model';
+import {ObjectiveLog} from '../../models/task.model';
 import {DevelopmentAreaService} from '../../services/development-area.service';
 import {splitKey} from '../../utils/key';
 import Color from 'color';
@@ -13,7 +13,7 @@ import {DevelopmentStage} from '../../models/area-value';
   styleUrls: ['./task-card.component.sass']
 })
 export class TaskCardComponent implements OnInit {
-  @Input() task?: Task | null;
+  @Input() task?: ObjectiveLog | null;
   @Input() pressable = false;
   @Input() label = 'Seleccionar objetivo';
   @Input() disabled = false;

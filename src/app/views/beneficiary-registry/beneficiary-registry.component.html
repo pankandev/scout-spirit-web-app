@@ -1,1 +1,3 @@
-<p>beneficiary-registry works!</p>
+<div *ngIf="logs$ | async as logs">
+  <sspirit-scrollable-list [items]="logs"></sspirit-scrollable-list>
+</div>

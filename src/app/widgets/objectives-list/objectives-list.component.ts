@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter} from '@angular/core';
-import {Task} from '../../models/task.model';
+import {ObjectiveLog} from '../../models/task.model';
 import {AreaGroup, ObjectivesService} from '../../services/objectives.service';
 import {DevelopmentArea} from '../../models/area-value';
 
@@ -11,7 +11,7 @@ import {DevelopmentArea} from '../../models/area-value';
 export class ObjectivesListComponent implements OnInit, OnChanges {
   @Input() selectable = false;
   @Input() label = 'Seleccionar objetivo';
-  @Output() selectTask = new EventEmitter<Task>();
+  @Output() selectTask = new EventEmitter<ObjectiveLog>();
 
   constructor(private service: ObjectivesService) {
   }
@@ -22,7 +22,7 @@ export class ObjectivesListComponent implements OnInit, OnChanges {
     return this.groups.reduce((prev, g) => prev + g.group.reduce((p, l) => l.tasks.length, 0), 0);
   }
 
-  @Input() items: Task[] = [];
+  @Input() items: ObjectiveLog[] = [];
 
   getAreaName(area: DevelopmentArea): string {
     return this.service.getArea(area).name;

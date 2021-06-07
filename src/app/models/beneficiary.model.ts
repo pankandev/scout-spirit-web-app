@@ -1,5 +1,5 @@
 import {DevelopmentArea, DevelopmentStage, Unit} from './area-value';
-import { Task } from './task.model';
+import { ObjectiveLog } from './task.model';
 
 export interface BeneficiaryLite {
   id: string;
@@ -15,7 +15,7 @@ export interface BeneficiaryLite {
 }
 
 export interface Beneficiary extends BeneficiaryLite {
-  target: Task | null;
+  target: ObjectiveLog | null;
   score: Record<DevelopmentArea, number>;
   lastClaimedToken: number;
   setBaseTasks: boolean;

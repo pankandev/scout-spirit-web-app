@@ -28,7 +28,7 @@ export class LinearChartComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() colors: string[] = ['red', 'blue', 'green'];
   @Input() aspectRatio: number = 16 / 9;
   @Input() keyStep = 24 * 60 * 60 * 1000;
-  @Input() cumulated = true;
+  @Input() cumulated = false;
 
   @ViewChild('canvas') canvas?: ElementRef<HTMLCanvasElement>;
 

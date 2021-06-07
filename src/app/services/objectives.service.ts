@@ -6,7 +6,7 @@ import {Objective} from '../models/objective.model';
 import {DevelopmentArea, DevelopmentStage, Unit} from '../models/area-value';
 import {AreaDisplay, DevelopmentAreaService} from './development-area.service';
 import {AppError} from '../errors/app.error';
-import {Task} from '../models/task.model';
+import {ObjectiveLog} from '../models/task.model';
 import {joinKey, splitKey} from '../utils/key';
 import {mapKeys} from '../utils/map';
 import {ObjectiveKey} from './groups.service';
@@ -24,7 +24,7 @@ export interface StageDisplay {
 
 export interface LineGroup {
   line: string;
-  tasks: Task[];
+  tasks: ObjectiveLog[];
 }
 
 export interface AreaGroup {
@@ -158,7 +158,7 @@ export class ObjectivesService {
       .reduce((prev, objs) => [...prev, ...objs], [] as Objective[]);
   }
 
-  objectiveToTask(objective: ObjectiveKey, unit: Unit = 'scouts'): Task {
+  objectiveToTask(objective: ObjectiveKey, unit: Unit = 'scouts'): ObjectiveLog {
     const obj = this.get(objective.stage, objective.area, objective.line, objective.subline);
     return {
       completed: false,
@@ -170,7 +170,7 @@ export class ObjectivesService {
     };
   }
 
-  groupTasks(tasks: Task[]): AreaGroup[] {
+  groupTasks(tasks: ObjectiveLog[]): AreaGroup[] {
     const mapped = mapKeys(this.lines, (descriptions, area) =>
       descriptions
         .map((l, index) => ({

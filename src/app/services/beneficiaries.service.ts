@@ -6,7 +6,7 @@ import {environment} from '../../environments/environment';
 import testBeneficiaries from '../data/test/beneficiaries.json';
 import {delay} from '../utils/async';
 import {combineLatest, Observable} from 'rxjs';
-import {Task} from '../models/task.model';
+import {Log, ObjectiveLog} from '../models/task.model';
 import {GroupsService} from './groups.service';
 import {filter, map} from 'rxjs/operators';
 import {ObjectivesService} from './objectives.service';
@@ -62,12 +62,16 @@ export class BeneficiariesService {
     return response.items;
   }
 
-  getTasks(beneficiaryId: string): Observable<Task[]> {
+  getTasks(beneficiaryId: string): Observable<ObjectiveLog[]> {
     return combineLatest([this.groups.groupStats$, this.get(beneficiaryId)]).pipe(
       filter(([logs, _]) => !!logs),
       map(([logs, beneficiary]) => {
         return logs?.completedObjectives[beneficiaryId]?.map(l => this.objectives.objectiveToTask(l, beneficiary.unit)) ?? [];
       })
     );
+  }
+
+  getLogs(beneficiaryId: string): Promise<Log[]> {
+    return this.api.get(`/users/${beneficiaryId}/logs/`);
   }
 }
