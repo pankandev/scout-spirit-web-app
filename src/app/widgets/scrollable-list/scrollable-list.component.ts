@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {DateTime} from 'luxon';
 
 export interface ListItem {
   id: string;
@@ -6,6 +7,7 @@ export interface ListItem {
   title?: string;
   subtitle?: string;
   icon?: string;
+  time?: DateTime;
 }
 
 @Component({

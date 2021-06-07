@@ -14,7 +14,6 @@ $item-size: 94px
   background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 30.21%)
 
 .arrow.arrow-bottom
-  bottom: 0
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 30.21%)
 
 .list
@@ -22,20 +21,32 @@ $item-size: 94px
   margin-top: 24px
   padding: 80px 12px 80px 0
   overflow-y: auto
+  ul
+    height: 100%
 
 .item
   display: flex
   flex-direction: row
-  height: $item-size
+  min-height: $item-size
   border: $brand-primary-color 2px solid
   border-radius: 24px
   margin-bottom: 24px
   box-shadow: 0 0 10px -2px #5D24FF
 
-  .item-image
+  .item-image, .item-icon
+    display: flex
+    flex-direction: column
+    justify-content: center
     width: $item-size
-    height: $item-size
+    min-height: $item-size
     padding: 10px
+
+  .item-icon > *
+    width: 4rem
+    height: 4rem
+    padding-left: 0.8rem
+    font-size: 4rem
+    text-align: center
 
   .item-label
     display: flex
@@ -46,13 +57,23 @@ $item-size: 94px
     font-family: 'Ubuntu Condensed', sans-serif
 
     .item-label-title
-      font-size: 28px
+      font-size: 1.6rem
       font-family: 'Concert One', sans-serif
       line-height: 1.1
 
     .item-label-subtitle
       margin-top: 6px
-      font-size: 18px
+      font-size: 1.1rem
+
+    .item-label-timestamp
+      display: flex
+      flex-direction: row
+      margin-top: 0
+      margin-bottom: 0
+      font-weight: 500
+      font-family: 'Ubuntu', sans-serif
+      > *
+        font-size: 0.7rem !important
 
 ul
   li.item.active

@@ -3,7 +3,7 @@
     <div
       *ngFor="let item of items"
       mat-ripple
-      class="select-btn flex-grow-1 mr-1 mb-1"
+      class="select-btn flex-grow-1 mr-1 mb-4"
       [ngClass]="{active: value === item.id}"
       (click)="valueChange.emit(item.id)"
     >

@@ -4,6 +4,7 @@ import {Beneficiary, BeneficiaryLite} from '../models/beneficiary.model';
 import {DevelopmentStage, Unit} from '../models/area-value';
 import {environment} from '../../environments/environment';
 import testBeneficiaries from '../data/test/beneficiaries.json';
+import testLogs from '../data/test/logs.json';
 import {delay} from '../utils/async';
 import {combineLatest, Observable} from 'rxjs';
 import {Log, ObjectiveLog} from '../models/task.model';
@@ -71,7 +72,16 @@ export class BeneficiariesService {
     );
   }
 
-  getLogs(beneficiaryId: string): Promise<Log[]> {
-    return this.api.get(`/users/${beneficiaryId}/logs/`);
+  async getLogs(beneficiaryId: string): Promise<Log[]> {
+    if (environment.production) {
+      return await this.api.get(`/users/${beneficiaryId}/logs/`);
+    } else {
+      await delay(1000);
+      const logs = (testLogs as any)[beneficiaryId];
+      if (!logs) {
+        return [];
+      }
+      return logs as Log[];
+    }
   }
 }

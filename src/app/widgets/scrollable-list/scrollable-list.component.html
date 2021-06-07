@@ -6,7 +6,14 @@
       <div class="item-image" *ngIf="item.imageUrl !== undefined">
         <sspirit-avatar-picture [src]="item.imageUrl"></sspirit-avatar-picture>
       </div>
+      <div class="item-icon" *ngIf="!item.imageUrl && item.icon">
+        <mat-icon class="text-primary">{{item.icon}}</mat-icon>
+      </div>
       <div class="item-label" *ngIf="item.title || item.subtitle">
+        <p class="item-label-timestamp" *ngIf="item.time">
+          <mat-icon>event</mat-icon>
+          <span>{{item.time | dateTimeToFormat:'dd-LLL-yyyy HH:mm:ss'}}</span>
+        </p>
         <div class="item-label-title" *ngIf="item.title || item.subtitle">{{item.title ? item.title : ''}}</div>
         <div class="item-label-subtitle" *ngIf="item.subtitle">{{item.subtitle}}</div>
       </div>

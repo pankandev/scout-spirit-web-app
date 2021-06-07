@@ -66,6 +66,7 @@ import { BeneficiariesFileComponent } from './views/beneficiaries-file/beneficia
 import { SelectButtonsComponent } from './widgets/select-buttons/select-buttons.component';
 import { BeneficiaryBinnacleComponent } from './views/beneficiary-binnacle/beneficiary-binnacle.component';
 import { BeneficiaryRegistryComponent } from './views/beneficiary-registry/beneficiary-registry.component';
+import {LuxonModule} from 'luxon-angular';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { BeneficiaryRegistryComponent } from './views/beneficiary-registry/benef
     MatListModule,
     ClipboardModule,
     NgbModalModule,
-    MatChipsModule
+    MatChipsModule,
+    LuxonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
