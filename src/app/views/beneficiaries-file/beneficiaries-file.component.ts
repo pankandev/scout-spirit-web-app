@@ -20,7 +20,7 @@ export class BeneficiariesFileComponent implements OnInit {
   buttons: SelectButtonItem[] = [
     {
       id: 'binnacle',
-      label: 'Bitácoras',
+      label: 'Bitácora',
       icon: 'auto_stories'
     },
     {
