@@ -63,7 +63,7 @@ export class ObjectivesService {
     puberty: pubertyObjectives
   };
 
-  private static transform(text: string, unit: Unit = 'scouts'): string {
+  static transform(text: string, unit: Unit = 'scouts'): string {
     return text
       .replace(/{OsAs}/g, unit === 'guides' ? 'as' : 'os')
       .replace(/{OA}/g, unit === 'guides' ? 'a' : 'o')
@@ -71,7 +71,8 @@ export class ObjectivesService {
       .replace(/{GuiasScouts}/g, unit === 'guides' ? 'Guías' : 'Scouts')
       .replace(/{Unidad}/g, unit === 'guides' ? 'Compañía' : 'Tropa')
       .replace(/{MyGender}/g, unit === 'guides' ? 'mujer' : 'hombre')
-      .replace(/{OtherGender}/g, unit === 'guides' ? 'hombre' : 'mujer');
+      .replace(/{OtherGender}/g, unit === 'guides' ? 'hombre' : 'mujer')
+      .replace(/{LibroDePatrulla}/g, 'Libro de Patrulla');
   }
 
   private static joinObjective(key: ObjectiveKey): string {
@@ -158,14 +159,14 @@ export class ObjectivesService {
       .reduce((prev, objs) => [...prev, ...objs], [] as Objective[]);
   }
 
-  objectiveToTask(objective: ObjectiveKey, unit: Unit = 'scouts'): ObjectiveLog {
+  objectiveToTask(objective: ObjectiveKey, unit: Unit | null = 'scouts'): ObjectiveLog {
     const obj = this.get(objective.stage, objective.area, objective.line, objective.subline);
     return {
       completed: false,
       created: 0,
       objective: ObjectivesService.joinObjective(objective),
-      originalObjective: ObjectivesService.transform(obj.content, unit),
-      personalObjective: ObjectivesService.transform(obj.content, unit),
+      originalObjective: unit ? ObjectivesService.transform(obj.content, unit) : obj.content,
+      personalObjective: unit ? ObjectivesService.transform(obj.content, unit) : obj.content,
       tasks: []
     };
   }

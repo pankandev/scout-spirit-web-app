@@ -52,7 +52,7 @@ export class RouteParamsService {
     distinctUntilChanged()
   );
   public readonly beneficiaryId$ = this.aggregatedParams$.pipe(
-    map(params => params.userId),
+    map(params => params.userId as string),
     distinctUntilChanged()
   );
 

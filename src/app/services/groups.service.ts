@@ -71,7 +71,7 @@ export class GroupsService {
   stats: Record<string, BehaviorSubject<GroupStats | null>> = {};
   groupStats$ = this.routeParams.districtGroupId$.pipe(
     switchMap(params => this.fetchGroupStats(params.districtId, params.groupId)),
-    shareReplay()
+    shareReplay({refCount: true})
   );
 
   roles: Record<ScouterRoleType, string> = {

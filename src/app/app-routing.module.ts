@@ -24,6 +24,7 @@ import {SummaryDetailsComponent} from './views/summary-details/summary-details.c
 import {BeneficiariesFileComponent} from './views/beneficiaries-file/beneficiaries-file.component';
 import {BeneficiaryBinnacleComponent} from './views/beneficiary-binnacle/beneficiary-binnacle.component';
 import {BeneficiaryRegistryComponent} from './views/beneficiary-registry/beneficiary-registry.component';
+import {BeneficiariesEmptyContainerComponent} from './views/beneficiaries-empty-container/beneficiaries-empty-container.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,57 @@ const routes: Routes = [
     path: 'not-found',
     component: NotFoundComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'beneficiaries',
+    children: [
+      {
+        path: ':userId',
+        component: BeneficiariesEmptyContainerComponent,
+        children: [
+          {
+            path: '',
+            component: BeneficiariesFileComponent
+          },
+          {
+            path: 'file',
+            component: BeneficiariesFileComponent,
+            children: [
+              {
+                path: 'binnacle',
+                component: BeneficiaryBinnacleComponent
+              },
+              {
+                path: 'registry',
+                component: BeneficiaryRegistryComponent
+              },
+              {
+                path: '**',
+                redirectTo: 'binnacle'
+              }
+            ]
+          },
+          {
+            path: '**',
+            redirectTo: 'file'
+          }
+        ]
+      },
+      {
+        path: ':unit',
+        component: BeneficiariesComponent,
+        children: [
+          {
+            path: '',
+            component: BeneficiariesSummaryComponent
+          },
+          {
+            path: '**',
+            redirectTo: ''
+          }
+        ]
+      }
+    ]
   },
   {
     path: 'districts/:districtId',

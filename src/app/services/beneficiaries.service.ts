@@ -4,11 +4,12 @@ import {Beneficiary, BeneficiaryLite} from '../models/beneficiary.model';
 import {DevelopmentStage, Unit} from '../models/area-value';
 import {environment} from '../../environments/environment';
 import testBeneficiaries from '../data/test/beneficiaries.json';
+import testGroups from '../data/test/stats.json';
 import testLogs from '../data/test/logs.json';
 import {delay} from '../utils/async';
-import {combineLatest, Observable} from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {Log, ObjectiveLog} from '../models/task.model';
-import {GroupsService} from './groups.service';
+import {GroupsService, UnitObjectiveKeyTimed} from './groups.service';
 import {filter, map} from 'rxjs/operators';
 import {ObjectivesService} from './objectives.service';
 
@@ -64,10 +65,24 @@ export class BeneficiariesService {
   }
 
   getTasks(beneficiaryId: string): Observable<ObjectiveLog[]> {
-    return combineLatest([this.groups.groupStats$, this.get(beneficiaryId)]).pipe(
+    const tasks: Promise<{ items: ObjectiveLog[] }> = environment.production ?
+      this.api.get<{ items: ObjectiveLog[] }>(`/users/{sub}/tasks/`) :
+      of({
+        items: ((testGroups as any)
+          .pankan['scout-spirit']
+          .completed_objectives[beneficiaryId]
+          .map((l: UnitObjectiveKeyTimed) => this.objectives.objectiveToTask(l, null)) as ObjectiveLog[]
+        )
+      }).toPromise();
+
+    return combineLatest([tasks, this.get(beneficiaryId)]).pipe(
       filter(([logs, _]) => !!logs),
       map(([logs, beneficiary]) => {
-        return logs?.completedObjectives[beneficiaryId]?.map(l => this.objectives.objectiveToTask(l, beneficiary.unit)) ?? [];
+        logs.items.forEach((l) => {
+          l.originalObjective = ObjectivesService.transform(l.originalObjective, beneficiary.unit);
+          l.personalObjective = ObjectivesService.transform(l.personalObjective, beneficiary.unit);
+        });
+        return logs.items;
       })
     );
   }

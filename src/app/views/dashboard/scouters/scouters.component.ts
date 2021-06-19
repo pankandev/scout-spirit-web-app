@@ -48,7 +48,7 @@ export class ScoutersComponent implements OnInit {
       })));
     this.group$ = ids$.pipe(
       switchMap(ids => this.service.getGroup(ids.districtId, ids.groupId)),
-      shareReplay()
+      shareReplay({refCount: true})
     );
     this.inviteUrl$ = this.group$.pipe(
       map(group => {

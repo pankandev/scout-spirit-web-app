@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {RouteParamsService} from '../../services/route-params.service';
 import {Observable} from 'rxjs';
@@ -19,7 +19,7 @@ export class BeneficiaryBinnacleComponent implements OnInit {
     private route: ActivatedRoute,
     private routeParams: RouteParamsService,
     private beneficiaries: BeneficiariesService
-    ) {
+  ) {
     this.beneficiaryId$ = this.routeParams.beneficiaryId$;
     this.tasks$ = this.beneficiaryId$.pipe(
       switchMap(beneficiaryId => {
@@ -30,5 +30,4 @@ export class BeneficiaryBinnacleComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

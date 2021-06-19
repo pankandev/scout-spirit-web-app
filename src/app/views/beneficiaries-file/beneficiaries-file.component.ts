@@ -8,6 +8,7 @@ import {BeneficiariesService} from '../../services/beneficiaries.service';
 import {SelectButtonItem} from '../../widgets/select-buttons/select-buttons.component';
 import {ObjectivesService} from '../../services/objectives.service';
 import {DevelopmentStage} from '../../models/area-value';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'sspirit-beneficiaries-file',
@@ -31,6 +32,7 @@ export class BeneficiariesFileComponent implements OnInit {
   ];
 
   option$: Observable<string>;
+  shareUrl$: Observable<string | null>;
 
   getStage(stage: DevelopmentStage): string {
     return this.objectives.getStage(stage).name;
@@ -41,7 +43,8 @@ export class BeneficiariesFileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private beneficiaries: BeneficiariesService,
-    private objectives: ObjectivesService
+    private objectives: ObjectivesService,
+    private alerts: AlertService
   ) {
     this.beneficiaryId$ = routeParams.aggregatedParams$
       .pipe(map(params => params.userId));
@@ -54,6 +57,12 @@ export class BeneficiariesFileComponent implements OnInit {
         return url && url.length > 0 ? url[url.length - 1].path : 'binnacle';
       })
     );
+    this.shareUrl$ = this.routeParams.beneficiaryId$.pipe(
+      map(beneficiaryId => {
+        const location = window.location;
+        return `${location.origin}/beneficiaries/${beneficiaryId}/file/binnacle`;
+      })
+    );
   }
 
   ngOnInit(): void {
@@ -61,5 +70,13 @@ export class BeneficiariesFileComponent implements OnInit {
 
   async onOption(option: string): Promise<void> {
     await this.router.navigate([option], {relativeTo: this.route});
+  }
+
+  onClipboardResult(result: boolean): void {
+    if (result) {
+      this.alerts.showSnackbar('Enlace copiado al portapapeles');
+    } else {
+      this.alerts.showSnackbar('Error copiando enlace');
+    }
   }
 }

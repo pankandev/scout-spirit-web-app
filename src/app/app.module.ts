@@ -67,6 +67,7 @@ import { SelectButtonsComponent } from './widgets/select-buttons/select-buttons.
 import { BeneficiaryBinnacleComponent } from './views/beneficiary-binnacle/beneficiary-binnacle.component';
 import { BeneficiaryRegistryComponent } from './views/beneficiary-registry/beneficiary-registry.component';
 import {LuxonModule} from 'luxon-angular';
+import { BeneficiariesEmptyContainerComponent } from './views/beneficiaries-empty-container/beneficiaries-empty-container.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import {LuxonModule} from 'luxon-angular';
     BeneficiariesFileComponent,
     SelectButtonsComponent,
     BeneficiaryBinnacleComponent,
-    BeneficiaryRegistryComponent
+    BeneficiaryRegistryComponent,
+    BeneficiariesEmptyContainerComponent
   ],
   imports: [
     BrowserModule,

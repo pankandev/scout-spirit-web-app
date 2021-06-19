@@ -1,6 +1,22 @@
 <div class="container-fluid" *ngIf="beneficiary$ | async as beneficiary; else loading">
   <div class="row">
     <div class="col-6">
+      <div class="row justify-content-start">
+        <div class="col-6 pb-2">
+          <button ngxClipboard *ngIf="shareUrl$ | async as shareUrl"
+                  mat-ripple
+                  [cbContent]="shareUrl"
+                  (cbOnSuccess)="onClipboardResult(true)"
+                  (cbOnError)="onClipboardResult(false)"
+                  class="btn btn-lg btn-outline-dark w-100">
+            <!--suppress HtmlUnknownTag -->
+            <div class="row justify-content-between">
+              <span class="col-8">Compartir ficha</span>
+              <mat-icon class="col-4">share</mat-icon>
+            </div>
+          </button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-7">
           <h1 class="font-concert-one text-primary mb-0 text-left">{{beneficiary.fullName}}</h1>
@@ -17,7 +33,8 @@
           <sspirit-avatar-picture [src]="beneficiary.profilePicture"></sspirit-avatar-picture>
         </div>
         <div class="col-6 pl-5">
-          <sspirit-radar-chart theme="primary" label="objetivos cumplidos" [values]="beneficiary.nTasks"></sspirit-radar-chart>
+          <sspirit-radar-chart theme="primary" label="objetivos cumplidos"
+                               [values]="beneficiary.nTasks"></sspirit-radar-chart>
         </div>
       </div>
       <div class="row">
@@ -29,7 +46,8 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <sspirit-select-buttons (valueChange)="onOption($event)" [value]="option$ | async" [items]="buttons"></sspirit-select-buttons>
+          <sspirit-select-buttons (valueChange)="onOption($event)" [value]="option$ | async"
+                                  [items]="buttons"></sspirit-select-buttons>
         </div>
       </div>
     </div>
