@@ -1,3 +1,9 @@
-<div #container class="h-100 w-100 debug-2">
-  <canvas #radar class="debug-3" style="width: 100%; height: 100%;"></canvas>
+<div #container id="radar-chart" class="w-100" style="height: 100%">
+  <canvas id="canvas" #radar></canvas>
+  <div *ngFor="let area of areas" class="radar-icon"
+       [ngStyle]="{top: areaPositions[area][1] - 32 + 'px', left: areaPositions[area][0] - 32 + 'px'}">
+    <button mat-stroked-button matTooltipClass="big-tooltip" [matTooltip]="getAreaName(area) + ' (' + this.values[area] + ' ' + this.label + ')'">
+      <sspirit-area-icon [area]="area" [color]="theme === 'primary' ? 'primary' : null"></sspirit-area-icon>
+    </button>
+  </div>
 </div>

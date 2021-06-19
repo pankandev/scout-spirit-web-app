@@ -1,9 +1,14 @@
+export type ScouterRoleType = 'creator' | 'scouter';
+
 export interface ScouterRole {
-  fullName: string;
-  role: 'creator' | 'scouter';
+  name: string;
+  role: ScouterRoleType;
 }
 
 export interface Group {
+  district: string;
+  code: string;
   name: string;
   scouters: Record<string, ScouterRole>;
+  scouters_code: string;
 }

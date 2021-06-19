@@ -1,1 +1,42 @@
-<p>scouters works!</p>
+<div class="row">
+  <div class="col-6">
+    <div class="list-container" *ngIf="items$ | async as items; else loading">
+      <sspirit-scrollable-list [items]="items"></sspirit-scrollable-list>
+    </div>
+    <ng-template #loading>
+      <div class="h-100">
+        <div class="row">
+          <div class="col-12 h-100 justify-content-center">
+            <mat-spinner></mat-spinner>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <div class="col-6 pt-5 flex-column justify-content-center">
+    <div class="card flex-column justify-content-center" *ngIf="group$ | async as group; else loadingGroup">
+      <div class="link-body text-large">
+        ¿Deseas invitar más dirigentes o guiadoras al grupo <b>{{group.name}}</b>? ¡Compárteles este enlace!
+      </div>
+      <div class="link-container mt-4" *ngIf="inviteUrl$ | async as inviteUrl">
+        <div class="input-group mb-3">
+          <input type="text" readonly class="form-control" aria-label="Text input with checkbox" [value]="inviteUrl">
+          <div class="input-group-append">
+            <button ngxClipboard mat-ripple class="input-group-text" [cbContent]="inviteUrl" (cbOnSuccess)="onClipboardResult(true)" (cbOnError)="onClipboardResult(false)">
+              <mat-icon>content_paste</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #loadingGroup>
+      <div class="h-100">
+        <div class="row">
+          <div class="col-12 h-100 justify-content-center">
+            <mat-spinner></mat-spinner>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

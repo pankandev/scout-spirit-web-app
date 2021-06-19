@@ -1,0 +1,19 @@
+<div class="row ml-1 mr-1">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-2 select-btn fixed-height-large p-2" [ngClass]="{active: value === area.area}" mat-ripple *ngFor="let area of areas"
+           (click)="valueChange.emit(area.area)">
+        <div>
+          <div class="flex-column justify-content-between">
+            <sspirit-area-icon [color]="value === area.area ? null : 'primary'" [area]="area.area"></sspirit-area-icon>
+            <span class="text-center text-small"
+                  [ngClass]="{'text-primary': value !== area.area, 'text-light': value === area.area}">{{area.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <a class="mt-1" [ngClass]="{inactive: value === null}" [routerLink]="[]" (click)="valueChange.emit(null)">De-seleccionar</a>
+  </div>
+</div>

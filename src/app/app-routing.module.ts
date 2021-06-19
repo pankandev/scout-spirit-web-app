@@ -15,6 +15,16 @@ import {InviteComponent} from './views/invite/invite.component';
 import {BeneficiariesComponent} from './views/dashboard/beneficiaries/beneficiaries.component';
 import {SummaryComponent} from './views/dashboard/summary/summary.component';
 import {ScoutersComponent} from './views/dashboard/scouters/scouters.component';
+import {NoGroupGuard} from './guards/no-group.guard';
+import {GroupGuard} from './guards/group.guard';
+import {NotFoundComponent} from './views/not-found/not-found.component';
+import {ForbiddenGroupComponent} from './views/forbidden-group/forbidden-group.component';
+import {BeneficiariesSummaryComponent} from './views/dashboard/beneficiaries-summary/beneficiaries-summary.component';
+import {SummaryDetailsComponent} from './views/summary-details/summary-details.component';
+import {BeneficiariesFileComponent} from './views/beneficiaries-file/beneficiaries-file.component';
+import {BeneficiaryBinnacleComponent} from './views/beneficiary-binnacle/beneficiary-binnacle.component';
+import {BeneficiaryRegistryComponent} from './views/beneficiary-registry/beneficiary-registry.component';
+import {BeneficiariesEmptyContainerComponent} from './views/beneficiaries-empty-container/beneficiaries-empty-container.component';
 
 const routes: Routes = [
   {
@@ -35,7 +45,63 @@ const routes: Routes = [
   {
     path: 'no-group',
     component: NoGroupComponent,
+    canActivate: [AuthGuard, NoGroupGuard]
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'beneficiaries',
+    children: [
+      {
+        path: ':userId',
+        component: BeneficiariesEmptyContainerComponent,
+        children: [
+          {
+            path: '',
+            component: BeneficiariesFileComponent
+          },
+          {
+            path: 'file',
+            component: BeneficiariesFileComponent,
+            children: [
+              {
+                path: 'binnacle',
+                component: BeneficiaryBinnacleComponent
+              },
+              {
+                path: 'registry',
+                component: BeneficiaryRegistryComponent
+              },
+              {
+                path: '**',
+                redirectTo: 'binnacle'
+              }
+            ]
+          },
+          {
+            path: '**',
+            redirectTo: 'file'
+          }
+        ]
+      },
+      {
+        path: ':unit',
+        component: BeneficiariesComponent,
+        children: [
+          {
+            path: '',
+            component: BeneficiariesSummaryComponent
+          },
+          {
+            path: '**',
+            redirectTo: ''
+          }
+        ]
+      }
+    ]
   },
   {
     path: 'districts/:districtId',
@@ -45,17 +111,96 @@ const routes: Routes = [
         path: 'groups/:groupId',
         children: [
           {
+            path: '',
+            component: ForbiddenGroupComponent
+          },
+          {
             path: 'dashboard',
             component: DashboardComponent,
-            canActivate: [AuthGuard],
+            canActivate: [GroupGuard],
             children: [
               {
                 path: 'summary',
-                component: SummaryComponent
+                component: SummaryComponent,
+                children: [
+                  {
+                    path: '',
+                    component: SummaryDetailsComponent
+                  },
+                  {
+                    path: 'details',
+                    component: SummaryDetailsComponent
+                  },
+                  {
+                    path: '**',
+                    redirectTo: 'details'
+                  }
+                ]
               },
               {
                 path: 'beneficiaries',
-                component: BeneficiariesComponent
+                children: [
+                  {
+                    path: '',
+                    component: BeneficiariesComponent,
+                    children: [
+                      {
+                        path: '',
+                        component: BeneficiariesSummaryComponent
+                      },
+                      {
+                        path: 'b/:userId',
+                        component: BeneficiariesSummaryComponent,
+                        children: [
+                          {
+                            path: '',
+                            component: BeneficiariesFileComponent
+                          },
+                          {
+                            path: 'file',
+                            component: BeneficiariesFileComponent,
+                            children: [
+                              {
+                                path: 'binnacle',
+                                component: BeneficiaryBinnacleComponent
+                              },
+                              {
+                                path: 'registry',
+                                component: BeneficiaryRegistryComponent
+                              },
+                              {
+                                path: '**',
+                                redirectTo: 'binnacle'
+                              }
+                            ]
+                          },
+                          {
+                            path: '**',
+                            redirectTo: 'file'
+                          }
+                        ]
+                      },
+                      {
+                        path: '**',
+                        redirectTo: ''
+                      }
+                    ]
+                  },
+                  {
+                    path: ':unit',
+                    component: BeneficiariesComponent,
+                    children: [
+                      {
+                        path: '',
+                        component: BeneficiariesSummaryComponent
+                      },
+                      {
+                        path: '**',
+                        redirectTo: ''
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 path: 'scouters',

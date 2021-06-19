@@ -1,0 +1,26 @@
+<div class="list">
+  <ul>
+    <li *ngFor="let item of items" class="item light-hoverable cursor-pointer"
+        [ngClass]="{active: item.id === activeId}" mat-ripple
+        (click)="selectedItem.emit(item.id)">
+      <div class="item-image" *ngIf="item.imageUrl !== undefined">
+        <sspirit-avatar-picture [src]="item.imageUrl"></sspirit-avatar-picture>
+      </div>
+      <div class="item-icon" *ngIf="!item.imageUrl && item.icon">
+        <mat-icon class="text-primary">{{item.icon}}</mat-icon>
+      </div>
+      <div class="item-label" *ngIf="item.title || item.subtitle">
+        <p class="item-label-timestamp" *ngIf="item.time">
+          <mat-icon>event</mat-icon>
+          <span>{{item.time | dateTimeToFormat:'dd-LLL-yyyy HH:mm:ss'}}</span>
+        </p>
+        <div class="item-label-title" *ngIf="item.title || item.subtitle">{{item.title ? item.title : ''}}</div>
+        <div class="item-label-subtitle" *ngIf="item.subtitle">{{item.subtitle}}</div>
+      </div>
+    </li>
+  </ul>
+  <div class="arrow arrow-top">
+  </div>
+  <div class="arrow arrow-bottom">
+  </div>
+</div>

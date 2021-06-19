@@ -15,5 +15,6 @@ export class EmailParamGuard implements CanActivate {
       return true;
     }
     await this.router.navigate(['/']);
+    return false;
   }
 }
