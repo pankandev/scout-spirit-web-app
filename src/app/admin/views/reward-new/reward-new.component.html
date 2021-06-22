@@ -1,0 +1,14 @@
+<h1 class="text-left">Crear nueva recompensa</h1>
+
+<div class="pt-2">
+  <mat-radio-group name="reward-category" [(ngModel)]="rewardCategory" aria-label="Select an option">
+    <mat-radio-button [value]="'AVATAR'">Avatar</mat-radio-button>
+    <mat-radio-button [value]="'DECORATION'">Decoración</mat-radio-button>
+    <mat-radio-button [value]="'ZONE'">Zona</mat-radio-button>
+  </mat-radio-group>
+</div>
+<div class="pt-2">
+  <sspirit-new-decoration *ngIf="rewardCategory === 'DECORATION'"></sspirit-new-decoration>
+  <sspirit-new-avatar *ngIf="rewardCategory === 'AVATAR'"></sspirit-new-avatar>
+  <sspirit-new-zone *ngIf="rewardCategory === 'ZONE'"></sspirit-new-zone>
+</div>

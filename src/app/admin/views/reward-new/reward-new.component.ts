@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {RewardCategory} from '../../models/rewards/base';
+import {RewardCategory} from '../../../models/rewards/base';
 
 @Component({
-  selector: 'app-reward-new',
+  selector: 'sspirit-reward-new',
   templateUrl: './reward-new.component.html',
   styleUrls: ['./reward-new.component.sass']
 })

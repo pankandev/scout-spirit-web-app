@@ -169,6 +169,22 @@ export class GroupsService {
     return await this.api.get<Group>(`/districts/${districtId}/groups/${groupId}/`);
   }
 
+  query(districtId?: string): Observable<Group[]> {
+    console.log(districtId);
+    return from(this.queryAsync(districtId));
+  }
+
+  async queryAsync(districtId?: string): Promise<Group[]> {
+    const user = this.auth.snapUser;
+    if (!environment.production && user) {
+      const groups = testGroups.filter(g => !districtId || g.district === districtId) as Group[];
+      await delay(2000);
+      return groups;
+    }
+    const response = await this.api.get<{ items: Group[] }>(`/districts/${districtId}/`);
+    return response.items;
+  }
+
   async joinAsScouter(districtId: string, groupId: string, code: string): Promise<boolean> {
     if (!code || code.length === 0) {
       return false;
@@ -331,5 +347,12 @@ export class GroupsService {
         return dataset;
       })
     );
+  }
+
+  async create(districtCode: string, groupCode: string, name: string): Promise<void> {
+    await this.api.post(`/districts/${districtCode}/groups/`, {
+      code: groupCode,
+      name
+    });
   }
 }
