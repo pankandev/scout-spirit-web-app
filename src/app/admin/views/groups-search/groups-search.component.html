@@ -38,12 +38,9 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="group-view" *ngIf="group$ | async as group; else noGroup">
+          <div class="group-view" *ngIf="group$ | async as group">
             <h3 class="text-left">{{group.name}}</h3>
           </div>
-          <ng-template #noGroup>
-            <mat-spinner></mat-spinner>
-          </ng-template>
         </div>
       </div>
     </div>
