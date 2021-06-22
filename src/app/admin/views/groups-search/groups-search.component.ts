@@ -61,7 +61,7 @@ export class GroupsSearchComponent implements OnInit, OnDestroy {
       share()
     );
     this.groups$ = this.district$.pipe(
-      switchMap(d => this.groups.query(d?.code).pipe(startWith(null)))
+      switchMap(d => !!d ? this.groups.query(d.code).pipe(startWith(null)) : of([]))
     );
     this.group$ = this.route.queryParams.pipe(
       map(params => [params.group ?? null, params.district ?? null] as [string | null, string | null]),
