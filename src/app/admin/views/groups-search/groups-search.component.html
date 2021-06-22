@@ -4,12 +4,12 @@
       <div class="row">
         <div class="col-6">
           <div class="group-list">
-            <div *ngIf="filteredDistricts$ | async as districts">
+            <div *ngIf="allDistricts$ | async as districts">
               <mat-form-field class="w-100 cursor-pointer">
                 <mat-label>Filtrar por distrito</mat-label>
                 <mat-select (selectionChange)="filterByDistrict($event.value)">
                   <mat-option [value]="null">
-                    <i>Cualquier distrito</i>
+                    <i>Selecciona un distrito</i>
                   </mat-option>
                   <mat-option *ngFor="let option of districts" [value]="option.code">
                     Distrito de {{option.name}}
@@ -20,11 +20,14 @@
                 <mat-chip *ngIf="district$ | async as district">Distrito de {{district.name}}</mat-chip>
               </mat-chip-list>
             </div>
-            <mat-action-list *ngIf="groups$ | async as groups; else loading">
+            <mat-action-list *ngIf="groups$ | async as groups; else noGroup">
               <mat-list-item *ngFor="let group of groups" (click)="selectGroup(group)">
                 <span mat-line>{{group.name}}</span>
                 <span mat-line class="text-muted">{{group.code}}</span>
                 <mat-divider></mat-divider>
+              </mat-list-item>
+              <mat-list-item *ngIf="groups.length === 0">
+                <span>No groups found</span>
               </mat-list-item>
               <mat-list-item (click)="openModal(newModal); selectGroup(null)">
                 <div class="justify-content-center row w-100">
@@ -32,15 +35,27 @@
                 </div>
               </mat-list-item>
             </mat-action-list>
-            <ng-template #loading>
-              <mat-spinner></mat-spinner>
+            <ng-template #noGroup>
+              <mat-action-list>
+                <mat-list-item>
+                  <span>No groups found</span>
+                </mat-list-item>
+                <mat-list-item (click)="openModal(newModal); selectGroup(null)">
+                  <div class="justify-content-center row w-100">
+                    <mat-icon>add</mat-icon>
+                  </div>
+                </mat-list-item>
+              </mat-action-list>
             </ng-template>
           </div>
         </div>
         <div class="col-6">
-          <div class="group-view" *ngIf="group$ | async as group">
+          <div class="group-view" *ngIf="group$ | async as group; else noGroupSelected">
             <h3 class="text-left">{{group.name}}</h3>
           </div>
+          <ng-template #noGroupSelected>
+            <i>Selecciona un grupo de la izquierda</i>
+          </ng-template>
         </div>
       </div>
     </div>

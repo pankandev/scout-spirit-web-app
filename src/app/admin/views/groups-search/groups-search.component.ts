@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {GroupsService} from '../../../services/groups.service';
 import {Observable, of, Subscription} from 'rxjs';
 import {District, Group} from '../../../models/group.model';
-import {distinctUntilChanged, map, share, startWith, switchMap} from 'rxjs/operators';
+import {catchError, distinctUntilChanged, map, share, startWith, switchMap} from 'rxjs/operators';
 import {DistrictsService} from '../../../services/districts.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +18,6 @@ import {AlertService} from '../../../services/alert.service';
 export class GroupsSearchComponent implements OnInit, OnDestroy {
   district$: Observable<District | null>;
   groups$: Observable<Group[] | null>;
-  filteredDistricts$: Observable<District[]>;
   allDistricts$: Observable<District[]>;
   group$: Observable<Group | null>;
 
@@ -54,21 +53,26 @@ export class GroupsSearchComponent implements OnInit, OnDestroy {
       share()
     );
     this.district$ = districtParam.pipe(
-      switchMap(districtId => districtId ?
-        this.districts.get(districtId).pipe(startWith(null)) :
+      switchMap(districtId => !!districtId ?
+        this.districts.get(districtId).pipe(
+          catchError(_ => of(null)),
+          startWith(null)) :
         of(null)
       ),
       share()
     );
     this.groups$ = this.district$.pipe(
-      switchMap(d => !!d ? this.groups.query(d.code).pipe(startWith(null)) : of([]))
+      switchMap(d => !!d ? this.groups.query(d.code).pipe(
+        catchError(_ => of([])),
+        startWith(null)
+      ) : of([])),
     );
     this.group$ = this.route.queryParams.pipe(
       map(params => [params.group ?? null, params.district ?? null] as [string | null, string | null]),
-      switchMap(([g, d]) => !!g && !!d ? this.groups.getGroup(d, g) : of(null))
+      switchMap(([g, d]) => !!g && !!d ? this.groups.getGroup(d, g) : of(null)),
+      catchError(_ => of(null))
     );
     this.allDistricts$ = this.districts.allDistricts$;
-    this.filteredDistricts$ = this.districts.allDistricts$;
   }
 
   async selectGroup(group: Group | null): Promise<void> {

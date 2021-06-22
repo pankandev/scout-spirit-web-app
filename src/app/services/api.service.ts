@@ -43,13 +43,18 @@ export class ApiService {
   }
 
   async post<T>(endpoint: string, body: object): Promise<T> {
-    const response: AxiosResponse<T> = await API.post(ApiService.apiName, endpoint, {
-      response: true,
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      },
-      body
-    });
+    let response: AxiosResponse<T>;
+    try {
+      response = await API.post(ApiService.apiName, endpoint, {
+        response: true,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
+        body
+      });
+    } catch (err) {
+      throw HttpError.factory(err.response?.status ?? 502);
+    }
     return response.data;
   }
 }
