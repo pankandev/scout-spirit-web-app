@@ -4,6 +4,7 @@ import {RewardsService} from '../../services/rewards.service';
 import {getControlOrThrow} from '../../utils/form';
 import {RewardRarity} from '../../models/rewards/base';
 import {AvatarPartType, AvatarReward} from '../../models/rewards/avatar';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'sspirit-new-avatar',
@@ -53,7 +54,7 @@ export class NewAvatarComponent implements OnInit {
       },
       category: 'AVATAR',
       rarity: this.rarity.value as RewardRarity,
-      release: 1
+      release: environment.release
     };
     try {
       await this.rewardService.create(reward);

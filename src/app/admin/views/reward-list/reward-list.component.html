@@ -1,9 +1,22 @@
-<div class="row p-5">
-  <div class="col-6">
-    <div class="card">
-      <sspirit-reward-new></sspirit-reward-new>
-    </div>
-  </div>
-  <div class="col-6">
-  </div>
+<h1 class="text-left">Recompensas disponbles</h1>
+
+<div class="pt-2">
+  <mat-radio-group name="reward-category" [formControl]="rewardCategoryControl" aria-label="Select an option">
+    <mat-radio-button class="mr-3" [value]="'AVATAR'">Avatar</mat-radio-button>
+    <mat-radio-button class="mr-3" [value]="'DECORATION'">Decoración</mat-radio-button>
+    <mat-radio-button [value]="'ZONE'">Zona</mat-radio-button>
+  </mat-radio-group>
+</div>
+<div class="pt-2">
+  <mat-action-list *ngIf="rewards$ | async as rewards">
+    <mat-list-item *ngFor="let reward of rewards">
+      <span mat-line>{{reward.id}}</span>
+      <span mat-line class="text-muted">{{reward.category}} ({{reward.rarity}})</span>
+      <span mat-line class="text-muted">{{reward | json}}</span>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+    <mat-list-item *ngIf="rewards.length === 0">
+      <span mat-line>No se encontraron recompensas</span>
+    </mat-list-item>
+  </mat-action-list>
 </div>

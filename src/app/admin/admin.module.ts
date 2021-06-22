@@ -15,28 +15,35 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { RewardListComponent } from './views/reward-list/reward-list.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
-  declarations: [
-    AdminComponent,
-    GroupsSearchComponent
-  ],
-    imports: [
-        CommonModule,
-        AdminRoutingModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatListModule,
-        MatChipsModule,
-        MatAutocompleteModule,
-        MatSelectModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatProgressSpinnerModule
-    ]
+    declarations: [
+        AdminComponent,
+        GroupsSearchComponent,
+        RewardListComponent
+    ],
+    exports: [
+        RewardListComponent
+    ],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatListModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatRadioModule
+  ]
 })
 export class AdminModule {
 }
