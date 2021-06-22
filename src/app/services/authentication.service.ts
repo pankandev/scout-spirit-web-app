@@ -56,7 +56,6 @@ export class AuthenticationService {
       isBeneficiary: groups.indexOf('Beneficiaries') > -1,
       groups: scoutGroups
     };
-    console.log(groups);
 
     this.userSubject.next(user);
     this.sessionSubject.next(session);

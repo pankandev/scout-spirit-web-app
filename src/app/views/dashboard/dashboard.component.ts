@@ -45,7 +45,6 @@ export class DashboardComponent implements OnInit {
     this.loading$ = groupGuard.loading$;
     this.routePath$ = this.routeParams.allRoutes$.pipe(
       switchMap<ActivatedRoute[], Observable<UrlSegment[] | null>>(routes => {
-        console.log(routes);
         return routes.length > 0 ? routes[routes.length - 1].url : of(null);
       }),
       map(url => {

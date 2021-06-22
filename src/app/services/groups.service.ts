@@ -170,7 +170,6 @@ export class GroupsService {
   }
 
   query(districtId?: string): Observable<Group[]> {
-    console.log(districtId);
     return from(this.queryAsync(districtId));
   }
 

@@ -101,7 +101,6 @@ export class SummaryDetailsComponent implements OnInit {
     await this.router.navigate([], {queryParams: {unit}, queryParamsHandling: 'merge'});
   }
 
-  onObjectiveSelect(task: ObjectiveLog): void {
-    console.log(task);
+  onObjectiveSelect(_: ObjectiveLog): void {
   }
 }
