@@ -180,7 +180,7 @@ export class GroupsService {
       await delay(2000);
       return groups;
     }
-    const response = await this.api.get<{ items: Group[] }>(`/districts/${districtId}/`);
+    const response = await this.api.get<{ items: Group[] }>(`/districts/${districtId}/groups/`);
     return response.items;
   }
 
