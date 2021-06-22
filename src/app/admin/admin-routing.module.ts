@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdminComponent} from './admin.component';
-import {RewardListComponent} from './views/reward-list/reward-list.component';
+import {RewardsComponent} from './views/rewards/rewards.component';
 import {AuthGuard} from '../guards/auth.guard';
 import {AdminGuard} from '../guards/admin.guard';
 import {GroupsSearchComponent} from './views/groups-search/groups-search.component';
@@ -17,7 +17,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: RewardListComponent,
+            component: RewardsComponent,
           },
           {
             path: '**',

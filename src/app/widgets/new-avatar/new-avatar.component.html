@@ -34,9 +34,6 @@
       <mat-option value="t-shirt">Chaqueta</mat-option>
     </mat-select>
   </mat-form-field>
-  {{materialControl.invalid}}
-  {{shirtTypeControl.invalid}}
-
   <button type="submit"
           [disabled]="rewardForm.invalid || materialControl.invalid || (type.value === 'shirt' && shirtTypeControl.invalid) || loading"
           mat-raised-button color="primary">Crear

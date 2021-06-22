@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {AmplifyUIAngularModule} from '@aws-amplify/ui-angular';
-import {RewardListComponent} from './admin/views/reward-list/reward-list.component';
+import {RewardsComponent} from './admin/views/rewards/rewards.component';
 import {NewDecorationComponent} from './widgets/new-decoration/new-decoration.component';
 import {RewardNewComponent} from './admin/views/reward-new/reward-new.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -68,11 +68,12 @@ import { BeneficiaryBinnacleComponent } from './views/beneficiary-binnacle/benef
 import { BeneficiaryRegistryComponent } from './views/beneficiary-registry/beneficiary-registry.component';
 import {LuxonModule} from 'luxon-angular';
 import { BeneficiariesEmptyContainerComponent } from './views/beneficiaries-empty-container/beneficiaries-empty-container.component';
+import {AdminModule} from './admin/admin.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RewardListComponent,
+    RewardsComponent,
     NewDecorationComponent,
     RewardNewComponent,
     NewAvatarComponent,
@@ -142,7 +143,8 @@ import { BeneficiariesEmptyContainerComponent } from './views/beneficiaries-empt
     ClipboardModule,
     NgbModalModule,
     MatChipsModule,
-    LuxonModule
+    LuxonModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]
