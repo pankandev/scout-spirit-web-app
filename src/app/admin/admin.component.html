@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <span>Administrator Dashboard</span>
+  <span class="spacer"></span>
+  <button mat-button aria-label="Recompensas" [routerLink]="['rewards']">
+    <mat-icon>redeem</mat-icon>
+    <span class="ml-2">Recompensas</span>
+  </button>
+  <button mat-button aria-label="Grupos" [routerLink]="['groups']">
+    <mat-icon>groups</mat-icon>
+    <span class="ml-2">Grupos</span>
+  </button>
+</mat-toolbar>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>

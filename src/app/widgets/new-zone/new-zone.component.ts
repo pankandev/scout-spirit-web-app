@@ -6,7 +6,7 @@ import {Reward} from '../../models/rewards/reward';
 import {RewardRarity} from '../../models/rewards/base';
 
 @Component({
-  selector: 'app-new-zone',
+  selector: 'sspirit-new-zone',
   templateUrl: './new-zone.component.html',
   styleUrls: ['./new-zone.component.sass']
 })

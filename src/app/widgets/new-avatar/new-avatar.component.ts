@@ -6,7 +6,7 @@ import {RewardRarity} from '../../models/rewards/base';
 import {AvatarPartType, AvatarReward} from '../../models/rewards/avatar';
 
 @Component({
-  selector: 'app-new-avatar',
+  selector: 'sspirit-new-avatar',
   templateUrl: './new-avatar.component.html',
   styleUrls: ['./new-avatar.component.sass']
 })

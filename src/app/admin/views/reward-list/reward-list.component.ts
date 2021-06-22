@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-reward-list',
+  selector: 'sspirit-reward-list',
   templateUrl: './reward-list.component.html',
   styleUrls: ['./reward-list.component.sass']
 })

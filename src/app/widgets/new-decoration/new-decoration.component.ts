@@ -6,7 +6,7 @@ import {Reward} from '../../models/rewards/reward';
 import {RewardRarity} from '../../models/rewards/base';
 
 @Component({
-  selector: 'app-new-decoration',
+  selector: 'sspirit-new-decoration',
   templateUrl: './new-decoration.component.html',
   styleUrls: ['./new-decoration.component.sass']
 })

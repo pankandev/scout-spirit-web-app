@@ -12,3 +12,8 @@ export interface Group {
   scouters: Record<string, ScouterRole>;
   scouters_code: string;
 }
+
+export interface District {
+  code: string;
+  name: string;
+}
