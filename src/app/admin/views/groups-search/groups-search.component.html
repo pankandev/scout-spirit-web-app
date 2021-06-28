@@ -1,8 +1,8 @@
 <div class="row justify-content-center">
-  <div class="col-7 pt-5">
-    <div class="card">
-      <div class="row">
-        <div class="col-6">
+  <div class="col-12 col-xl-9 pt-5">
+    <div class="row">
+      <div class="col-12 col-xl-6">
+        <div class="card mb-2">
           <div class="group-list">
             <div *ngIf="allDistricts$ | async as districts">
               <mat-form-field class="w-100 cursor-pointer">
@@ -49,9 +49,21 @@
             </ng-template>
           </div>
         </div>
-        <div class="col-6">
+      </div>
+      <div class="col-12 col-xl-6">
+        <div class="card">
           <div class="group-view" *ngIf="group$ | async as group; else noGroupSelected">
             <h3 class="text-left">{{group.name}}</h3>
+            <div>
+              <form (ngSubmit)="init(group)">
+                <h4>Asignar creador</h4>
+                <mat-form-field class="w-100">
+                  <mat-label>Correo electrónico</mat-label>
+                  <input matInput [formControl]="creatorEmailControl">
+                </mat-form-field>
+                <button mat-raised-button color="primary" [disabled]="creatorForm.invalid || isLoading">Asignar</button>
+              </form>
+            </div>
           </div>
           <ng-template #noGroupSelected>
             <i>Selecciona un grupo de la izquierda</i>

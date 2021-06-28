@@ -18,6 +18,13 @@
         <div class="item-label-subtitle" *ngIf="item.subtitle">{{item.subtitle}}</div>
       </div>
     </li>
+    <li class="item d-flex flex-row justify-content-center light-hoverable cursor-pointer" mat-ripple
+        *ngIf="showAddButton" (click)="addItem.emit()">
+      <div class="d-flex flex-column justify-content-center">
+        <mat-icon class="text-primary text-center item-add-icon w-100">add</mat-icon>
+        <p *ngIf="addButtonLabel" class="text-primary text-center">{{addButtonLabel}}</p>
+      </div>
+    </li>
   </ul>
   <div class="arrow arrow-top">
   </div>

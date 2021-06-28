@@ -69,6 +69,7 @@ import { BeneficiaryRegistryComponent } from './views/beneficiary-registry/benef
 import {LuxonModule} from 'luxon-angular';
 import { BeneficiariesEmptyContainerComponent } from './views/beneficiaries-empty-container/beneficiaries-empty-container.component';
 import {AdminModule} from './admin/admin.module';
+import { WhatsappShareComponent } from './widgets/whatsapp-share/whatsapp-share.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import {AdminModule} from './admin/admin.module';
     SelectButtonsComponent,
     BeneficiaryBinnacleComponent,
     BeneficiaryRegistryComponent,
-    BeneficiariesEmptyContainerComponent
+    BeneficiariesEmptyContainerComponent,
+    WhatsappShareComponent
   ],
   imports: [
     BrowserModule,

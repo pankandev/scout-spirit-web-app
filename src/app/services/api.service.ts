@@ -21,7 +21,8 @@ export class ApiService {
     } else if (typeof object === 'object') {
       const converted: any = {};
       Object.entries(object).forEach(([key, value]) => {
-        converted[Case.camel(key)] = this.toCamelCase(value);
+        const hasDash = key.search('-') >= 0;
+        converted[!hasDash ? Case.camel(key) : key] = this.toCamelCase(value);
       });
       return converted;
     } else {

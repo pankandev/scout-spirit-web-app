@@ -7,6 +7,10 @@ import {map, switchMap} from 'rxjs/operators';
 import {Unit} from '../../../models/area-value';
 import {ListItem} from '../../../widgets/scrollable-list/scrollable-list.component';
 import {RouteParamsService} from '../../../services/route-params.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {GroupsService} from '../../../services/groups.service';
+import {AlertService} from '../../../services/alert.service';
+import {Group} from '../../../models/group.model';
 
 @Component({
   selector: 'sspirit-beneficiaries',
@@ -17,12 +21,17 @@ export class BeneficiariesComponent implements OnInit {
   items$: Observable<ListItem[]>;
   beneficiaries$: Observable<BeneficiaryLite[]>;
   selectedBeneficiary$: Observable<string | null>;
+  beneficiaryCode$: Observable<string>;
+  group$: Observable<Group>;
 
   constructor(
     private route: ActivatedRoute,
     private routeParams: RouteParamsService,
     private service: BeneficiariesService,
-    private router: Router
+    private groups: GroupsService,
+    private alerts: AlertService,
+    private router: Router,
+    private modal: NgbModal
   ) {
     const ids$ = combineLatest([this.routeParams.districtId$, this.routeParams.groupId$, this.route.params])
       .pipe(map(([d, g, u]) => ({
@@ -44,6 +53,10 @@ export class BeneficiariesComponent implements OnInit {
         imageUrl: b.profilePicture
       })))
     );
+    this.group$ = this.groups.group$;
+    this.beneficiaryCode$ = this.groups.group$.pipe(
+      map(group => group.beneficiaryCode)
+    );
   }
 
   ngOnInit(): void {
@@ -53,5 +66,13 @@ export class BeneficiariesComponent implements OnInit {
     await this.router.navigate(
       ['/districts', this.routeParams.districtId, 'groups', this.routeParams.groupId, 'dashboard', 'beneficiaries', 'b', beneficiaryId]
     );
+  }
+
+  openModal(content: any): void {
+    this.modal.open(content);
+  }
+
+  onClipboardResult(result: boolean): void {
+    this.alerts.showSnackbar(result ? 'Código copiado en portapapeles' : 'Algo ocurrió copiando enlace');
   }
 }
