@@ -22,7 +22,7 @@ export interface DistrictGroupId {
 }
 
 
-export type LogParentTag = 'COMPLETED' | 'PROGRESS' | 'REWARD';
+export type LogParentTag = 'completed' | 'progress' | 'reward';
 
 export interface ObjectiveKey {
   stage: DevelopmentStage;
@@ -48,12 +48,17 @@ export interface GroupStats {
   completedObjectives: Record<string, UnitObjectiveKeyTimed[]>;
 }
 
+export interface GroupScouter {
+  email: string;
+  fullName: string;
+}
+
 export type ProgressLog = UnitObjectiveKeyTimed & { log: string; };
 
 interface GroupStatsResponse {
-  log_count: Record<LogParentTag, number>;
-  progress_logs: Record<string, ProgressLog[]>;
-  completed_objectives: Record<string, UnitObjectiveKeyTimed[]>;
+  logCount: Record<LogParentTag, number>;
+  progressLogs: Record<string, ProgressLog[]>;
+  completedObjectives: Record<string, UnitObjectiveKeyTimed[]>;
 }
 
 @Injectable({
@@ -69,6 +74,10 @@ export class GroupsService {
   }
 
   stats: Record<string, BehaviorSubject<GroupStats | null>> = {};
+  group$: Observable<Group> = this.routeParams.districtGroupId$.pipe(
+    switchMap(ids => this.getGroup(ids.districtId, ids.groupId)),
+    shareReplay({refCount: true})
+  );
   groupStats$ = this.routeParams.districtGroupId$.pipe(
     switchMap(params => this.fetchGroupStats(params.districtId, params.groupId)),
     shareReplay({refCount: true})
@@ -119,7 +128,7 @@ export class GroupsService {
       const logs = [
         ...Object.values(stats.progressLogs),
         ...Object.values(stats.completedObjectives)
-      ].reduce((prev, a) => [...prev, ...a]);
+      ].reduce((prev, a) => [...prev, ...a], []);
       const count: Record<DevelopmentArea, number> = {
         affectivity: 0,
         character: 0,
@@ -155,10 +164,16 @@ export class GroupsService {
     );
   }
 
+  async init(districtId: string, groupId: string, email: string): Promise<void> {
+    await this.api.post(`/districts/${districtId}/groups/${groupId}/init`, {
+      creator: email
+    });
+  }
+
   async getGroup(districtId: string, groupId: string): Promise<Group> {
     const user = this.auth.snapUser;
     if (!environment.production && user) {
-      const group = testGroups.find(g => g.district === districtId && g.code === groupId) as Group;
+      const group = ApiService.toCamelCase(testGroups.find(g => g.district === districtId && g.code === groupId)) as Group;
       group.scouters[user.id] = {
         name: user.nickname ?? (user.firstName + user.lastName),
         role: 'creator'
@@ -176,7 +191,7 @@ export class GroupsService {
   async queryAsync(districtId?: string): Promise<Group[]> {
     const user = this.auth.snapUser;
     if (!environment.production && user) {
-      const groups = testGroups.filter(g => !districtId || g.district === districtId) as Group[];
+      const groups = ApiService.toCamelCase(testGroups.filter(g => !districtId || g.district === districtId)) as Group[];
       await delay(2000);
       return groups;
     }
@@ -221,16 +236,16 @@ export class GroupsService {
           if (!stats) {
             throw new NotFoundError();
           }
-          return delay(2000).then(() => res(stats));
+          return delay(2000).then(() => res(ApiService.toCamelCase(stats)));
         });
       } else {
         promise = this.api.get<GroupStatsResponse>(`/districts/${districtId}/groups/${groupId}/stats/`);
       }
       promise.then(response => {
         subject.next({
-          logCount: response.log_count,
-          completedObjectives: response.completed_objectives,
-          progressLogs: response.progress_logs
+          logCount: response.logCount,
+          completedObjectives: response.completedObjectives,
+          progressLogs: response.progressLogs
         });
       });
     }
@@ -250,7 +265,7 @@ export class GroupsService {
         return [
           ...(includeProgress ? Object.values(stats.progressLogs) : []),
           ...(includeCompleted ? Object.values(stats.completedObjectives) : [])
-        ].reduce((prev, a) => [...prev, ...a]);
+        ].reduce((prev, a) => [...prev, ...a], []);
       })
     );
   }

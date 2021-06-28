@@ -12,7 +12,7 @@ export interface ObjectiveLog {
   tasks: SubTask[];
 }
 
-export type LogTag = 'PROGRESS' | 'REWARD' | 'COMPLETED' | string;
+export type LogTag = 'progress' | 'reward' | 'completed' | string;
 
 export interface Log {
   tag: LogTag;

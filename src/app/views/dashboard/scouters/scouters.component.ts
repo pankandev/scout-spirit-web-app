@@ -53,7 +53,7 @@ export class ScoutersComponent implements OnInit {
     this.inviteUrl$ = this.group$.pipe(
       map(group => {
         const location = window.location;
-        return `${location.origin}/districts/${group.district}/groups/${group.code}/invite?code=${group.scouters_code}`;
+        return `${location.origin}/districts/${group.district}/groups/${group.code}/invite?code=${group.scoutersCode}`;
       })
     );
     this.items$ = this.group$.pipe(

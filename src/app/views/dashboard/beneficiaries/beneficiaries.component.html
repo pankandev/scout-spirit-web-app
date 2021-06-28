@@ -1,8 +1,10 @@
 <div class="row">
   <div class="col-6">
     <div class="list-container" *ngIf="items$ | async as items; else loading">
-      <sspirit-scrollable-list [items]="items" (selectedItem)="onSelectedItem($event)"
-                               [activeId]="selectedBeneficiary$ | async"></sspirit-scrollable-list>
+      <sspirit-scrollable-list [items]="items" (selectedItem)="onSelectedItem($event)" [showAddButton]="true"
+                               addButtonLabel="Invitar beneficiarios"
+                               [activeId]="selectedBeneficiary$ | async" (addItem)="openModal(inviteBeneficiary)">
+      </sspirit-scrollable-list>
     </div>
     <ng-template #loading>
       <div class="h-100">
@@ -18,3 +20,41 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+<ng-template #inviteBeneficiary>
+  <div class="modal-title">
+    <h3>Invitar a un beneficiario</h3>
+  </div>
+  <div class="modal-body" *ngIf="beneficiaryCode$ | async as inviteCode; else loading">
+    <div class="link-body text-large text-center" *ngIf="group$ | async as group; else loading">
+      ¿Deseas invitar guías y/o scouts al grupo <b>{{group.name}}</b>? ¡Compárteles este código para que lo utilicen en
+      la aplicación!
+    </div>
+    <div class="link-container mt-4 mb-4">
+      <label for="invite">Contraseña de beneficiario</label>
+      <div class="input-group mb-3">
+        <input id="invite" type="text" readonly class="form-control" aria-label="Text input with checkbox"
+               [value]="inviteCode">
+        <div class="input-group-append">
+          <button ngxClipboard mat-ripple class="input-group-text" [cbContent]="inviteCode"
+                  (cbOnSuccess)="onClipboardResult(true)" (cbOnError)="onClipboardResult(false)">
+            <mat-icon>content_paste</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="group$ | async as group; else loading">
+      <sspirit-whatsapp-share
+        [message]="'Te invito al grupo ' +  group.name + '!! Utilíza el siguiente código en tu aplicación de Espíritu Scout para acceder: ' + inviteCode"></sspirit-whatsapp-share>
+    </div>
+    <ng-template #loading>
+      <div class="modal-body">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #loading>
+    <div class="modal-body">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</ng-template>

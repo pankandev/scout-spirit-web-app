@@ -10,7 +10,8 @@ export interface Group {
   code: string;
   name: string;
   scouters: Record<string, ScouterRole>;
-  scouters_code: string;
+  scoutersCode: string;
+  beneficiaryCode: string;
 }
 
 export interface District {

@@ -35,6 +35,11 @@ export class GroupsSearchComponent implements OnInit, OnDestroy {
     groupName: this.groupNameControl
   });
 
+  creatorEmailControl = new FormControl('', [Validators.required, Validators.email]);
+  creatorForm = new FormGroup({
+    email: this.creatorEmailControl
+  });
+
   openModal(content: TemplateRef<any>): void {
     this.modal.open(content);
   }
@@ -113,5 +118,18 @@ export class GroupsSearchComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  async init(group: Group): Promise<void> {
+    const email = this.creatorEmailControl.value;
+
+    this.creatorForm.disable();
+    try {
+      await this.groups.init(group.district, group.code, email);
+    } catch (e) {
+      this.creatorForm.enable();
+      throw e;
+    }
+    this.creatorForm.enable();
   }
 }

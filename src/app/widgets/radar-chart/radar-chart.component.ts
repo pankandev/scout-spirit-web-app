@@ -139,7 +139,7 @@ export class RadarChartComponent implements OnInit, AfterViewInit, OnChanges {
     const center: [number, number] = [width / 2, height / 2];
 
     const n = values.length;
-    const maxValue = Math.max(...values) + 0.5;
+    const maxValue = values.reduce((prev, curr) => prev + curr, 0) > 0 ? Math.max(...values) + 0.5 : 32;
     const radius = Math.min(width, height) / 2;
 
     let idx: number;

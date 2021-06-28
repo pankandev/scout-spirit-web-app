@@ -18,15 +18,15 @@ interface LogDisplay extends LogTagDisplay {
 })
 export class LogsService {
   private readonly display: Record<LogTag, LogTagDisplay> = {
-    PROGRESS: {
+    progress: {
       category: 'Registro de avance',
       icon: 'edit'
     },
-    COMPLETED: {
+    completed: {
       category: 'Objetivo completado! 🥳',
       icon: 'check'
     },
-    REWARD: {
+    reward: {
       category: 'Ganó una recompensa',
       icon: 'favorite_border'
     }
@@ -39,7 +39,7 @@ export class LogsService {
     return {
       tag: log.tag,
       category: display.category,
-      log: log.tag === 'PROGRESS' ? `"${log.log}"` : log.log,
+      log: log.tag === 'progress' ? `"${log.log}"` : log.log,
       icon: display.icon,
       time: DateTime.fromMillis(log.timestamp)
     };
