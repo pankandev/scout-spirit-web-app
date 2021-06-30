@@ -49,6 +49,6 @@ export class UnauthorizedError extends HttpError {
 
 export class ServerError extends HttpError {
   constructor(endpoint: string, private payload: object) {
-    super(endpoint, 401, `An unknown error was returned from the server with payload: ${payload}`);
+    super(endpoint, 401, `An unknown error was returned from the server with payload: ${JSON.stringify(payload)}`);
   }
 }
