@@ -1,10 +1,14 @@
 import {Auth} from 'aws-amplify';
 
 const customHeaderGenerator = async () => {
-  const token = (await Auth.currentSession()).getIdToken().getJwtToken();
-  return {
-    Authorization: `Bearer ${token}`
-  };
+  try {
+    const token = (await Auth.currentSession()).getIdToken().getJwtToken();
+    return {
+      Authorization: `Bearer ${token}`
+    };
+  } catch {
+    return {};
+  }
 };
 
 export default {

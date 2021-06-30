@@ -89,7 +89,8 @@ export class BeneficiariesService {
 
   async getLogs(beneficiaryId: string): Promise<Log[]> {
     if (environment.production) {
-      return await this.api.get(`/users/${beneficiaryId}/logs/`);
+      const logs = await this.api.get<{items: Log[]}>(`/users/${beneficiaryId}/logs/`);
+      return logs.items;
     } else {
       await delay(1000);
       const logs = (testLogs as any)[beneficiaryId];

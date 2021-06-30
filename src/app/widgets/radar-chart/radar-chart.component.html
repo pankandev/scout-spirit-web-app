@@ -1,8 +1,8 @@
 <div #container id="radar-chart" class="w-100" style="height: 100%">
   <canvas id="canvas" #radar></canvas>
   <div *ngFor="let area of areas" class="radar-icon"
-       [ngStyle]="{top: areaPositions[area][1] - 32 + 'px', left: areaPositions[area][0] - 32 + 'px'}">
-    <button mat-stroked-button matTooltipClass="big-tooltip" [matTooltip]="getAreaName(area) + ' (' + this.values[area] + ' ' + this.label + ')'">
+       [ngStyle]="{top: 'calc(' + areaPositions[area][1].toFixed(0) + 'px - ' + 1 + 'rem)', left: 'calc(' + areaPositions[area][0].toFixed(0) + 'px - ' + 1 + 'rem)'}">
+    <button matTooltipClass="big-tooltip" [matTooltip]="getAreaName(area) + ': ' + this.values[area] + ' ' + this.label">
       <sspirit-area-icon [area]="area" [color]="theme === 'primary' ? 'primary' : null"></sspirit-area-icon>
     </button>
   </div>

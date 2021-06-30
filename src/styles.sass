@@ -11,8 +11,134 @@ $gradient-primary: #4D94FF
 $gradient-accent: #6327E2
 
 html
-  font-size: 16px
   font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif
+
+@media (max-width: 980px)
+  html
+    font-size: 0.6em
+
+@media (min-width: 980px)
+  html
+    font-size: 1em
+
+.col-portrait-0
+  -ms-flex: 0 0 0.0%
+  flex: 0 0 0.0%
+  max-width: 0.0%
+
+.col-portrait-1
+  -ms-flex: 0 0 8.333333%
+  flex: 0 0 8.333333%
+  max-width: 8.333333%
+
+.col-portrait-2
+  -ms-flex: 0 0 16.666667%
+  flex: 0 0 16.666667%
+  max-width: 16.666667%
+
+.col-portrait-3
+  -ms-flex: 0 0 25%
+  flex: 0 0 25%
+  max-width: 25%
+
+.col-portrait-4
+  -ms-flex: 0 0 33.333333%
+  flex: 0 0 33.333333%
+  max-width: 33.333333%
+
+.col-portrait-5
+  -ms-flex: 0 0 41.666667%
+  flex: 0 0 41.666667%
+  max-width: 41.666667%
+
+.col-portrait-6
+  -ms-flex: 0 0 50%
+  flex: 0 0 50%
+  max-width: 50%
+
+.col-portrait-7
+  -ms-flex: 0 0 58.333333%
+  flex: 0 0 58.333333%
+  max-width: 58.333333%
+
+.col-portrait-8
+  -ms-flex: 0 0 66.666667%
+  flex: 0 0 66.666667%
+  max-width: 66.666667%
+
+.col-portrait-9
+  -ms-flex: 0 0 75%
+  flex: 0 0 75%
+  max-width: 75%
+
+.col-portrait-10
+  -ms-flex: 0 0 83.333333%
+  flex: 0 0 83.333333%
+  max-width: 83.333333%
+
+.col-portrait-11
+  -ms-flex: 0 0 91.666667%
+  flex: 0 0 91.666667%
+  max-width: 91.666667%
+
+.col-portrait-12
+  -ms-flex: 0 0 100%
+  flex: 0 0 100%
+  max-width: 100%
+
+@media (orientation: landscape) and (min-width: 740px)
+  .col-landscape-0
+    -ms-flex: 0 0 0.0%
+    flex: 0 0 0.0%
+    max-width: 0.0%
+  .col-landscape-1
+    -ms-flex: 0 0 8.333333%
+    flex: 0 0 8.333333%
+    max-width: 8.333333%
+  .col-landscape-2
+    -ms-flex: 0 0 16.666667%
+    flex: 0 0 16.666667%
+    max-width: 16.666667%
+  .col-landscape-3
+    -ms-flex: 0 0 25%
+    flex: 0 0 25%
+    max-width: 25%
+  .col-landscape-4
+    -ms-flex: 0 0 33.333333%
+    flex: 0 0 33.333333%
+    max-width: 33.333333%
+  .col-landscape-5
+    -ms-flex: 0 0 41.666667%
+    flex: 0 0 41.666667%
+    max-width: 41.666667%
+  .col-landscape-6
+    -ms-flex: 0 0 50%
+    flex: 0 0 50%
+    max-width: 50%
+  .col-landscape-7
+    -ms-flex: 0 0 58.333333%
+    flex: 0 0 58.333333%
+    max-width: 58.333333%
+  .col-landscape-8
+    -ms-flex: 0 0 66.666667%
+    flex: 0 0 66.666667%
+    max-width: 66.666667%
+  .col-landscape-9
+    -ms-flex: 0 0 75%
+    flex: 0 0 75%
+    max-width: 75%
+  .col-landscape-10
+    -ms-flex: 0 0 83.333333%
+    flex: 0 0 83.333333%
+    max-width: 83.333333%
+  .col-landscape-11
+    -ms-flex: 0 0 91.666667%
+    flex: 0 0 91.666667%
+    max-width: 91.666667%
+  .col-landscape-12
+    -ms-flex: 0 0 100%
+    flex: 0 0 100%
+    max-width: 100%
 
 #background
   background: linear-gradient(252.44deg, $gradient-primary 0%, $gradient-accent 100%)
@@ -41,14 +167,14 @@ body
     justify-content: center
     flex: 1
     text-align: center
-    padding: 24px 16px
-    margin-left: 12px
-    margin-right: 12px
-    border-radius: 16px
+    padding: 1.5rem 1rem
+    margin-left: 0.75rem
+    margin-right: 0.75rem
+    border-radius: 1rem
     background-color: transparent
-    border: $brand-primary-color solid 3px
+    border: $brand-primary-color solid 0.19rem
     color: $brand-primary-color
-    font-size: 21px
+    font-size: 1.3rem
 
   .list-group-item:hover
     background-color: rgba(#777777, 0.1)
@@ -61,18 +187,18 @@ body
     border: none
     color: white
     cursor: default
-    box-shadow: 0 0 27px 5px rgba(93, 36, 255, 0.25)
+    box-shadow: 0 0 1.68rem 0.3125rem rgba(93, 36, 255, 0.25)
 
 .highlight-label
-  margin-top: 26px
+  margin-top: 1.63rem
   color: $brand-primary-color
-  font-size: 24px
+  font-size: 1.5rem
   text-align: start
 
 .highlight-value
   color: $brand-primary-color
-  padding: 24px 16px
-  font-size: 116px
+  padding: 1.5rem 1rem
+  font-size: 7.25rem
   text-align: start
 
 .btn-primary
@@ -102,34 +228,34 @@ h1, h2, h3, h4
 h2
   font-size: 2.2rem !important
   font-weight: lighter
-  padding-bottom: 16px
+  padding-bottom: 1rem
 
 h3
   font-size: 1.2rem
-  padding-bottom: 8px
+  padding-bottom: 0.5rem
 
 
 .card
-  box-shadow: 11px 6px 81px 12px rgba(255, 255, 255, 0.33)
-  border-radius: 18px
-  padding: 50px 35px
+  box-shadow: 0.68rem 0.38rem 5rem 0.75rem rgba(255, 255, 255, 0.33)
+  border-radius: 1.125rem
+  padding: 3.125rem 2.18rem
 
 .big-tooltip
-  font-size: 16px
+  font-size: 1rem
 
 .cdk-overlay-container
   z-index: 99999 !important
 
 .top-right-header
   position: fixed
-  top: 16px
-  left: 16px
+  top: 1rem
+  left: 1rem
   color: white
 
 .mat-icon-large
-  font-size: 64px
-  height: 64px !important
-  width: 64px !important
+  font-size: 4rem
+  height: 4rem !important
+  width: 4rem !important
 
 .mat-form-field
   cursor: text
@@ -140,6 +266,7 @@ h3
 
 .mat-flat-button.mat-primary.mat-button-disabled, .mat-flat-button.mat-accent.mat-button-disabled, .mat-flat-button.mat-warn.mat-button-disabled, .mat-flat-button.mat-button-disabled.mat-button-disabled, .mat-raised-button.mat-primary.mat-button-disabled, .mat-raised-button.mat-accent.mat-button-disabled, .mat-raised-button.mat-warn.mat-button-disabled, .mat-raised-button.mat-button-disabled.mat-button-disabled, .mat-fab.mat-primary.mat-button-disabled, .mat-fab.mat-accent.mat-button-disabled, .mat-fab.mat-warn.mat-button-disabled, .mat-fab.mat-button-disabled.mat-button-disabled, .mat-mini-fab.mat-primary.mat-button-disabled, .mat-mini-fab.mat-accent.mat-button-disabled, .mat-mini-fab.mat-warn.mat-button-disabled, .mat-mini-fab.mat-button-disabled.mat-button-disabled
   background-color: rgba(0, 0, 0, .12)
+  min-width: 1rem
 
 .debug-1
   background-color: rgba(255, 0, 0, .3)
@@ -171,16 +298,16 @@ a.inactive
   color: #777777
 
 .fixed-height-medium
-  height: 52px
+  height: 3.25rem
 
 .fixed-width-medium
-  width: 52px
+  width: 3.25rem
 
 .fixed-height-large
-  height: 108px
+  height: 6.75rem
 
 .fixed-width-large
-  width: 108px
+  width: 6.75rem
 
 .flex
   display: flex
@@ -189,9 +316,9 @@ a.inactive
   flex: 1
 
 .select-btn
-  padding: 16px 24px
-  border: solid 2px $brand-primary-color
-  border-radius: 12px
+  padding: 1rem 1.5rem
+  border: solid 0.12rem $brand-primary-color
+  border-radius: 0.75rem
   font-family: 'Ubuntu Condensed', sans-serif
   font-size: 1.2rem
   color: $brand-primary-color
@@ -202,7 +329,7 @@ a.inactive
 .select-btn.active
   color: white
   background-color: $brand-primary-color
-  box-shadow: 0 0 9px #5D24FF
+  box-shadow: 0 0 0.56rem #5D24FF
   cursor: default
 
 .select-btn:not(.active):hover
@@ -246,7 +373,7 @@ a.inactive
   font-size: 1.8rem !important
 
 .rounded-btn
-  border-radius: 24px !important
+  border-radius: 1.5rem !important
 
 .between-row
   display: flex
@@ -269,14 +396,14 @@ a.inactive
   border-radius: 0.8rem
 
 .modal-content
-  padding: 14px 32px
-  box-shadow: 11px 6px 81px 12px rgba(255, 255, 255, 0.33)
+  padding: 0.88rem 2rem
+  box-shadow: 0.69rem 0.38rem 5.06rem 0.75rem rgba(255, 255, 255, 0.33)
 
 .icon-sm
-  width: 32px
+  width: 2rem
 
 .icon-md
-  width: 64px
+  width: 4rem
 
 .row
   margin-right: 0 !important
@@ -287,3 +414,13 @@ a.inactive
 
 .spacer
   flex: 1 1 auto
+
+.modal-view
+  .modal-dialog
+    margin-top: 5em
+    width: 100%
+    max-width: none
+
+  @media (orientation: landscape) and (min-width: 740px)
+    .modal-dialog
+      width: 90%

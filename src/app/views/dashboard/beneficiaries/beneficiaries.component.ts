@@ -48,7 +48,7 @@ export class BeneficiariesComponent implements OnInit {
     this.items$ = this.beneficiaries$.pipe(
       map(beneficiaries => beneficiaries.map(b => ({
         id: b.id,
-        title: `${b.fullName} (${b.nickname})`,
+        title: `${b['full-name']} (${b.nickname})`,
         subtitle: this.service.getUnitDisplayName(b.unit) + ' - ' + this.service.getStageDisplayName(b.stage),
         imageUrl: b.profilePicture
       })))

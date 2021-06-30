@@ -128,7 +128,9 @@ export class GroupsService {
       const logs = [
         ...Object.values(stats.progressLogs),
         ...Object.values(stats.completedObjectives)
-      ].reduce((prev, a) => [...prev, ...a], []);
+      ]
+        .reduce((prev, a) => [...prev, ...a], []);
+      logs.forEach(l => l.area = l.area.toLowerCase() as DevelopmentArea);
       const count: Record<DevelopmentArea, number> = {
         affectivity: 0,
         character: 0,
@@ -234,7 +236,7 @@ export class GroupsService {
         promise = new Promise<GroupStatsResponse>(res => {
           const stats: GroupStatsResponse | undefined = (testStats as any)[districtId][groupId];
           if (!stats) {
-            throw new NotFoundError();
+            throw new NotFoundError('local');
           }
           return delay(2000).then(() => res(ApiService.toCamelCase(stats)));
         });
@@ -353,9 +355,9 @@ export class GroupsService {
       map(logs => {
         const dataset: Record<string, Record<number, number>> = {};
         this.objectivesService.stages.forEach(stage => {
-          const areaName = this.objectivesService.getStage(stage).name;
-          dataset[areaName] = GroupsService.countLogs(
-            logs, (l) => l.stage === stage && (!unit || l.unit === unit)
+          const stageName = stage.name;
+          dataset[stageName] = GroupsService.countLogs(
+            logs, (l) => l.stage === stage.stage && (!unit || l.unit === unit)
           );
         });
         return dataset;

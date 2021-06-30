@@ -1,5 +1,5 @@
 <div class="row" *ngIf="(stats$ | async) as stats; else loading">
-  <div class="col-6">
+  <div class="col-landscape-6 col-portrait-6">
     <div class="summary-container">
       <h3 class="highlight-label">Beneficiarios registrados</h3>
       <p class="highlight-value">
@@ -7,7 +7,7 @@
       </p>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-landscape-6 col-portrait-6">
     <div class="summary-container">
       <h3 class="highlight-label">Objetivos completados</h3>
       <p class="highlight-value">
@@ -15,13 +15,13 @@
       </p>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-landscape-6 col-portrait-12">
     <div class="summary-container">
       <h3 class="highlight-label">Uso de la aplicación últimos 4 meses</h3>
       <sspirit-linear-chart *ngIf="logCount$ | async as logCount" [values]="logCount"></sspirit-linear-chart>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-landscape-6 col-portrait-12">
     <div class="summary-container">
       <h3 class="highlight-label">Áreas de desarrollo con más registros</h3>
       <sspirit-area-ranking *ngIf="ranking$ | async as ranking" [rankingAreas]="ranking"></sspirit-area-ranking>

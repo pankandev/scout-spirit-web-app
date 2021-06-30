@@ -7,12 +7,14 @@
   </div>
   <div *ngIf="user$ | async as user" class="mt-5">
     <div class="row">
-      <div class="col-12 col-lg-4">
+      <div class="col-portrait-3 col-landscape-0"></div>
+      <div class="col-portrait-6 col-landscape-4">
         <div class="radar p-5">
           <sspirit-radar-chart *ngIf="areaLogs$ | async as areaLogs" label="registros de avance" [values]="areaLogs"></sspirit-radar-chart>
         </div>
       </div>
-      <div class="col-12 col-lg-8">
+      <div class="col-portrait-3 col-landscape-0"></div>
+      <div class="col-portrait-12 col-landscape-8">
         <div class="m-2 card">
           <ul class="list-group toolbar">
             <li class="list-group-item" mat-ripple [routerLink]="['.', 'summary']" routerLinkActive="active">
