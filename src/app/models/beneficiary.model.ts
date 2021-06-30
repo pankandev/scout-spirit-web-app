@@ -7,7 +7,7 @@ export interface BeneficiaryLite {
   group: string;
   profilePicture: string | null;
   unit: Unit;
-  fullName: string;
+  'full-name': string;
   nickname: string;
   stage: DevelopmentStage;
   birthdate: string;

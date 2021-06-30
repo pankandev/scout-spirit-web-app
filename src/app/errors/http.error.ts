@@ -1,46 +1,54 @@
 import {AppError} from './app.error';
 
 export class HttpError extends AppError {
-  constructor(public readonly statusCode: number, message?: string) {
-    super(message ?? `HTTP error with code: ${statusCode}`);
+  constructor(public endpoint: string, public readonly statusCode: number, message?: string) {
+    super(message ?? `HTTP error with code: ${statusCode} while calling ${endpoint}`);
   }
 
-  public static factory(statusCode: number, message?: string): HttpError {
+  public static factory(endpoint: string, statusCode: number, message?: string, payload?: object): HttpError {
     switch (statusCode) {
       case 400:
-        return new InvalidError(message);
+        return new InvalidError(endpoint, message);
       case 401:
-        return new UnauthorizedError(message);
+        return new UnauthorizedError(endpoint, message);
       case 403:
-        return new ForbiddenError(message);
+        return new ForbiddenError(endpoint, message);
       case 404:
-        return new NotFoundError(message);
+        return new NotFoundError(endpoint, message);
+      case 500:
+        return new ServerError(endpoint, payload ?? {});
       default:
-        return new HttpError(statusCode, message);
+        return new HttpError(endpoint, statusCode, message);
     }
   }
 }
 
 export class NotFoundError extends HttpError {
-  constructor(message = 'Item not found') {
-    super(404, message);
+  constructor(endpoint: string, message = 'Item not found') {
+    super(endpoint, 404, message);
   }
 }
 
 export class InvalidError extends HttpError {
-  constructor(message = 'Bad request') {
-    super(400, message);
+  constructor(endpoint: string, message = 'Bad request') {
+    super(endpoint, 400, message);
   }
 }
 
 export class ForbiddenError extends HttpError {
-  constructor(message = 'Forbidden') {
-    super(403, message);
+  constructor(endpoint: string, message = 'Forbidden') {
+    super(endpoint, 403, message);
   }
 }
 
 export class UnauthorizedError extends HttpError {
-  constructor(message = 'Unauthorized') {
-    super(401, message);
+  constructor(endpoint: string, message = 'Unauthorized') {
+    super(endpoint, 401, message);
+  }
+}
+
+export class ServerError extends HttpError {
+  constructor(endpoint: string, private payload: object) {
+    super(endpoint, 401, `An unknown error was returned from the server with payload: ${payload}`);
   }
 }

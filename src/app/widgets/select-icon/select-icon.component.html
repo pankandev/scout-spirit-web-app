@@ -1,0 +1,13 @@
+<mat-form-field appearance="fill">
+  <mat-label *ngIf="label">{{label}}</mat-label>
+  <mat-select (valueChange)="valueChange.emit($event)" [value]="value">
+    <mat-option><i>{{placeholderLabel}}</i></mat-option>
+    <mat-option *ngFor="let option of options" [value]="option.id">
+      <mat-icon matListIcon [svgIcon]="option.icon"></mat-icon>
+      {{option.label}}
+    </mat-option>
+    <mat-select-trigger *ngIf="selected">
+      <mat-icon color="primary" [svgIcon]="selected.icon"></mat-icon>&nbsp;{{selected.label}}
+    </mat-select-trigger>
+  </mat-select>
+</mat-form-field>

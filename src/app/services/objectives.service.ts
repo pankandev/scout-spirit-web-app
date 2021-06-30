@@ -45,16 +45,15 @@ export class ObjectivesService {
     {unit: 'scouts', single: 'Scout', plural: 'Tropa'},
     {unit: 'guides', single: 'Guía', plural: 'Compañía'}
   ];
-  private readonly stagesDisplay: StageDisplay[] = [
+
+  public readonly stages: StageDisplay[] = [
     {stage: 'prepuberty', name: 'Pre-pubertad'},
-    {stage: 'puberty', name: 'Pubertad'}
+    {stage: 'puberty', name: 'Pubertad'},
   ];
 
-
-  public readonly stages: DevelopmentStage[] = [
-    'prepuberty',
-    'puberty'
-  ];
+  get stagesIds(): DevelopmentStage[] {
+    return this.stages.map(s => s.stage);
+  }
 
   public readonly areas: DevelopmentArea[] = this.areasService.areas;
 
@@ -111,7 +110,7 @@ export class ObjectivesService {
   }
 
   verifyStage(stage: string): DevelopmentStage | null {
-    return this.stages.find(s => s === stage) ?? null;
+    return this.stagesIds.find(s => s === stage) ?? null;
   }
 
   verifyArea(area: string): DevelopmentArea | null {
@@ -135,7 +134,7 @@ export class ObjectivesService {
   }
 
   getStage(stage: DevelopmentStage): StageDisplay {
-    const found = this.stagesDisplay.find(s => s.stage === stage);
+    const found = this.stages.find(s => s.stage === stage);
     if (!found) {
       throw new AppError(`Stage ${stage} not found`);
     }
@@ -147,14 +146,14 @@ export class ObjectivesService {
   }
 
   query(stage: DevelopmentStage | null = null, area: DevelopmentArea | null = null, unit: Unit = 'scouts'): Objective[] {
-    return this.stages
+    return this.stagesIds
       .map(s => this.queryStage(s, unit))
       .reduce((prev, objs) => [...prev, ...objs], [] as Objective[])
       .filter(l => (!area || l.area === area) && (!stage || l.stage === stage));
   }
 
   queryAll(unit: Unit = 'scouts'): Objective[] {
-    return this.stages
+    return this.stagesIds
       .map(stage => this.queryStage(stage, unit))
       .reduce((prev, objs) => [...prev, ...objs], [] as Objective[]);
   }
@@ -190,5 +189,13 @@ export class ObjectivesService {
 
   getAreasAll(): AreaDisplay[] {
     return this.areas.map(a => this.getArea(a));
+  }
+
+  queryStages(): StageDisplay[] {
+    return [...this.stages];
+  }
+
+  queryAreas(unit: Unit = 'scouts'): AreaDisplay[] {
+    return this.areasService.query(unit);
   }
 }

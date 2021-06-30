@@ -38,7 +38,9 @@ export class ApiService {
         queryStringParameters: queryParams,
       });
     } catch (err) {
-      throw HttpError.factory(err.response?.status ?? 502);
+      const r: AxiosResponse | null = err.response ?? null;
+      console.log(err);
+      throw HttpError.factory(endpoint, r?.status ?? 502, undefined, r?.data);
     }
     return ApiService.toCamelCase(response.data) as T;
   }
@@ -54,7 +56,8 @@ export class ApiService {
         body
       });
     } catch (err) {
-      throw HttpError.factory(err.response?.status ?? 502);
+      const r: AxiosResponse | null = err.response ?? null;
+      throw HttpError.factory(endpoint, r?.status ?? 502, undefined, r?.data);
     }
     return response.data;
   }

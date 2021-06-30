@@ -70,6 +70,7 @@ import {LuxonModule} from 'luxon-angular';
 import { BeneficiariesEmptyContainerComponent } from './views/beneficiaries-empty-container/beneficiaries-empty-container.component';
 import {AdminModule} from './admin/admin.module';
 import { WhatsappShareComponent } from './widgets/whatsapp-share/whatsapp-share.component';
+import { SelectIconComponent } from './widgets/select-icon/select-icon.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { WhatsappShareComponent } from './widgets/whatsapp-share/whatsapp-share.
     BeneficiaryBinnacleComponent,
     BeneficiaryRegistryComponent,
     BeneficiariesEmptyContainerComponent,
-    WhatsappShareComponent
+    WhatsappShareComponent,
+    SelectIconComponent
   ],
   imports: [
     BrowserModule,

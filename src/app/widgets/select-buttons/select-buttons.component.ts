@@ -3,7 +3,7 @@ import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 export interface SelectButtonItem {
   id: string;
   label: string;
-  icon: string;
+  icon?: string;
 }
 
 @Component({

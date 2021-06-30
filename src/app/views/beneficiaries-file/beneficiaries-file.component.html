@@ -1,8 +1,8 @@
 <div class="container-fluid" *ngIf="beneficiary$ | async as beneficiary; else loading">
   <div class="row">
-    <div class="col-6">
+    <div class="col-portrait-12 col-landscape-6">
       <div class="row justify-content-start">
-        <div class="col-6 pb-2">
+        <div class="col-12 pb-2">
           <button ngxClipboard *ngIf="shareUrl$ | async as shareUrl"
                   mat-ripple
                   [cbContent]="shareUrl"
@@ -19,7 +19,7 @@
       </div>
       <div class="row">
         <div class="col-7">
-          <h1 class="font-concert-one text-primary mb-0 text-left">{{beneficiary.fullName}}</h1>
+          <h1 class="font-concert-one text-primary mb-0 text-left">{{beneficiary["full-name"]}}</h1>
           <h2 class="font-ubuntu-condensed text-accent mt-0 text-left text-medium">{{getStage(beneficiary.stage)}}</h2>
         </div>
         <div class="col-5">
@@ -39,7 +39,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <div class="p-5">
+          <div class="pt-5 pb-5">
             <sspirit-task-card [task]="beneficiary.target"></sspirit-task-card>
           </div>
         </div>
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-portrait-12 col-landscape-6">
       <router-outlet></router-outlet>
     </div>
   </div>

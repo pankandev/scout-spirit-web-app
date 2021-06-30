@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-prod": "ng build --prod --progress --verbose",
+    "build-prod": "ng build --prod --progress",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -25,6 +25,8 @@
     "@angular/router": "~11.2.8",
     "@aws-amplify/ui-angular": "^1.0.6",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
+    "@sentry/angular": "^6.8.0",
+    "@sentry/tracing": "^6.8.0",
     "@types/chart.js": "^2.9.32",
     "aws-amplify": "^3.3.26",
     "axios": "^0.21.1",

@@ -1,5 +1,5 @@
 <div class="list">
-  <ul>
+  <ul class="p-0">
     <li *ngFor="let item of items" class="item light-hoverable cursor-pointer"
         [ngClass]="{active: item.id === activeId}" mat-ripple
         (click)="selectedItem.emit(item.id)">
@@ -26,8 +26,4 @@
       </div>
     </li>
   </ul>
-  <div class="arrow arrow-top">
-  </div>
-  <div class="arrow arrow-bottom">
-  </div>
 </div>

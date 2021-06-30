@@ -74,10 +74,11 @@ export class DevelopmentAreaService {
   }
 
   public getArea(area: DevelopmentArea, unit: Unit = 'scouts'): AreaDisplay {
+    const lowered = area.toLowerCase() as DevelopmentArea;
     return {
-      area: this.data[area].area,
-      name: this.data[area].name,
-      color: this.colors[unit][area]
+      area: this.data[lowered].area,
+      name: this.data[lowered].name,
+      color: this.colors[unit][lowered]
     };
   }
   public query(unit: Unit = 'scouts'): AreaDisplay[] {
