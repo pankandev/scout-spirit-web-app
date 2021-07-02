@@ -7,8 +7,8 @@ export interface ObjectiveLog {
   completed: boolean;
   created: number;
   objective: string;
-  originalObjective: string;
-  personalObjective: string;
+  'original-objective': string;
+  'personal-objective': string | null;
   tasks: SubTask[];
 }
 

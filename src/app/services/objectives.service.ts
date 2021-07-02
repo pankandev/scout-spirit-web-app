@@ -164,8 +164,8 @@ export class ObjectivesService {
       completed: false,
       created: 0,
       objective: ObjectivesService.joinObjective(objective),
-      originalObjective: unit ? ObjectivesService.transform(obj.content, unit) : obj.content,
-      personalObjective: unit ? ObjectivesService.transform(obj.content, unit) : obj.content,
+      'original-objective': unit ? ObjectivesService.transform(obj.content, unit) : obj.content,
+      'personal-objective': null,
       tasks: []
     };
   }

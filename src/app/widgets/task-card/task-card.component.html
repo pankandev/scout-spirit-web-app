@@ -1,54 +1,68 @@
-<div class="box" *ngIf="task !== undefined; else loading">
-  <div class="inner task-card flex-column justify-content-between"
-       [ngStyle]="{'box-shadow': '4px 4px 16px ' + shadowColor}"
-       [ngClass]="{'card-filled': task !== null}">
-    <ng-container *ngIf="task && key; else noTask">
-      <div class="row">
-        <div class="col-12">
-          <div class="row">
-            <span class="area font-concert-one text-large" [ngStyle]="{color: color}">{{areaName}}</span>
-            <div class="area-icon">
-              <sspirit-area-icon [color]="null" [area]="key.area"
-                                 [ngStyle]="{color: shadowColor}"></sspirit-area-icon>
+<div class="box-container">
+  <div class="box" *ngIf="task !== undefined; else loading">
+    <div class="task-card flex-column justify-content-between"
+         [ngStyle]="{'box-shadow': '4px 4px 16px ' + shadowColor}"
+         [ngClass]="{'card-filled': task !== null}">
+      <ng-container *ngIf="task && key; else noTask">
+        <div class="row">
+          <div class="col-12 p-0">
+            <div class="row">
+              <span class="area font-concert-one" [ngStyle]="{color: color}">{{areaName}}</span>
+              <div class="area-icon">
+                <sspirit-area-icon [color]="null" [area]="key.area"
+                                   [ngStyle]="{color: shadowColor}"></sspirit-area-icon>
+              </div>
             </div>
-          </div>
-          <div class="row pt-2">
-            <div class="col-12">
-              <p class="font-ubuntu-condensed text-large text-muted text-justify">{{task.personalObjective}}</p>
+            <div class="row pt-2">
+              <div class="col-12 p-0">
+                <div class="d-flex flex-column mb-3">
+                  <h4 class="text-left font-weight-bold mb-1">Objetivo original</h4>
+                  <p class="font-ubuntu-condensed text-muted text-justify">
+                    {{task['original-objective']}}
+                  </p>
+                </div>
+                <div class="d-flex flex-column">
+                  <h4 class="text-left font-weight-bold mb-1">Objetivo personal</h4>
+                  <p class="font-ubuntu-condensed text-muted text-justify"
+                     [ngClass]="{'font-italic': !task['personal-objective']}">
+                    {{task['personal-objective'] ? task['personal-objective'] : 'Sin definir'}}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="row pb-2">
-            <button
-              mat-stroked-button
-              [ngStyle]="{'border-color': color, color: color}"
-              *ngIf="pressable && task"
-              (click)="press.emit()"
-              [disabled]="disabled"
-            >
-              {{label}}
-            </button>
-          </div>
-          <div class="row">
-            <span class="font-ubuntu-condensed" [ngStyle]="{color: color}">
-              {{getStageName(key.stage)}} - Línea {{key.line}}.{{key.subline}}
-            </span>
+        <div class="row">
+          <div class="col-12 pl-0">
+            <div class="row pb-2">
+              <button
+                mat-stroked-button
+                [ngStyle]="{'border-color': color, color: color}"
+                *ngIf="pressable && task"
+                (click)="press.emit()"
+                [disabled]="disabled"
+              >
+                {{label}}
+              </button>
+            </div>
+            <div class="key-label">
+              <span class="font-ubuntu-condensed" [ngStyle]="{color: color}">
+                {{getStageName(key.stage)}} - Línea {{key.line}}.{{key.subline}}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </ng-container>
-    <ng-template #noTask>
-      <div class="w-100 h-100 row justify-content-center text-center pt-5">
-        <h3 class="text-primary" [ngStyle]="{color: color}">Sin objetivo en progreso 😯</h3>
-      </div>
-    </ng-template>
+      </ng-container>
+      <ng-template #noTask>
+        <div class="w-100 h-100 row justify-content-center text-center pt-5">
+          <h3 class="text-primary" [ngStyle]="{color: color}">Sin objetivo en progreso 😯</h3>
+        </div>
+      </ng-template>
+    </div>
   </div>
+  <ng-template #loading>
+    <div class="row justify-content-center">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
+  </ng-template>
 </div>
-<ng-template #loading>
-  <div class="row justify-content-center">
-    <mat-spinner color="primary"></mat-spinner>
-  </div>
-</ng-template>

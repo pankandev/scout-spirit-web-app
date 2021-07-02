@@ -18,7 +18,7 @@ Sentry.init({
   dsn: 'https://c44dbc27f5e6486db3e108cb77776122@o578448.ingest.sentry.io/5839499',
   integrations: [
     new Integrations.BrowserTracing({
-      tracingOrigins: ['localhost', 'https://yourserver.io/api'],
+      tracingOrigins: ['localhost', 'https://d43k9sss5csvt.cloudfront.net/'],
       routingInstrumentation: Sentry.routingInstrumentation,
     }),
   ],
