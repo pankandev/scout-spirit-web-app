@@ -72,7 +72,7 @@ export class BeneficiariesSummaryComponent implements OnInit, AfterViewInit, OnD
       if (this.closeSubscription) {
         return;
       }
-      const modal = this.modalService.open(this.details, {size: 'xl', centered: true});
+      const modal = this.modalService.open(this.details, {windowClass: 'modal-view', centered: true});
       this.closeSubscription = modal.dismissed.subscribe(async () => {
         await this.router.navigate(
           [

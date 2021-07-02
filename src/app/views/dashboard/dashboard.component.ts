@@ -66,13 +66,13 @@ export class DashboardComponent implements OnInit {
 
   async signOut(): Promise<void> {
     try {
-      if (!await this.alert.askConfirmation('¿Seguro que quieres cerrar sesión?')) {
+      if (!await this.alert.askConfirmation('¿Segur@ que quieres cerrar sesión?')) {
         return;
       }
       await this.auth.signOut();
       await this.router.navigate(['/']);
     } catch (e) {
-      this.snackbar.open('Error while signing out');
+      this.snackbar.open('Error intentando cerrar sesión');
       throw e;
     }
   }

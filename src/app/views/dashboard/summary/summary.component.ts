@@ -32,7 +32,7 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
     this.logCount$ = service.logHistory$.pipe(
       map(history => ({
         'Objetivos completados': this.countHistory(history.COMPLETED),
-        'Registros realizados': this.countHistory(history.PROGRESS),
+        'Avances registrados': this.countHistory(history.PROGRESS),
         'Total de actividad': this.countHistory(this.mergeHistories(history.PROGRESS, history.COMPLETED)),
       }))
     );

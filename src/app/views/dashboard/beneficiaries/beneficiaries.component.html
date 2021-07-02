@@ -44,7 +44,7 @@
     </div>
     <div *ngIf="group$ | async as group; else loading">
       <sspirit-whatsapp-share
-        [message]="'Te invito al grupo ' +  group.name + '!! Utilíza el siguiente código en tu aplicación de Espíritu Scout para acceder: ' + inviteCode"></sspirit-whatsapp-share>
+        [message]="getWhatsappMessage(group.name, group.beneficiaryCode)"></sspirit-whatsapp-share>
     </div>
     <ng-template #loading>
       <div class="modal-body">

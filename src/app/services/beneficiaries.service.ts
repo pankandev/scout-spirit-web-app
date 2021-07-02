@@ -12,6 +12,7 @@ import {Log, ObjectiveLog} from '../models/task.model';
 import {GroupsService, UnitObjectiveKeyTimed} from './groups.service';
 import {filter, map} from 'rxjs/operators';
 import {ObjectivesService} from './objectives.service';
+import {AuthenticationService} from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,12 @@ export class BeneficiariesService {
     guides: 'Compañía'
   };
 
-  constructor(private api: ApiService, private groups: GroupsService, private objectives: ObjectivesService) {
+  constructor(
+    private api: ApiService,
+    private groups: GroupsService,
+    private objectives: ObjectivesService,
+    private auth: AuthenticationService
+  ) {
   }
 
   public async get(id: string): Promise<Beneficiary> {
@@ -34,7 +40,9 @@ export class BeneficiariesService {
       await delay(1000);
       return ApiService.toCamelCase(testBeneficiaries.find(b => b.id === id)) as Beneficiary;
     }
-    return await this.api.get<Beneficiary>(`/beneficiaries/${id}`);
+    return await this.api.get<Beneficiary>(
+      this.auth.isLoggedIn ? `/beneficiaries/${id}` : `/beneficiaries/${id}/public`
+    );
   }
 
   public getStageDisplayName(stage: DevelopmentStage): string {
@@ -69,9 +77,9 @@ export class BeneficiariesService {
       this.api.get<{ items: ObjectiveLog[] }>(`/users/{sub}/tasks/`) :
       of({
         items: ((testGroups as any)
-          .pankan['scout-spirit']
-          .completed_objectives[beneficiaryId]
-          .map((l: UnitObjectiveKeyTimed) => this.objectives.objectiveToTask(l, null)) as ObjectiveLog[]
+            .pankan['scout-spirit']
+            .completed_objectives[beneficiaryId]
+            .map((l: UnitObjectiveKeyTimed) => this.objectives.objectiveToTask(l, null)) as ObjectiveLog[]
         )
       }).toPromise();
 
@@ -89,7 +97,7 @@ export class BeneficiariesService {
 
   async getLogs(beneficiaryId: string): Promise<Log[]> {
     if (environment.production) {
-      const logs = await this.api.get<{items: Log[]}>(`/users/${beneficiaryId}/logs/`);
+      const logs = await this.api.get<{ items: Log[] }>(`/users/${beneficiaryId}/logs/`);
       return logs.items;
     } else {
       await delay(1000);

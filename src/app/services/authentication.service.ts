@@ -14,6 +14,10 @@ export class AuthenticationService {
     return this.userSubject.value;
   }
 
+  public get isLoggedIn(): boolean {
+    return !!this.snapUser;
+  }
+
   constructor() {
   }
 
