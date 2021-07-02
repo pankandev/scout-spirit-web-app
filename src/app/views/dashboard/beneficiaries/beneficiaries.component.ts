@@ -24,6 +24,10 @@ export class BeneficiariesComponent implements OnInit {
   beneficiaryCode$: Observable<string>;
   group$: Observable<Group>;
 
+  getWhatsappMessage(groupName: string, code: string): string {
+    return `Te invito al grupo "${groupName}"!! Utiliza el siguiente código en tu aplicación de Espíritu Scout para acceder: ${code}`;
+  }
+
   constructor(
     private route: ActivatedRoute,
     private routeParams: RouteParamsService,
@@ -69,7 +73,7 @@ export class BeneficiariesComponent implements OnInit {
   }
 
   openModal(content: any): void {
-    this.modal.open(content);
+    this.modal.open(content, {windowClass: 'pt-5'});
   }
 
   onClipboardResult(result: boolean): void {

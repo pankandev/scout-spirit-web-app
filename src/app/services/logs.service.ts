@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Log, LogTag} from '../models/task.model';
 import {DateTime} from 'luxon';
+import {splitKey} from '../utils/key';
 
 interface LogTagDisplay {
   category: string;
@@ -17,31 +18,35 @@ interface LogDisplay extends LogTagDisplay {
   providedIn: 'root'
 })
 export class LogsService {
+
+  constructor() {
+  }
+
   private readonly display: Record<LogTag, LogTagDisplay> = {
-    progress: {
-      category: 'Registro de avance',
+    PROGRESS: {
+      category: 'Registró un avace',
       icon: 'edit'
     },
-    completed: {
-      category: 'Objetivo completado! 🥳',
+    COMPLETED: {
+      category: 'Completó un objetivo! 🥳',
       icon: 'check'
     },
-    reward: {
+    REWARD: {
       category: 'Ganó una recompensa',
       icon: 'favorite_border'
     }
   };
 
-  constructor() {}
-
   public parseLog(log: Log): LogDisplay {
-    const display: LogTagDisplay = this.display[log.tag] ?? {category: log.tag, icon: 'favorite_border'};
+    const display: LogTagDisplay = this.display[splitKey(log.tag)[0].toUpperCase()] ?? {
+      category: log.tag,
+      icon: 'favorite_border'
+    };
     return {
       tag: log.tag,
-      category: display.category,
       log: log.tag === 'progress' ? `"${log.log}"` : log.log,
-      icon: display.icon,
-      time: DateTime.fromMillis(log.timestamp)
+      time: DateTime.fromMillis(log.timestamp),
+      ...display
     };
   }
 }

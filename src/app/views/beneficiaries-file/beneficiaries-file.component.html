@@ -1,6 +1,6 @@
 <div class="container-fluid" *ngIf="beneficiary$ | async as beneficiary; else loading">
   <div class="row">
-    <div class="col-portrait-12 col-landscape-6">
+    <div class="col-portrait-12 col-landscape-6 pr-4">
       <div class="row justify-content-start">
         <div class="col-12 pb-2">
           <button ngxClipboard *ngIf="shareUrl$ | async as shareUrl"
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="col-portrait-12 col-landscape-6">
+    <div class="col-portrait-12 col-landscape-6 pl-4">
       <router-outlet></router-outlet>
     </div>
   </div>

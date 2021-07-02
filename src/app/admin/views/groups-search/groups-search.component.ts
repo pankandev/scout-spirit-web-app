@@ -41,7 +41,7 @@ export class GroupsSearchComponent implements OnInit, OnDestroy {
   });
 
   openModal(content: TemplateRef<any>): void {
-    this.modal.open(content);
+    this.modal.open(content, {windowClass: 'modal-view', centered: true});
   }
 
   constructor(
