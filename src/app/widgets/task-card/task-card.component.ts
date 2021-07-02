@@ -52,4 +52,12 @@ export class TaskCardComponent implements OnInit {
   getStageName(stage: DevelopmentStage): string {
     return this.service.getStage(stage).name;
   }
+
+  getTaskLabel(task: ObjectiveLog): string {
+    return task['personal-objective']?.length ? task['personal-objective'] : task['original-objective'];
+  }
+
+  isPersonal(task: ObjectiveLog): boolean {
+    return !!task['personal-objective'];
+  }
 }

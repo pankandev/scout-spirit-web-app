@@ -9,6 +9,7 @@ import {SelectButtonItem} from '../../widgets/select-buttons/select-buttons.comp
 import {ObjectivesService} from '../../services/objectives.service';
 import {DevelopmentStage} from '../../models/area-value';
 import {AlertService} from '../../services/alert.service';
+import {ObjectiveLog} from '../../models/task.model';
 
 @Component({
   selector: 'sspirit-beneficiaries-file',
@@ -18,6 +19,7 @@ import {AlertService} from '../../services/alert.service';
 export class BeneficiariesFileComponent implements OnInit {
   beneficiaryId$: Observable<string>;
   beneficiary$: Observable<Beneficiary>;
+  activeTask$: Observable<ObjectiveLog | null>;
   buttons: SelectButtonItem[] = [
     {
       id: 'binnacle',
@@ -62,6 +64,9 @@ export class BeneficiariesFileComponent implements OnInit {
         const location = window.location;
         return `${location.origin}/beneficiaries/${beneficiaryId}/file/binnacle`;
       })
+    );
+    this.activeTask$ = this.beneficiaryId$.pipe(
+      switchMap(beneficiary => beneficiary ? this.beneficiaries.getActiveTask(beneficiary, 'scouts') : of(null))
     );
   }
 

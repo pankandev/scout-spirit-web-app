@@ -5,7 +5,7 @@
         <div class="col-8">
           <div class="row">
             <div class="col-12">
-              <h2 class="text-left pb-0 text-primary font-concert-one">{{beneficiary.fullName}}</h2>
+              <h2 class="text-left pb-0 text-primary font-concert-one">{{beneficiary["full-name"]}}</h2>
               <h3 class="text-left text-muted">{{beneficiary.nickname}}</h3>
             </div>
           </div>
@@ -34,13 +34,13 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <div class="mt-2 ml-5 mr-5">
-            <sspirit-task-card [task]="beneficiary.target"></sspirit-task-card>
+          <div class="mt-2 ml-2 mr-2">
+            <sspirit-task-card [task]="activeTask$ | async"></sspirit-task-card>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 p-5">
+        <div class="col-12 pt-5">
           <sspirit-button icon="chevron_right" (pressed)="onFilePressed()">
             Ver ficha completa
           </sspirit-button>

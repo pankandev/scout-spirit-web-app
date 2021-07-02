@@ -1,11 +1,12 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {from, Observable, of, Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {distinctUntilChanged, map, startWith, switchMap} from 'rxjs/operators';
+import {distinctUntilChanged, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {BeneficiariesService} from '../../../services/beneficiaries.service';
 import {Beneficiary} from '../../../models/beneficiary.model';
 import {RouteParamsService} from '../../../services/route-params.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ObjectiveLog} from '../../../models/task.model';
 
 @Component({
   selector: 'sspirit-beneficiaries-summary',
@@ -17,6 +18,7 @@ export class BeneficiariesSummaryComponent implements OnInit, AfterViewInit, OnD
 
   beneficiaryId$: Observable<string | null>;
   beneficiary$: Observable<Beneficiary | null>;
+  activeTask$: Observable<ObjectiveLog | null>;
   subscription = new Subscription();
 
   openedModal$: Observable<boolean>;
@@ -33,14 +35,20 @@ export class BeneficiariesSummaryComponent implements OnInit, AfterViewInit, OnD
     this.beneficiaryId$ = route.params.pipe(
       map(params => params.userId ?? null)
     );
+
     this.beneficiary$ = this.beneficiaryId$.pipe(
-      switchMap(id => id ? from(service.get(id)).pipe(startWith(null)) : of(null))
+      switchMap(id => id ? from(service.get(id)).pipe(startWith(null)) : of(null)),
+      shareReplay({refCount: true})
     );
     this.openedModal$ = this.routeParams.url$.pipe(
       map(() => {
         return !!this.route.firstChild;
       }),
       distinctUntilChanged()
+    );
+    this.activeTask$ = route.params.pipe(
+      map(params => params.userId ?? null),
+      switchMap(beneficiary => beneficiary ? service.getActiveTask(beneficiary, 'scouts') : of(null))
     );
   }
 

@@ -6,11 +6,6 @@ import {map, shareReplay, switchMap} from 'rxjs/operators';
 import {BehaviorSubject, combineLatest, from, Observable} from 'rxjs';
 import {joinKey} from '../utils/key';
 import {DevelopmentArea, DevelopmentStage, Unit} from '../models/area-value';
-import {environment} from '../../environments/environment';
-import testGroups from '../data/test/groups.json';
-import testStats from '../data/test/stats.json';
-import {delay} from '../utils/async';
-import {NotFoundError} from '../errors/http.error';
 import {ObjectivesService} from './objectives.service';
 import {mapNumbered} from '../utils/map';
 import {RouteParamsService} from './route-params.service';
@@ -173,16 +168,6 @@ export class GroupsService {
   }
 
   async getGroup(districtId: string, groupId: string): Promise<Group> {
-    const user = this.auth.snapUser;
-    if (!environment.production && user) {
-      const group = ApiService.toCamelCase(testGroups.find(g => g.district === districtId && g.code === groupId)) as Group;
-      group.scouters[user.id] = {
-        name: user.nickname ?? (user.firstName + user.lastName),
-        role: 'creator'
-      };
-      await delay(2000);
-      return group;
-    }
     return await this.api.get<Group>(`/districts/${districtId}/groups/${groupId}/`);
   }
 
@@ -191,12 +176,6 @@ export class GroupsService {
   }
 
   async queryAsync(districtId?: string): Promise<Group[]> {
-    const user = this.auth.snapUser;
-    if (!environment.production && user) {
-      const groups = ApiService.toCamelCase(testGroups.filter(g => !districtId || g.district === districtId)) as Group[];
-      await delay(2000);
-      return groups;
-    }
     const response = await this.api.get<{ items: Group[] }>(`/districts/${districtId}/groups/`);
     return response.items;
   }
@@ -232,17 +211,7 @@ export class GroupsService {
       }
 
       let promise: Promise<GroupStatsResponse>;
-      if (!environment.production) {
-        promise = new Promise<GroupStatsResponse>(res => {
-          const stats: GroupStatsResponse | undefined = (testStats as any)[districtId][groupId];
-          if (!stats) {
-            throw new NotFoundError('local');
-          }
-          return delay(2000).then(() => res(ApiService.toCamelCase(stats)));
-        });
-      } else {
-        promise = this.api.get<GroupStatsResponse>(`/districts/${districtId}/groups/${groupId}/stats/`);
-      }
+      promise = this.api.get<GroupStatsResponse>(`/districts/${districtId}/groups/${groupId}/stats/`);
       promise.then(response => {
         subject.next({
           logCount: response.logCount,
