@@ -15,6 +15,7 @@ import {DevelopmentStage} from '../../models/area-value';
 export class TaskCardComponent implements OnInit {
   @Input() task?: ObjectiveLog | null;
   @Input() pressable = false;
+  @Input() showPersonalObjective = true;
   @Input() label = 'Seleccionar objetivo';
   @Input() disabled = false;
   @Output() press = new EventEmitter<void>();
@@ -23,7 +24,10 @@ export class TaskCardComponent implements OnInit {
     return this.task ? ObjectivesService.splitObjective(this.task.objective) : null;
   }
 
-  constructor(private service: ObjectivesService, private areaService: DevelopmentAreaService) {
+  constructor(
+    private service: ObjectivesService,
+    private areaService: DevelopmentAreaService
+  ) {
   }
 
   get color(): string {

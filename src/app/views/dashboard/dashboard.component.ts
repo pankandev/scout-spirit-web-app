@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Observable, of} from 'rxjs';
 import {User} from '../../models/user.model';
-import {filter, map, switchMap} from 'rxjs/operators';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AlertService} from '../../services/alert.service';
@@ -57,7 +57,8 @@ export class DashboardComponent implements OnInit {
     this.areaLogs$ = this.routeParams.districtGroupId$.pipe(
       switchMap(params => groups.countAreasActivity(
         params.districtId, params.groupId, true, false
-      ))
+      )),
+      tap(s => console.log(s))
     );
   }
 

@@ -12,6 +12,7 @@ export class ObjectivesListComponent implements OnInit, OnChanges {
   @Input() selectable = false;
   @Input() label = 'Seleccionar objetivo';
   @Output() selectTask = new EventEmitter<ObjectiveLog>();
+  @Input() showPersonalObjective = true;
 
   constructor(private service: ObjectivesService) {
   }
