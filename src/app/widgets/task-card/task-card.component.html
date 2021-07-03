@@ -21,7 +21,7 @@
                     {{task['original-objective']}}
                   </p>
                 </div>
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column" *ngIf="showPersonalObjective">
                   <h4 class="text-left font-weight-bold mb-1">Objetivo personal</h4>
                   <p class="font-ubuntu-condensed text-muted text-justify"
                      [ngClass]="{'font-italic': !task['personal-objective']}">

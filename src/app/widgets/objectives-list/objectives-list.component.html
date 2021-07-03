@@ -3,7 +3,9 @@
     <h3 class="area-name text-large font-concert-one">{{getAreaName(group.area)}}</h3>
     <div *ngFor="let line of group.group">
       <h3 class="line-name text-medium font-ubuntu-condensed">{{line.line}}</h3>
-      <sspirit-task-card class="item" *ngFor="let task of line.tasks" [label]="label" (press)="selectTask.emit(task)" [task]="task"></sspirit-task-card>
+      <sspirit-task-card class="item" *ngFor="let task of line.tasks" [showPersonalObjective]="showPersonalObjective"
+                         [pressable]="pressable" [label]="label"
+                         (press)="selectTask.emit(task)" [task]="task"></sspirit-task-card>
     </div>
   </div>
 </div>

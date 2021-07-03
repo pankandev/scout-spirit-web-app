@@ -79,10 +79,15 @@ export class BeneficiariesService {
     );
   }
 
-  async getLogs(beneficiaryId: string): Promise<Log[]> {
-    const logs = await this.api.get<{ items: Log[] }>(`/users/${beneficiaryId}/logs/`);
-    const items = logs.items;
-    items.sort((a, b) => b.timestamp - a.timestamp);
-    return items;
+  async queryLogs(beneficiaryId: string, startsWith?: string[]): Promise<Log[]> {
+    let logs: Log[];
+    if (startsWith) {
+      const all = await Promise.all(startsWith.map(s => this.api.get<{ items: Log[] }>(`/users/${beneficiaryId}/logs/${s}`)));
+      logs = all.reduce<Log[]>((i, a) => [...i, ...a.items], []);
+    } else {
+      logs = (await this.api.get<{ items: Log[] }>(`/users/${beneficiaryId}/logs/`)).items;
+    }
+    logs.sort((a, b) => b.timestamp - a.timestamp);
+    return logs;
   }
 }

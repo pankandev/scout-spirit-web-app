@@ -19,7 +19,7 @@
     </div>
     <div class="mb-2">
       <div *ngIf="objectives$ | async as objectives">
-        <sspirit-objectives-list [selectable]="true" [items]="objectives"
+        <sspirit-objectives-list [selectable]="true" [items]="objectives" [showPersonalObjective]="false"
                                  (selectTask)="onObjectiveSelect($event)"></sspirit-objectives-list>
       </div>
     </div>

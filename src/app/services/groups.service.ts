@@ -254,7 +254,8 @@ export class GroupsService {
           spirituality: 0
         };
         logs.forEach(log => {
-          count[log.area]++;
+          const area = log.area.toLowerCase() as DevelopmentArea;
+          count[area]++;
         });
         return count;
       })

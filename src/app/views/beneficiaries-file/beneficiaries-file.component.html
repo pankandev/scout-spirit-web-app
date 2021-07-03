@@ -24,7 +24,12 @@
       <div class="row">
         <div class="col-12">
           <div class="pt-5 pb-5">
-            <sspirit-task-card [task]="activeTask$ | async"></sspirit-task-card>
+            <sspirit-task-card *ngIf="activeTask$ | async as task; else noTask" (press)="showRegisters(task)"
+                               [pressable]="true" label="Ver registros"
+                               [task]="activeTask$ | async"></sspirit-task-card>
+            <ng-template #noTask>
+              <sspirit-task-card [task]="activeTask$ | async"></sspirit-task-card>
+            </ng-template>
           </div>
         </div>
       </div>

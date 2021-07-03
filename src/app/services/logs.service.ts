@@ -24,7 +24,7 @@ export class LogsService {
 
   private readonly display: Record<LogTag, LogTagDisplay> = {
     PROGRESS: {
-      category: 'Registró un avace',
+      category: 'Registró un avance',
       icon: 'edit'
     },
     COMPLETED: {
