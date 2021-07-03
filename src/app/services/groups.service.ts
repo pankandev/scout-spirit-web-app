@@ -245,7 +245,6 @@ export class GroupsService {
                      includeProgress = true, includeCompleted = true): Observable<Record<DevelopmentArea, number>> {
     return this.queryLogs(includeProgress, includeCompleted).pipe(
       map(logs => {
-        console.log(logs);
         const count: Record<DevelopmentArea, number> = {
           affectivity: 0,
           character: 0,

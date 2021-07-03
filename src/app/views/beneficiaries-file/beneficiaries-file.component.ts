@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RouteParamsService} from '../../services/route-params.service';
 import {Observable, of} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {map, switchMap} from 'rxjs/operators';
+import {map, shareReplay, switchMap} from 'rxjs/operators';
 import {Beneficiary} from '../../models/beneficiary.model';
 import {BeneficiariesService} from '../../services/beneficiaries.service';
 import {SelectButtonItem} from '../../widgets/select-buttons/select-buttons.component';
@@ -36,6 +36,10 @@ export class BeneficiariesFileComponent implements OnInit {
   option$: Observable<string>;
   shareUrl$: Observable<string | null>;
 
+  private get beneficiaryId(): string {
+    return this.routeParams.aggregatedParamsSnap.userId;
+  }
+
   getStage(stage: DevelopmentStage): string {
     return this.objectives.getStage(stage).name;
   }
@@ -65,8 +69,11 @@ export class BeneficiariesFileComponent implements OnInit {
         return `${location.origin}/beneficiaries/${beneficiaryId}/file/binnacle`;
       })
     );
-    this.activeTask$ = this.beneficiaryId$.pipe(
-      switchMap(beneficiary => beneficiary ? this.beneficiaries.getActiveTask(beneficiary, 'scouts') : of(null))
+    this.activeTask$ = this.beneficiary$.pipe(
+      switchMap(beneficiary => beneficiary ?
+        this.beneficiaries.getActiveTask(beneficiary.id, beneficiary.unit)
+        : of(null)),
+      shareReplay({refCount: true})
     );
   }
 
@@ -83,5 +90,12 @@ export class BeneficiariesFileComponent implements OnInit {
     } else {
       this.alerts.showSnackbar('Error copiando enlace');
     }
+  }
+
+  async showRegisters(task: ObjectiveLog): Promise<void> {
+    await this.router.navigate(
+      ['/districts', this.routeParams.districtId, 'groups', this.routeParams.groupId, 'dashboard', 'beneficiaries', 'b', this.beneficiaryId, 'file', 'registry'],
+      {queryParams: {objective: task.objective}}
+    );
   }
 }

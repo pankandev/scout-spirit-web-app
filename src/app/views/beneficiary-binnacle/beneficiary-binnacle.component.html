@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12" *ngIf="tasks$ | async as tasks; else loading">
     <h2>Objetivos cumplidos ({{tasks.length}})</h2>
-    <sspirit-objectives-list [items]="tasks"></sspirit-objectives-list>
+    <sspirit-objectives-list (selectTask)="showRegisters($event)" [pressable]="true" label="Ver registros" [items]="tasks"></sspirit-objectives-list>
   </div>
   <ng-template #loading>
     <div class="col-12">
